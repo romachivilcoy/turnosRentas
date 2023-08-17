@@ -1,0 +1,48 @@
+.row-striped-proxima{
+    background-color: rgba(0, 197, 79, 0.12);
+    border-left: 4px #00a65a solid;
+}
+
+.row-striped-futura{
+    background-color: #ffffff;
+    border-left: 4px rgba(51, 187, 102, 0.23) solid;
+}
+
+.row-striped {
+    padding: 15px 0;
+}
+
+.row-striped-pasada {
+    background-color: rgba(158, 158, 158, 0.55);
+    border-left: 4px #343a40 solid;
+}
+
+.badge-secondary-pasada {
+    background-color: rgb(92, 100, 108);
+    color: #9da7af;
+}
+
+.badge-secondary-proxima {
+    background-color: rgb(51, 187, 102);
+    color: white;
+}
+
+.badge-secondary-futura {
+    background-color: rgb(107, 118, 124);
+    color: #ebebeb;
+}
+
+.vac-pasada {
+    color: grey;
+    padding-top: 10px;
+}
+
+.vac-proxima {
+    color: #000000;
+    padding-top: 10px;
+}
+
+.vac-futura {
+    color: grey;
+    padding-top: 10px;
+}

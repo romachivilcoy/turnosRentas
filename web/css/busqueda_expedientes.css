@@ -1,0 +1,173 @@
+ /* Remove the navbar's default margin-bottom and rounded borders */ 
+	    .navbar {
+	      margin-bottom: 0;
+	      border-radius: 0;
+	    }
+    
+    /* Add a gray background color and some padding to the footer */
+	footer {
+		background-color: #f2f2f2;
+	          padding: 25px;
+		color:black;
+	 }
+	
+	.col-sm-3 .inner{
+		border-radius:7px;
+		margin:2%;
+		padding:2%;
+		height:160px;
+		//background:#800000;
+		background:#333;
+	}
+	.col-sm-3 .inner:hover{
+		//background:#428bca;
+		//background:#333;
+		background:#800000;
+		//background:#006400;
+	}
+	.col-sm-3 .inner p{		
+		//color:#428bca;
+		color:#CCC;
+		font-size:1.3em;
+		font-weight:bolder;
+	}
+
+	a{
+		cursor:pointer;
+		color:#000;
+	}
+	
+	.modal {
+  		text-align: center;
+  		padding: 0!important;
+	}
+
+	.modal:before {
+		content: '';
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+		margin-right: -4px;
+	}
+
+	.modal-dialog {
+		display: inline-block;
+		text-align: left;
+		vertical-align: middle;
+	}
+
+	.modal-title {
+		background-color:#d9edf7; color: #31708f;;
+	}
+
+	.modal-header {
+	  	background-color:#d9edf7; color: #31708f;
+	}
+
+	.modal-header-danger {
+	    color:#fff;
+	    padding:9px 15px;
+	   	border-bottom:1px solid #eee;
+	    background-color: #5cb85c;
+	    -webkit-border-top-left-radius: 5px;
+	    -webkit-border-top-right-radius: 5px;
+	    -moz-border-radius-topleft: 5px;
+	    -moz-border-radius-topright: 5px;
+	    border-top-left-radius: 5px;
+	    border-top-right-radius: 5px;
+	}
+	
+	.modal-header-primary {
+		color:#fff;
+	    padding:9px 15px;
+	    border-bottom:1px solid #eee;
+	    background-color: #428bca;
+	    -webkit-border-top-left-radius: 5px;
+	    -webkit-border-top-right-radius: 5px;
+	    -moz-border-radius-topleft: 5px;
+	    -moz-border-radius-topright: 5px;
+	     border-top-left-radius: 5px;
+	     border-top-right-radius: 5px;
+	}
+
+	.modal-header-info {
+    color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #5bc0de;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+}
+
+	.filaaten{background-color:#f2dede; color: #a94442;} 
+	.filaverde{background-color:#dff0d8; color: #3c763d;} 
+	.oficina{
+		background-color:#d9edf7; color: #31708f;
+	}
+
+	.clpendiente{
+   		background-color:#ffff99; 
+   		color: #8a6d3b;
+   	}
+
+   	.clenviado{
+   		background-color:#f7d391; 
+   		color: #5b3c01;
+   	}
+
+    .clexterno{
+   		background-color:#DF7401; 
+   		color: #000;
+   	}
+
+   	.cloficina{
+   		background-color:#d9edf7; 
+   		color: #31708f;
+   	}
+
+   	.clbaja{
+   		background-color:#e55e5e; 
+   		color: #fff;
+   	}
+
+   	.clarchivado{
+   		background-color:#dff0d8; 
+   		color:#3c763d;
+   	}
+	.clanexado {
+ 		 background-color: #F5D5F2;
+ 		 color: #7A0572;
+	}
+
+	.table-hover>tbody>tr:hover {
+			background-color: #d9d9d9	;
+			    color: #000;
+		}
+
+	.table-hover>tbody>tr>td{
+			    border-top: 1px solid #fff;
+		}	
+		
+		a:hover {
+			 
+			 color:#00802b;
+		}		
+	
+	.btn-xs:hover{
+		border-top: 1px solid #000;
+    	border-bottom: 1px solid #000;
+    
+	}
+
+	.btn-xs:active{
+		border-top: 1px solid #000;
+    	border-bottom: 1px solid #000;
+    
+	}
+
+	
+

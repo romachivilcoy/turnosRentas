@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sound Player</title>
+</head>
+<body>
+   
+
+    <audio id="plySilencio" controls><source src="css/5silence.mp3" type="audio/mp3"></audio>
+    <audio id="player" controls><source src="css/campana.mp3" type="audio/mp3"></audio>
+
+    <!--<audio autoplay loop  id="playAudio">
+    <source src="css/campana.mp3">
+</audio>-->
+
+
+    
+    <script src="AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
+    <script>
+        //document.getElementById('plySilencio').play();
+        
+/*         var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+         console.log(isChrome);
+      if (!isChrome){
+          $('#iframeAudio').remove();
+      }
+      else {
+          $('#playAudio').remove(); // just to make sure that it will not have 2x audio in the background 
+      }*/
+        //document.getElementById('iframeAudio').play();
+        // Function to play the sound
+        function playSound() {
+            var sound = document.getElementById('player');
+            sound.play();
+        }
+
+        // Call the playSound function every 5 seconds
+        //setInterval(playSound, 6000);   
+     </script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Padron
+ *
+ * @ORM\Table(name="PADRON")
+ * @ORM\Entity
+ */
+class Padron
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_padron", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idPadron;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="PDOC", type="integer", nullable=false)
+     */
+    private $pdoc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PTDOC", type="string", length=7, nullable=true)
+     */
+    private $ptdoc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="APELLIDO_Y_NOMBRE", type="string", length=50, nullable=true)
+     */
+    private $apellidoYNombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PNOM", type="string", length=50, nullable=true)
+     */
+    private $pnom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NOMBRE", type="string", length=50, nullable=true)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PDOM", type="string", length=50, nullable=true)
+     */
+    private $pdom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NombreCalle", type="string", length=50, nullable=true)
+     */
+    private $nombrecalle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="NroCalle", type="string", length=6, nullable=true)
+     */
+    private $nrocalle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Aclaracion", type="string", length=40, nullable=true)
+     */
+    private $aclaracion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PSEXO", type="string", length=1, nullable=true)
+     */
+    private $psexo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nacionalid", type="string", length=30, nullable=true)
+     */
+    private $nacionalid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="EstadoCivi", type="string", length=12, nullable=true)
+     */
+    private $estadocivi;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PPRO", type="string", length=30, nullable=true)
+     */
+    private $ppro;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Telefono", type="string", length=20, nullable=true)
+     */
+    private $telefono;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Celular", type="string", length=20, nullable=true)
+     */
+    private $celular;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="FEC_NAC", type="string", length=10, nullable=true)
+     */
+    private $fecNac;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PLAN", type="string", length=25, nullable=true)
+     */
+    private $plan;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Encuesta", type="string", length=8, nullable=true)
+     */
+    private $encuesta;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Partida", type="integer", nullable=true)
+     */
+    private $partida;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Observacion", type="string", length=20, nullable=true)
+     */
+    private $observacion;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Cooperativa", type="boolean", nullable=true)
+     */
+    private $cooperativa;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="FecActuTel", type="datetime", nullable=true)
+     */
+    private $fecactutel;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="FecActuCel", type="datetime", nullable=true)
+     */
+    private $fecactucel;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="FecActuDomi", type="datetime", nullable=true)
+     */
+    private $fecactudomi;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Mail", type="string", length=50, nullable=true)
+     */
+    private $mail;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Usuario_Web", type="boolean", nullable=true)
+     */
+    private $usuarioWeb;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Clave_Web", type="string", length=30, nullable=true)
+     */
+    private $claveWeb;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Cod_localidad", type="string", length=50, nullable=true)
+     */
+    private $codLocalidad;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="pd_lat", type="float", precision=53, scale=0, nullable=true)
+     */
+    private $pdLat;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="pd_long", type="float", precision=53, scale=0, nullable=true)
+     */
+    private $pdLong;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notificacion_email", type="string", length=1, nullable=true)
+     */
+    private $notificacionEmail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notificacion_sms", type="string", length=1, nullable=true)
+     */
+    private $notificacionSms;
+
+
+}
+

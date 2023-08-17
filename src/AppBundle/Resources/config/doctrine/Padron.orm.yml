@@ -1,0 +1,126 @@
+AppBundle\Entity\Padron:
+    type: entity
+    table: PADRON
+    id:
+        idPadron:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_padron
+            generator:
+                strategy: IDENTITY
+    fields:
+        pdoc:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: PDOC
+        apellidoYNombre:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: APELLIDO_Y_NOMBRE
+        pdom:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: PDOM
+        nombrecalle:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: NombreCalle
+        nrocalle:
+            type: string
+            nullable: true
+            length: 6
+            options:
+                fixed: false
+            column: NroCalle
+        aclaracion:
+            type: string
+            nullable: true
+            length: 40
+            options:
+                fixed: false
+            column: Aclaracion
+        psexo:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: false
+            column: PSEXO
+        nacionalid:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: Nacionalid
+        estadocivi:
+            type: string
+            nullable: true
+            length: 12
+            options:
+                fixed: false
+            column: EstadoCivi
+        ppro:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: false
+            column: PPRO
+        telefono:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: Telefono
+        celular:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: Celular
+        fecNac:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: true
+            column: FEC_NAC
+        mail:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: Mail
+        notificacionEmail:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: notificacion_email
+        notificacionSms:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: notificacion_sms
+    lifecycleCallbacks: {  }

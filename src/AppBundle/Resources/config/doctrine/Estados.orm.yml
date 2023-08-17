@@ -1,0 +1,22 @@
+AppBundle\Entity\Estados:
+    type: entity
+    table: Estados
+    id:
+        etIdEstado:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: et_id_estado
+            generator:
+                strategy: IDENTITY
+    fields:
+        etTipoEstado:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: true
+            column: et_tipo_estado
+    lifecycleCallbacks: {  }

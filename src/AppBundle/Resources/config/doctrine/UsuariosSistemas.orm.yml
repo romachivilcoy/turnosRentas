@@ -1,0 +1,43 @@
+AppBundle\Entity\UsuariosSistemas:
+    type: entity
+    table: Usuarios_Sistemas
+    id:
+        idClave:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_clave
+            generator:
+                strategy: IDENTITY
+    fields:
+        idUsuario:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_usuario
+        idSistema:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: id_sistema
+        fechaUltModif:
+            type: datetime
+            nullable: true
+            column: fecha_ult_modif
+        orden:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                default: '0'
+        vigente:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+    lifecycleCallbacks: {  }

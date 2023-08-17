@@ -1,0 +1,49 @@
+AppBundle\Entity\Tramites:
+    type: entity
+    table: Tramites
+    id:
+        traIdTramite:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: tra_id_tramite
+            generator:
+                strategy: IDENTITY
+    fields:
+        traTipoTramite:
+            type: string
+            nullable: true
+            length: 30
+            options:
+                fixed: true
+            column: tra_tipo_tramite
+        descripcion:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        vigente:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+        traPrioridad:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                default: '0'
+            column: tra_prioridad
+        traHoraInicio:
+            type: time
+            nullable: true
+            column: tra_hora_inicio
+        traHoraFin:
+            type: time
+            nullable: true
+            column: tra_hora_fin
+    lifecycleCallbacks: {  }

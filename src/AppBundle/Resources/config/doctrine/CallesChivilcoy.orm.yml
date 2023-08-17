@@ -1,0 +1,34 @@
+AppBundle\Entity\CallesChivilcoy:
+    type: entity
+    table: Calles_chivilcoy
+    id:
+        idCalle:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_calle
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        codRafam:
+            type: string
+            nullable: true
+            length: 5
+            options:
+                fixed: false
+            column: cod_rafam
+        vigente:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+    lifecycleCallbacks: {  }

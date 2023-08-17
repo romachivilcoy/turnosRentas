@@ -1,0 +1,36 @@
+AppBundle\Entity\UsuariosTramites:
+    type: entity
+    table: Usuarios_tramites
+    indexes:
+        IDX_8CAC57B5BF922C73:
+            columns:
+                - us_tr_tramite
+    id:
+        usTrId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: us_tr_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        usTrUsuario:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: us_tr_usuario
+    manyToOne:
+        usTrTramite:
+            targetEntity: Tramites
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                us_tr_tramite:
+                    referencedColumnName: tra_id_tramite
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

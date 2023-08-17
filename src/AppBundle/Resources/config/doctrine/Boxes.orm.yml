@@ -1,0 +1,64 @@
+AppBundle\Entity\Boxes:
+    type: entity
+    table: Boxes
+    id:
+        boxId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: box_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        boxOrden:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: box_orden
+        boxNumero:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: box_numero
+        boxIdturno:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: box_idturno
+        boxEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: box_estado
+        boxSonido:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+                default: 'N'
+            column: box_sonido
+        boxUsuario:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: box_usuario
+        boxFecha:
+            type: datetime
+            nullable: true
+            column: box_fecha
+        boxTiempo:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: box_tiempo
+    lifecycleCallbacks: {  }

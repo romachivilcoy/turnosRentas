@@ -1,0 +1,35 @@
+AppBundle\Entity\Menues:
+    type: entity
+    table: Menues
+    id:
+        mnIdMenu:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: mn_id_menu
+            generator:
+                strategy: IDENTITY
+    fields:
+        mnDescripcion:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: mn_descripcion
+        mnVigente:
+            type: string
+            nullable: false
+            length: 1
+            options:
+                fixed: true
+            column: mn_vigente
+        mnOrden:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: mn_orden
+    lifecycleCallbacks: {  }

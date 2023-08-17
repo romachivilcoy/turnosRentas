@@ -1,0 +1,41 @@
+AppBundle\Entity\ColaTurnos:
+    type: entity
+    table: Cola_Turnos
+    id:
+        clIdCola:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: cl_id_cola
+            generator:
+                strategy: IDENTITY
+    fields:
+        clIdTurno:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: cl_id_turno
+        clEstado:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: cl_estado
+        clColor:
+            type: string
+            nullable: true
+            length: 3
+            options:
+                fixed: true
+            column: cl_color
+        clUbicacion:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: cl_ubicacion
+    lifecycleCallbacks: {  }

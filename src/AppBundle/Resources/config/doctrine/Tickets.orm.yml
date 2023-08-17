@@ -1,0 +1,83 @@
+AppBundle\Entity\Tickets:
+    type: entity
+    table: Tickets
+    id:
+        tkId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: tk_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        tkFecha:
+            type: datetime
+            nullable: true
+            column: tk_fecha
+        tkEscribano:
+            type: string
+            nullable: false
+            length: 3
+            options:
+                fixed: true
+                default: 'N''E00'
+            column: tk_escribano
+        tkInmueble:
+            type: string
+            nullable: false
+            length: 3
+            options:
+                fixed: true
+                default: 'N''P00'
+            column: tk_inmueble
+        tkComercio:
+            type: string
+            nullable: false
+            length: 3
+            options:
+                fixed: true
+                default: 'N''C00'
+            column: tk_comercio
+        tkMoto:
+            type: string
+            nullable: false
+            length: 3
+            options:
+                fixed: true
+                default: 'N''R00'
+            column: tk_moto
+        tkCementerio:
+            type: string
+            nullable: true
+            length: 3
+            options:
+                fixed: true
+                default: 'N''M00'
+            column: tk_cementerio
+        tkJuicio:
+            type: string
+            nullable: true
+            length: 3
+            options:
+                fixed: true
+                default: 'N''J00'
+            column: tk_juicio
+        tkVarios:
+            type: string
+            nullable: true
+            length: 3
+            options:
+                fixed: true
+                default: 'N''V00'
+            column: tk_varios
+        tkArba:
+            type: string
+            nullable: true
+            length: 3
+            options:
+                fixed: true
+                default: 'N''A00'
+            column: tk_arba
+    lifecycleCallbacks: {  }

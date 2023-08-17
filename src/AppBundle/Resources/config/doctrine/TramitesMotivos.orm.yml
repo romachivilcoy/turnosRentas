@@ -1,0 +1,39 @@
+AppBundle\Entity\TramitesMotivos:
+    type: entity
+    table: tramites_motivos
+    id:
+        idMotivo:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_motivo
+            generator:
+                strategy: IDENTITY
+    fields:
+        tipoTramite:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: tipo_tramite
+        descripcion:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+        vigente:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+        orden:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+    lifecycleCallbacks: {  }

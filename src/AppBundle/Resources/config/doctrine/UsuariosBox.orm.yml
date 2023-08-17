@@ -1,0 +1,47 @@
+AppBundle\Entity\UsuariosBox:
+    type: entity
+    table: Usuarios_box
+    id:
+        usbxId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: usbx_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        usbxIdus:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: usbx_idus
+        usbxNrobox:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: usbx_nrobox
+        usbxVigente:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: usbx_vigente
+        usbxDefault:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: usbx_default
+        usbxPrioridad:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: usbx_prioridad
+    lifecycleCallbacks: {  }

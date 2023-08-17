@@ -1,0 +1,66 @@
+AppBundle\Entity\UsuariosTareas:
+    type: entity
+    table: Usuarios_tareas
+    id:
+        utIdUsuario:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ut_id_usuario
+        utIdTarea:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ut_id_tarea
+    fields:
+        utAcceso:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: ut_acceso
+        utAlta:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: ut_alta
+        utBaja:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: ut_baja
+        utModificacion:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: ut_modificacion
+        utVigente:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: ut_vigente
+        utFechaUltModi:
+            type: datetime
+            nullable: true
+            column: ut_fecha_ult_modi
+        utUsuarioModi:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: ut_usuario_modi
+    lifecycleCallbacks: {  }

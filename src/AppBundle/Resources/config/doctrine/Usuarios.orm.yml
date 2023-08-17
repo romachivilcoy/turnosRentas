@@ -1,0 +1,131 @@
+AppBundle\Entity\Usuarios:
+    type: entity
+    table: Usuarios
+    id:
+        usId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: us_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        usNombre:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: true
+            column: us_nombre
+        usUsuario:
+            type: string
+            nullable: true
+            length: 21
+            options:
+                fixed: true
+            column: us_usuario
+        usClave:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: true
+            column: us_clave
+        usNivel:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: us_nivel
+        usMail:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: true
+            column: us_mail
+        usMail2:
+            type: string
+            nullable: true
+            length: 200
+            options:
+                fixed: true
+            column: us_mail2
+        usBloqueo:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+            column: us_bloqueo
+        usIntentos:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: us_intentos
+        usAgenda:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: us_agenda
+        usCelular:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: true
+            column: us_celular
+        usUltimoLogin:
+            type: datetime
+            nullable: true
+            column: us_ultimo_login
+        usTipo:
+            type: string
+            nullable: true
+            length: 1
+            options:
+                fixed: true
+            column: us_tipo
+        usAcceso:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: us_acceso
+        usAlta:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: us_alta
+        usBaja:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: us_baja
+        usModificacion:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: us_modificacion
+        usRafam:
+            type: string
+            nullable: true
+            length: 50
+            options:
+                fixed: false
+            column: us_rafam
+        usAdministrador:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: us_administrador
+    lifecycleCallbacks: {  }

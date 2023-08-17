@@ -1,0 +1,90 @@
+AppBundle\Entity\HistoricoTurnos:
+    type: entity
+    table: Historico_turnos
+    id:
+        htIdHistorico:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ht_id_historico
+            generator:
+                strategy: IDENTITY
+    fields:
+        htIdTurno:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: ht_id_turno
+        htFechaTurno:
+            type: datetime
+            nullable: true
+            column: ht_fecha_turno
+        htNroDoc:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: ht_nro_doc
+        htFechaOrigen:
+            type: datetime
+            nullable: true
+            column: ht_fecha_origen
+        htEstadoTurno:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: ht_estado_turno
+        htBoxAtencion:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: ht_box_atencion
+        htBoxFechahora:
+            type: datetime
+            nullable: true
+            column: ht_box_fechahora
+        htTipoTramite:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: ht_tipo_tramite
+        htUsuarioBox:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: ht_usuario_box
+        htTicket:
+            type: string
+            nullable: true
+            length: 3
+            options:
+                fixed: true
+            column: ht_ticket
+        htFechaPresente:
+            type: datetime
+            nullable: true
+            column: ht_fecha_presente
+        htFechaCancelado:
+            type: datetime
+            nullable: true
+            column: ht_fecha_cancelado
+        htUsuarioCancela:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: ht_usuario_cancela
+        htMotivo:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: ht_motivo
+    lifecycleCallbacks: {  }

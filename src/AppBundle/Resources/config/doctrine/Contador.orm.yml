@@ -1,0 +1,34 @@
+AppBundle\Entity\Contador:
+    type: entity
+    table: Contador
+    id:
+        contadorId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: contador_id
+            generator:
+                strategy: IDENTITY
+    fields:
+        contadorNumero:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: contador_numero
+        contadorBandera:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: contador_bandera
+        contadorAviso:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                default: '0'
+            column: contador_aviso
+    lifecycleCallbacks: {  }

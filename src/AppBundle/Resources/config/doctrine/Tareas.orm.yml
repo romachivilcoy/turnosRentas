@@ -1,0 +1,48 @@
+AppBundle\Entity\Tareas:
+    type: entity
+    table: Tareas
+    id:
+        taIdTarea:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: ta_id_tarea
+            generator:
+                strategy: IDENTITY
+    fields:
+        taIdMenue:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: ta_id_menue
+        taOrden:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: ta_orden
+        taDescripcion:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: ta_descripcion
+        taVigente:
+            type: string
+            nullable: false
+            length: 1
+            options:
+                fixed: true
+            column: ta_vigente
+        taUrl:
+            type: string
+            nullable: true
+            length: 150
+            options:
+                fixed: false
+            column: ta_url
+    lifecycleCallbacks: {  }

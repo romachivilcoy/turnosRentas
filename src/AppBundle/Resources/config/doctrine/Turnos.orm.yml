@@ -1,0 +1,90 @@
+AppBundle\Entity\Turnos:
+    type: entity
+    table: Turnos
+    id:
+        trIdTurno:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: tr_id_turno
+            generator:
+                strategy: IDENTITY
+    fields:
+        trFechahoraTurno:
+            type: datetime
+            nullable: true
+            column: tr_fechahora_turno
+        trNroDoc:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tr_nro_doc
+        trFechahoraOrigen:
+            type: datetime
+            nullable: true
+            column: tr_fechahora_origen
+        trEstadoTurno:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tr_estado_turno
+        trBoxAtencion:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tr_box_atencion
+        trFechahoraBox:
+            type: datetime
+            nullable: true
+            column: tr_fechahora_box
+        trTipoTramite:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tr_tipo_tramite
+        trUsuarioBox:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tr_usuario_box
+        trTicket:
+            type: string
+            nullable: true
+            length: 3
+            options:
+                fixed: true
+            column: tr_ticket
+        trFechahoraPresente:
+            type: datetime
+            nullable: true
+            column: tr_fechahora_presente
+        trFechahoraCancelado:
+            type: datetime
+            nullable: true
+            column: tr_fechahora_cancelado
+        trUsuarioCancela:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tr_usuario_cancela
+        trMotivo:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tr_motivo
+        trBoxRetorno:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: tr_box_retorno
+    lifecycleCallbacks: {  }

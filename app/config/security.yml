@@ -1,0 +1,44 @@
+security:
+
+    providers:
+        our_db_provider:
+            entity:
+                class: AppBundle:UsuariosBox
+                property: usbxIdus
+
+    encoders:
+        AppBundle\Entity\UsuariosBox:
+            algorithm: bcrypt
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            logout_on_user_change: false
+            form_login:
+                login_path: panelPrincipal
+                check_path: login
+                default_target_path: panelPrincipal
+            logout:
+                path:   /logout
+                target: /
+                invalidate_session: true
+            access_denied_url: /
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    access_control:
+        - { path: ^/main, roles: [ROLE_USER] }
+        - { path: ^/sistema, roles: [ROLE_USER] }
+        - { path: ^/sistema/*, roles: [ROLE_USER] }
+        - { path: ^/app, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/bin, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/src, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/tests, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/var, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/vendor, roles: ROLE_SUPER_ADMIN }

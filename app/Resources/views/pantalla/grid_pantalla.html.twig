@@ -1,0 +1,525 @@
+{% extends 'basePublico.html.twig' %}
+
+{% block body %}
+
+    <!-- Page Content -->
+    <header class="main-header bg-success text-white" style="min-height: 75px; height: 75px;background-color: #33BB66;">
+        <!-- Header Navbar -->
+        <div style="height: 74px;max-height: 120px;">
+                 <span class="head-img" style=" position: absolute; top: 8px;left: 0;">
+                    <img src="{{ asset('img/muni.png') }}" class="pt-3">
+                </span>
+            <h1 class="pt-2 display-3" style=" color: #fff;position: absolute; top: -6px; left: 41%;font-size: 40px!important;">
+                Dirección de Rentas
+            </h1><!--display: flex; align-items: center;  justify-content: center;  margin: 0 auto;-->
+
+            <div id="dia" style="padding-top: 10px;
+                 position: absolute;
+                 top: 22px;
+                 right: 0px;"></div>
+
+        </div>
+
+        <!--<nav class="navbar navbar-static-top" role="navigation" style="position:relative;">
+
+            <span class="head-img"><img src="{ asset('img/muni.png') }}" style="padding-left: 100px; width: 266px;"></span>
+            <span class="head-title text-center" style="margin-top: -16px!important; padding-left: 67px">Dirección de Rentas</span>
+            <div id="dia" style="padding-top: 10px;"></div>
+        </nav>-->
+    </header>
+
+    <!-- - height: 85vh!important;  -->
+
+    <div class="container-fluid pr-0 pl-0 pt-0 h-100 mt-0" style="padding-top: 2px!important; display: block; " >
+       <!--<div class="loader" id="loader">  </div>-->
+        <audio id="campana" src="{{ asset('css/campana.mp3') }}"></audio>
+        <!--<audio id="campana" preload="auto" controls="false" style="display: none;"> <source src="{ asset('css/BELL1.mp3') }}" /></audio>-->
+
+
+        <!--<audio id="campana" preload="auto" controls="false" autoplay="autoplay"> <source src="{ asset('css/BELL1.mp3') }}" /> </audio>-->
+        <!-- **************************
+           MENU: BOXES - TICKETS
+        ******************************-->
+
+        <div class="row" style="display: block;">
+            <div class="col-md-12" style=" display:block; float: none;">
+                <div class="row" style="width: 100%!important; background-color: #343a40!important;padding: 5px;">
+                    <div class="col-md-3" style="background-color: #343a40!important;"><h2 style="color: #fff;">BOX</h2></div>
+                    <div class="col-md-3" onclick="javascript:reproducir();"><h2 class="tktitulo">TICKET</h2></div><!--text-warning -->
+
+                    <div class="col-md-3" style="background-color: #343a40!important; border-left: 10px solid #fff;"><h2 style="color: #fff;">BOX</h2></div>
+                    <div class="col-md-3" ><h2 class="tktitulo">TICKET</h2></div>
+                </div>
+
+                {%  for i in 1..4 %}
+                    <div class="row mt-1" style="width: 100%!important;padding: 5px;">
+                        <div class="col-md-3 secondaryazul"> <h1 class="secondaryazul text-white" id="txt_box{{ i }}" style="margin-bottom: 0px;">&nbsp;</h1> </div>
+                        <div class="col-md-3 tickefondo"> <h1 class="tkletra" id="txt_letra{{ i }}">&nbsp;</h1><h1 class="tknaranja" id="txt_turno{{ i }}">&nbsp;</h1> </div>
+                        {% set j = i + 4 %}
+                        <div class="col-md-3 secondaryazul" style="border-left: 10px solid #fff;"> <h1 class="secondaryazul text-white" id="txt_box{{ j }}" style="margin-bottom: 0px;">&nbsp;</h1> </div>
+                        <div class="col-md-3 tickefondo"> <h1 class="tkletra" id="txt_letra{{ j }}">&nbsp;</h1><h1 class="tknaranja" id="txt_turno{{ j }}">&nbsp;</h1> </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+        <!-- **************************
+           ESPERA: COLA TURNOS
+        ***********************************-->
+     <footer class="main-footer d-none d-md-block d-lg-block mt-2" style="height: 8%;">
+        <div class="row mt-0 bg bg-success" style="min-height: 100%; height: 100%; display: block; background-color: #333!important;">
+            <div class="col-md-12 ">
+                <div class="row" style="height: 9vh!important; width: 100%!important;">
+                    <!--<div class="col-md-3 bg bg-success " >
+                        <h2 class="text-left text-white" style="text-shadow: 2px 2px #000;">EN ESPERA:</h2>
+                    </div>
+                    <div class="col-md-9 bg-success" id="colaresto" style="margin-top: 31px;">
+                    </div>
+
+
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+
+                    </div>-->
+                    <div class="col-md-4" style="color: #fff; padding-top: 20px; text-align: center;">
+                        <!--<span class="head-img"><img src="{ asset('img/muni.png') }}" style="padding-left: 100px; margin-top: -7px!important;"></span>-->
+                        <p class="pfooter"><i class="fa fa-phone" aria-hidden="true"></i>
+                            0800-999-6864</p>
+                    </div>
+                    <div class="col-md-4" style="padding-top: 30px; text-align: center;">
+                         <p class="pfooter">www.chivilcoy.gov.ar</p>
+                    </div>
+
+                    <div class="col-md-4" style="padding-top: 20px; text-align: center; color: #fff;">
+                        <p class="pfooter"><i class="fa fa-envelope pfooter" aria-hidden="true"></i> rentas@chivilcoy.gov.ar</p>
+                    </div>
+
+
+
+                    <!--<strong style="width:100%; text-shadow: rgb(0, 0, 0) 2px 2px;"><marquee style="padding-top: 25px;"><p style="color: #fff; text-shadow: rgb(0, 0, 0) 2px 2px; font-size: 18pt">Municipalidad de Chivilcoy, para mas información ingresa en nuestra pagína:    WWW.CHIVILCOY.COM.AR </p></marquee>
+                    </strong>-->
+                </div>
+            </div>
+        </div>
+     </footer>
+
+        <div id="div_turno" class="modal fade" role="dialog">
+            <div class="modal-dialog" style="width: 400px;">
+                <div class="modal-content">
+                    <!--<div class="modal-header modal-header-danger text-center">
+
+                    </div>-->
+                    <div class="modal-body text-center" style="background-color: #fd7e14; color: #fff; text-shadow: 2px 2px #000;"><!-- #d9534f-->
+                        <h2 class="text-center w-100" id="htxt">TICKET</h2>
+                        <hr style="margin-top: 0px; margin-bottom: 0px;">
+                        <h1 class="text-center w-100" id="nro_letra" style="margin-top: 0px!important; line-height: 1; font-size: 100px!important;"></h1>
+                        <h1 class="text-center w-100" id="nro_tickt" style="margin-top: 0px!important; line-height: 1; font-size: 100px!important;"></h1>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <h2 class="text-center w-100" id="nro_box" style="font-size: 60px!important;"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+
+{% endblock %}
+
+{% block stylesheets %}
+
+    <style>
+       /* body{
+            font-family: 'Karla'!important;
+            font-weight: bold;
+        }*/
+
+       @font-face {
+           font-family: 'Karla';
+           src: url({{ asset('fonts/Karla/Karla-Regular.ttf') }});
+       }
+
+       @font-face {
+           font-family: 'Pridi';
+           src: url({{ asset('fonts/Pridi/Pridi-SemiBold.ttf') }});
+       }
+
+       @font-face {
+           font-family: 'Mukta';
+           src: url({{   asset('fonts/Mukta/Mukta-Bold.ttf') }});
+       }
+
+       h1 {
+           font-family: 'Mukta'!important;
+           font-weight: 600!important;
+       }
+
+       /*@font-face {
+           font-family: 'Montserrat';
+           src: url({    asset('fonts/Montserrat/Montserrat-Regular.ttf') }});
+       }*/
+
+       html,body,.container
+       {
+           height:100%;
+           overflow-x:hidden;
+           overflow-y:hidden;
+       }
+
+        #dia{
+            font-family: 'Karla'!important;
+        }
+
+        .container-full {
+            margin: 0 auto;
+            width: 99%;
+            overflow-x: hidden;
+        }
+
+        .head-title {
+            font-size: calc(2.5vw + 2vh);
+            margin: 7px auto 0 auto;
+        }
+
+        .row {
+            margin-left: 0px!important;
+            margin-right: 0px!important;
+        }
+
+        h3{
+            text-align: center!important;
+            font-weight: bold!important;
+        }
+
+        h1{
+            font-size: 135px!important;
+            /*text-align: center!important;*/
+            font-weight: bold!important;
+            /*margin-top: 30px!important;
+            margin-bottom: 0px!important;*/
+            line-height: 1.5!important;
+           /* color: #ffffff!important;*/
+        }
+
+        h2{
+            font-size: 50px!important;
+            text-align: center!important;
+            font-weight: bold!important;
+            /*color: #ffffff!important;*/
+        }
+
+        .colbox{
+            border-bottom: 1px solid #fff;
+           /* background-color: #5bd778!important;*/
+        }
+
+        .colespera{
+            font-size: 34px!important;
+            color: #ffffff!important;
+            text-align: center!important;
+            padding-top: 14px;
+        }
+
+        tr:nth-of-type(odd) {
+            background: #5bd778; /*#16a085;*/
+        }
+
+        th {
+            background: #2c3e50;
+            font-weight: bold;
+        }
+
+        .parpadea {
+            animation-name: parpadeo;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-iteration-count: 10;
+
+            -webkit-animation-name:parpadeo;
+            -webkit-animation-duration: 1s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count: 15;
+        }
+
+        @-moz-keyframes parpadeo{
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+        @-webkit-keyframes parpadeo {
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+        @keyframes parpadeo {
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+
+        .secondaryazul{
+            background-color:#FF8C00!important;/*#ffbb33!important;009688 - FF8800 - ffbb33*/
+            color: #fff!important;
+            text-shadow: 2px 2px #000;
+            font-size: 110px!important;
+        }
+
+        .tickefondo{
+            color: #ffc107;
+            background-color: transparent;
+            background-image: none;
+            border-bottom: 2px solid #ffc107;
+            border-right: 2px solid #ffc107;
+            border-top: 2px solid #ffc107;
+            text-align: center!important;
+        }
+
+        .ticketcolor{
+            color: #ffc107;
+        }
+
+       .tktitulo{
+           color:#fff!important;
+           text-shadow: 1px 1px #000;
+       }
+
+       .tkletra{
+           color:#28a745!important;
+           text-shadow: 1px 1px #000;
+           font-size: 120px!important;
+           text-align: center!important;
+           display:inline;
+       }
+
+        .tknaranja{
+            color:#ffba66!important;
+            text-shadow: 1px 1px #000;
+            font-size: 120px!important;
+            text-align: center;
+            display:inline;
+        }
+
+        body{
+            line-height: 0!important;
+        }
+
+        .modal {
+            text-align: center;
+        }
+
+        @media screen and (min-width: 768px) {
+            .modal:before {
+                display: inline-block;
+                vertical-align: middle;
+                content: " ";
+                height: 100%;
+            }
+        }
+
+        .modal-dialog {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .pfooter{
+            color: #fff;
+            font-size: 25pt;
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    <script>
+
+        $(document).ready(function(){
+           // document.getElementById("loader").style.display = "none";
+           /* $(document).ajaxSend(function(event, request, settings) {
+                document.getElementById("loader").style.display = "block";
+            });
+
+            $(document).ajaxComplete(function(event, request, settings) {
+                document.getElementById("loader").style.display = "none";
+            });*/
+        });
+
+        //BUSCA DATOS DEL DOC INGRESADO
+        //-------------------------------------------------------------------------------------------------------
+        function EjecutaParpadeo(texto){
+            with (document.getElementById("box").style)
+                visibility = (visibility == "visible") ? "hidden" : "visible";
+        }
+
+        function reproducir(){
+            document.getElementById('campana').play();
+        }
+
+        var int= self.setInterval("refresh()",5000);
+
+        function refresh(){
+            RevisarBoxs();
+            ArmarColaTurnos();
+            //document.getElementById("loader").style.display = "none";
+        }//end function
+
+        var sortByProperty = function (property) {
+            return function (x, y) {
+                return ((x[property] === y[property]) ? 0 : ((x[property] > y[property]) ? 1 : -1));
+            };
+        };
+
+
+        function RevisarBoxs(){
+            //------------------------------------------------------------------------------------
+            //LLAMA AJAX CONSULTA EL ESTADO DEL BOX Y ACTUALIZA DATOS EN PANTALLA
+            //------------------------------------------------------------------------------------
+
+            $.ajax({
+                type: 'POST',
+                data: {},
+                url: "{{ url('BoxConsulta') }}",
+                success:function(data){
+                    var lista_boxes  = data;
+
+                    //ORDENA ARRAY POR NUMERO DE BOX
+                    //lista_boxes.sort(sortByProperty('b_numero'));
+                    var cantidad_lista = lista_boxes.length;
+
+                    var n_box="";
+                    var n_col = 0;
+                    var mostrar='N';
+                    var n_letra="";
+                    var nroi="";
+                    var n_ticket="";
+
+                    for (var i = 1; i < 9; i++) {
+                        n_letra  = "txt_letra"+i;
+                        n_ticket = "txt_turno"+i;
+                        n_box    = "txt_box"+i;
+
+                        document.getElementById(n_letra).innerHTML  = '&nbsp;';
+                        document.getElementById(n_ticket).innerHTML = '&nbsp;';
+                        document.getElementById(n_box).innerHTML    = '&nbsp;';
+                    }//for
+
+
+                    for (var i = 1; i < 9; i++) {
+                        if (i < (cantidad_lista)){
+
+                            n_col    = i + 1;
+                            nroi     = lista_boxes[i].b_numero;
+                            n_letra  = "txt_letra"+i;
+                            n_ticket = "txt_turno"+i;
+                            n_box    = "txt_box"+i;
+
+
+                            if (lista_boxes[i].estado_turno =='2' || lista_boxes[i].estado_turno =='3'){ //EN BOX O PRESENTE
+                                document.getElementById(n_letra).innerHTML = lista_boxes[i].b_letra;
+                                document.getElementById(n_ticket).innerHTML = lista_boxes[i].b_nro;
+
+                                document.getElementById(n_box).innerHTML    = "BOX " + nroi;
+                            }else{
+                                document.getElementById(n_letra).innerHTML = '&nbsp;';
+                                document.getElementById(n_ticket).innerHTML = '&nbsp;';
+                                document.getElementById(n_box).innerHTML    = '&nbsp;';
+                            }//endIf
+
+                            if (lista_boxes[i].b_estado=='A'  && lista_boxes[i].estado_turno =='2' ){ //BOX ATENDIENDO Y ESTADO EN BOX
+
+                                if ($("#"+(n_ticket)).hasClass('parpadea')) {
+
+                                    $("#"+(n_letra)).removeClass('parpadea');
+                                    $("#"+(n_ticket)).removeClass('parpadea');
+
+                                }else{
+
+                                    $("#"+(n_letra)).addClass('parpadea');
+                                    $("#"+(n_ticket)).addClass('parpadea');
+
+                                    document.getElementById(n_letra).style ="color:#28a745!important; font-size: 135x!important; margin-top:0px!important; display:inline;";
+                                    document.getElementById(n_ticket).style="color:#00cc88!important; font-size: 135x!important; margin-top:0px!important; display:inline;";
+                                }//end if
+
+
+                                if (lista_boxes[i].b_sonido=='S'){
+                                    document.getElementById('nro_letra').innerHTML=lista_boxes[i].b_letra;
+                                    document.getElementById('nro_tickt').innerHTML = lista_boxes[i].b_nro;
+                                    document.getElementById('nro_box').innerHTML  ="BOX : Nº " + nroi;
+                                    //$("#div_turno").modal("show");
+                                    mostrar='S';
+                                    //document.getElementById('campana').play();
+                                    var playPromise = document.getElementById('campana').play();
+                                    if (playPromise !== undefined) {
+                                        if (playPromise !== undefined) {
+                                            playPromise.then(_ => {
+                                                // Automatic playback started!
+                                                // Show playing UI.
+                                                playPromise.play();
+                                            })
+                                        .catch(error => {
+                                                // Auto-play was prevented
+                                                // Show paused UI.
+                                            });
+                                        }
+                                    }//endIf
+                                    //document.getElementById('campana').play();
+                                    //ActualizarBoxs(lista_boxes[i].b_id);
+                                }//end if
+                            }else{
+                                document.getElementById(n_letra).style="color: #FF8C00!important; text-shadow: 2px 2px #000;";//fff ES BLANCO!!!!!!!
+                                document.getElementById(n_ticket).style="color: #ffba66!important; text-shadow: 2px 2px #000;";
+                            }//end if
+                        }
+                    } //end for
+
+                    if (mostrar =='N'){
+                        //$("#div_turno").modal('hide');
+                    }
+                }//end sucess
+            });//end ajax
+        }//end function
+
+        function ActualizarBoxs(id){
+            //=====================================
+            //ACTULIZA SONIDO DEL BOX
+            //=====================================
+            $.ajax({
+                type: 'GET',
+                data: {'box_id':id},
+                url:'{{ url('BoxActualizaSonido') }}',
+                success:function(data){
+                }
+            })
+        }//end function
+
+
+        function ArmarColaTurnos(){
+            $.ajax({
+                type: 'POST',
+                data: {},
+                url:'{{ url('ColaConsulta') }}',
+                success:function(data){
+
+                    $('#dia').html('<font face="Karla" color="#FFF" style="font-size: 35px;">'+data[1].f_fechad+'</font><font face="Karla" color="#FFF" style="font-size: 35px; margin-left:30px;">'+data[1].f_fechah+'&nbsp;</font>');
+                    /*if(data.length > 1){
+                        cola   ="<font face='verdana' color='#FFFFFF' style='font-size: 49px;font-weight: bold; text-shadow: 2px 2px #000;'>";
+                        datojq = data;
+
+                        for (var i=1; i<data.length; i++){
+                           if ( datojq[i].cola_ticket != '-'){
+                               cola=cola+" "+datojq[i].cola_ticket;
+                           }
+                        }//end for
+
+                        cola=cola+"</font>";
+                        $("#colaresto").html(cola);
+                    }else{
+                        $("#colaresto").html("");
+                    }//end if
+                     */
+                }//end success
+            })//end ajax
+        }//end function
+    </script>
+{% endblock %}

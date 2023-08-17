@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0">
+    <mete http-equiv="X-UA-Compatible" content="ie=edge"></mete>
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+    <!-- ----------------- -->
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/loader.css') }}">
+    <link rel="stylesheet" href="{{  asset('css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/font-awesome/css/font-awesome.min.css') }}">
+
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/Ionicons/css/ionicons.min.css') }}">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('adminLTE/css/AdminLTE.min.css') }}">
+
+    <!-- AdminLTE Skin -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE/css/skins/skin-blue.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('AdminLTE/css/skins/skin-green.min.css') }}">
+    <link rel="stylesheet" href="{{  asset('AdminLTE/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('AdminLTE/css/jquery.dataTables.min.css') }}">
+
+    <!-- ----------------- -->
+
+
+
+    <!-- ----------------- -->
+    <script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+    <!-- DateTimePicker -->
+    <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap-timepicker/css/jquery.timepicker.min.css') }}">
+
+    <script src="{{ asset('js/popper.js') }}"></script>
+    <!--<script src="{ asset('js/bootstrap.min.js') }}"></script>-->
+    <script src="{{ asset('js/Chart.bundle.js') }}"></script>
+    <script src="{{ asset('js/Chart.js') }}"></script>
+    <script src="{{ asset('js/jquery.bootstrap-growl.min.js') }}"></script>
+
+    <!-- DateTimePicker -->
+    <script src="{{ asset('AdminLTE/bower_components/bootstrap-timepicker/js/jquery.timepicker.min.js') }}"></script>
+
+    <!-- ----------------- -->
+    <link rel="stylesheet" type="text/css" href="{{  asset('fonts/font-awesome.min.css') }}" >
+    <!-- <link href="{ asset('css/bootstrap-glyphicons.min.css') }}" rel="stylesheet" type="text/css" /> -->
+
+    <!-- Bloque de estilos configurable por página -->
+    {% block stylesheets %}
+        <style>
+            .skin-green .sidebar-menu>li:hover>a {
+                color: #fff!important;
+                background: #5cb85c!important;
+            }
+            .skin-green .sidebar-menu>li:hover>a, .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li.menu-open>a {
+                color: #fff;
+                background: #5cb85c!important;
+            }
+        </style>
+    {% endblock %}
+
+
+
+    <!-- SlimScroll -->
+    <script src="{{ asset('js/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+
+    <!-- FastClick -->
+    <script src="{{ asset('js/fastclick/lib/fastclick.js') }}"></script>
+
+
+    <script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.es.min.js') }}"></script>
+
+
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+
+</head>
+<body>
+
+{% block body %}
+
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,844 @@
+{% extends 'basePublico.html.twig' %}
+
+{% block body %}
+    <!--<div class="wrapper" style="height: 100%;">-->
+
+        <header style="margin-top: -10px;background-color: #33BB66; " >
+            <nav class="navbar navbar-static-top" role="navigation" style="position:relative;">
+
+                <div class="col-2"style="height: 74px;max-height: 120px;">
+                     <span class="head-img" style=" position: absolute; top: 16px;left: 0;">
+                        <img src="{{ asset('img/muni.png') }}" class="pt-3">
+                    </span>
+                    <h1 class="pt-2 display-3" style=" color: #fff;position: absolute; top: -6px; left: 42%;">
+                        TURNOS RENTAS
+                    </h1><!--display: flex; align-items: center;  justify-content: center;  margin: 0 auto;-->
+                    <h4 class="pt-2 display-3" style=" color: #fff;display: flex; position: absolute; top: 42px;left: 47%;">
+                        Seleccione una Opción
+                    </h4>
+                </div>
+
+                <!--<span class="head-img">
+                    <img src="{ asset('img/muni.png') }}">
+                </span>
+
+                <span class="head-title text-center">
+                    <h1 class="text-center" style="color: #fff;">TURNOS RENTAS
+                        <small style="color: #fff;">Seleccione una opción</small>
+                    </h1>
+                </span>-->
+            </nav>
+        </header>
+
+        <!-- Page Content -->
+         <div class="container" style="vertical-align: middle; min-height: 100%;display: flex;align-items: center;">
+            <form  method="post" style="width: 100%;" action="{{ url('BuscaMotivos') }}" id="form" name="form">
+                <input type="hidden" id="txt_tipo" name="txt_tipo" value="" >
+                <input type="hidden" id="txt_doc" name="txt_doc" value="{{ dniIngresado }}" >
+                <div class="loader" id="loader">  </div>
+                {% set fila='N' %}
+                {% set colsn='N' %}
+
+
+                <div class="row">
+                    {% set totalTramite = 0 %}
+                    {% for tramite in arr_tramites %}
+
+                            {%  if tramite.traTipoTramite|trim == 'P' %}
+                                {% set TramiteSeleccionado='INMUEBLES' %}
+                                <div class="col-6">
+
+                                        <div class="offset-md-1 col-md-6" id="div_inmuebles" name="div_inmuebles">
+                                            <div class="card text-white bg-danger mb-2" style="height: 69px; margin-bottom: 25px;background-color: #f0ad4ea1!important;">
+
+                                                <div class="card-body card_bd">
+
+                                                    <span class="info-box-icon pb_1 h-100 mx-auto" style="border-radius: 50%;background-color: #f0ad4e!important; margin-top: -10px;">
+                                                        <i class="fa fa-home cl_sombra ima_posicion" aria-hidden="true" style="display: contents;"></i>
+                                                    </span>
+
+                                                    <span class="info-box-icon pb_1 h-100 mx-auto" style="background-color: #f0ad4e!important; width: 20rem;position: relative;top: -85px;left: 95px;height: 0px!important;">
+                                                      <h3>INMUEBLES</h3>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="txt_hora_i_i" value="{{ tramite.traHoraInicio|date('H:i') }}">
+                                        <input type="hidden" id="txt_hora_f_i" value="{{ tramite.traHoraFin|date('H:i') }}">
+
+                                </div>
+                            {% endif %}
+
+                            {% if tramite.traTipoTramite|trim == 'M' %}
+                                {% set TramiteSeleccionado='RODADO' %}
+                                <div class="col-6">
+
+                                        <div class="offset-md-1 col-md-6">
+                                            <div class="card text-white bg-danger mb-2" id="div_motos" name="div_motos" style="height: 69px; margin-bottom: 25px;">
+
+                                                <div class="card-body card_bd">
+                                                        <span class="info-box-icon pb_1 h-100 mx-auto" style="border-radius: 50%;background-color: #dc3545!important; margin-top: -10px;">
+                                                            <img class="cl_sombra" src="{{ asset('img/car.png') }}" style="width: 50px; height: 50px;filter: invert(1);position: relative; top: -2px;  left: 0px;">
+                                                            <!--<i class="fa fa-motorcycle cl_sombra ima_posicion" aria-hidden="true" style="display: contents;"></i>-->
+                                                        </span>
+
+                                                        <span class="info-box-icon pb_1 h-100 mx-auto" style="background-color: #dc3545!important;width: 20rem;position: relative;top: -85px;left: 95px;height: 0px!important;">
+                                                          <h3>RODADO</h3>
+                                                        </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="txt_hora_i_m" value="{{ tramite.traHoraInicio|date('H:i') }}">
+                                        <input type="hidden" id="txt_hora_f_m" value="{{ tramite.traHoraFin|date('H:i') }}">
+
+                                </div>
+                            {% endif %}
+
+                            {% if tramite.traTipoTramite|trim == 'C' %}
+                                {% set TramiteSeleccionado='COMERCIOS' %}
+                                <div class="col-6">
+                                        <div class="offset-md-1 col-md-6" id="div_comercios" name="div_comercios">
+                                            <div class="card text-white bg-info mb-2" style="height: 69px; margin-bottom: 25px;">
+
+                                                <div class="card-body card_bd">
+
+                                                        <span class="info-box-icon pb_1 h-100 mx-auto" style="border-radius: 50%;background-color: #17a2b8!important; margin-top: -10px;">
+                                                            <i class="fa fa-shopping-cart cl_sombra ima_posicion" aria-hidden="true" style="display: contents;"></i>
+                                                        </span>
+
+                                                    <span class="info-box-icon pb_1 h-100 mx-auto" style="background-color: #17a2b8!important; width: 20rem;position: relative;top: -85px;left: 95px;height: 0px!important;">
+                                                          <h3>COMERCIOS</h3>
+                                                        </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="txt_hora_i_c" value="{{ tramite.traHoraInicio|date('H:i') }}">
+                                        <input type="hidden" id="txt_hora_f_c" value="{{ tramite.traHoraFin|date('H:i') }}">
+                                </div>
+                            {% endif %}
+                            {% if tramite.traTipoTramite|trim == 'G' %}
+                                {% set TramiteSeleccionado='GERIATRICO' %}
+                                    <div class="row pt-1">
+                                        <div class="offset-md-1 col-md-12" id="div_geriatrico" name="div_geriatrico">
+                                            <div class="card text-white bg-primary mb-2" style="height: 69px; margin-bottom: 25px;background-color: #9c27b0!important;">
+
+                                                <div class="card-body card_bd">
+                                                        <span class="info-box-icon pb_1 h-100 mx-auto" style="border-radius: 50%; background-color: #9c27b0!important; margin-top: -10px;">
+                                                           <i align="center" class="fa fa-blind cl_sombra ima_posicion" aria-hidden="true" style="display: contents;"></i>
+                                                        </span>
+
+                                                    <span class="info-box-icon pb_1 h-100 mx-auto" style="background-color: #9c27b0!important; width: 20rem;position: relative;top: -65px;left: 100px;height: 1px!important;">
+                                                          <h3>GERIATRICO</h3>
+                                                        </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="txt_hora_i_j" value="{{ tramite.traHoraInicio|date('H:i') }}">
+                                        <input type="hidden" id="txt_hora_f_j" value="{{ tramite.traHoraFin|date('H:i') }}">
+                                    </div>
+                            {% endif %}
+
+
+
+                            {% if tramite.traTipoTramite|trim == 'T' %}
+                                {% set TramiteSeleccionado='CEMENTERIO' %}
+                                <div class="col-6">
+                                        <div class="offset-md-1 col-md-6">
+                                            <div class="card text-white bg-secondary mb-2" id="div_cementerio" name="div_cementerio" style="height: 69px; margin-bottom: 25px;background: #d3d4d5!important;">
+
+                                                <div class="card-body card_bd">
+
+                                                            <span class="info-box-icon pb_1 h-100 mx-auto" style="border-radius: 50%;background-color: #6c757d!important; margin-top: -10px;">
+                                                                <i class="fa fa-arrows cl_sombra ima_posicion" aria-hidden="true" style="display: contents;"></i>
+                                                            </span>
+
+                                                    <span class="info-box-icon pb_1 h-100 mx-auto" style="background-color: #6c757d!important; width: 20rem;position: relative;top: -85px;left: 100px;height: 0px!important;">
+                                                              <h3>CEMENTERIO</h3>
+                                                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="txt_hora_i_t" value="{{ tramite.traHoraInicio|date('H:i') }}">
+                                        <input type="hidden" id="txt_hora_f_t" value="{{ tramite.traHoraFin|date('H:i') }}">
+                                </div>
+                            {% endif %}
+
+                            {% if tramite.traTipoTramite|trim == 'E' %}
+                                {% set TramiteSeleccionado='ESCRIBANOS' %}
+                                <div class="col-6">
+                                    <div class="offset-md-1 col-md-6" id="div_escribano" name="div_escribano">
+                                            <div class="card text-white bg-success mb-2" style="height: 69px; margin-bottom: 25px;">
+
+                                                <div class="card-body card_bd">
+
+                                                        <span class="info-box-icon pb_1 h-100 mx-auto" style="border-radius: 50%; background-color: #28a745!important; margin-top: -10px;">
+                                                           <i align="center" class="fa fa-legal cl_sombra ima_posicion" aria-hidden="true" style="display: contents;"></i>
+                                                        </span>
+
+                                                    <span class="info-box-icon pb_1 h-100 mx-auto" style="  background-color: #28a745!important; width: 20rem;position: relative;top: -85px;left: 100px;height: 0px!important;">
+                                                          <h3>ESCRIBANOS</h3>
+                                                        </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <input type="hidden" id="txt_hora_i_e" value="{{ tramite.traHoraInicio|date('H:i') }}">
+                                    <input type="hidden" id="txt_hora_f_e" value="{{ tramite.traHoraFin|date('H:i') }}">
+
+                                </div>
+                            {% endif %}
+
+                            {% if tramite.traTipoTramite|trim == 'J' %}
+                                {% set TramiteSeleccionado='JUICIOS' %}
+                                <div class="col-6">
+                                    <div class="offset-md-1 col-md-6" id="div_juicio" name="div_juicio">
+                                        <div class="card text-white mb-2" style="height: 69px; margin-bottom: 25px;background-color: #eaf38f; color: #000;">
+
+                                            <div class="card-body card_bd">
+                                                    <span class="info-box-icon pb_1 h-100 mx-auto" style="border-radius: 50%; background-color: #bcc568!important; margin-top: -10px;">
+                                                       <i align="center" class="fa fa-balance-scale cl_sombra ima_posicion" aria-hidden="true" style="display: contents;"></i>
+                                                    </span>
+
+                                                    <span class="info-box-icon pb_1 h-100 mx-auto" style="background-color: #bcc568!important; width: 20rem;position: relative;top: -85px;left: 100px;height: 0px!important;">
+                                                      <h3>JUICIOS</h3>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="txt_hora_i_j" value="{{ tramite.traHoraInicio|date('H:i') }}">
+                                    <input type="hidden" id="txt_hora_f_j" value="{{ tramite.traHoraFin|date('H:i') }}">
+                                </div>
+                            {% endif %}
+
+
+
+                            {% if tramite.traTipoTramite|trim == 'A' %}
+                                {% set TramiteSeleccionado='ARBA' %}
+                                <div class="col-6">
+                                    <div class="offset-md-1 col-md-6" id="div_arba" name="div_arba">
+                                        <div class="card text-white mb-2" style="height: 69px; margin-bottom: 25px;background-color: #98f4fe; color: #000;">
+
+                                            <div class="card-body card_bd">
+                                                    <span class="info-box-icon pb_1 h-100 mx-auto" style="border-radius: 50%; background-color: #00AFC3!important; margin-top: -10px;">
+                                                       <!--<i align="center" class="fa fa-file-text-o cl_sombra ima_posicion" aria-hidden="true" style="display: contents;"></i>-->
+                                                        <img src="{{ asset("img/icono_arba.png") }}" style="width: 106px; position: relative; left: -7px; top: -3px;">
+                                                    </span>
+
+                                                    <span class="info-box-icon pb_1 h-100 mx-auto" style="background-color: #bcc568!important; width: 20rem;position: relative;top: -85px;left: 70px;height: 0px!important;">
+                                                      <h3>ARBA</h3>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="txt_hora_i_a" value="{{ tramite.traHoraInicio|date('H:i') }}">
+                                    <input type="hidden" id="txt_hora_f_a" value="{{ tramite.traHoraFin|date('H:i') }}">
+                                </div>
+                            {% endif %}
+
+                        {% set totalTramite = totalTramite + 1 %}
+                    {% endfor %}
+
+                        {% if totalTramite > 7 %}
+                            <div class="col-6 offset-3">
+                                <div class="offset-md-1 col-md-6" id="div_varios" name="div_varios">
+                                    <div class="card text-white bg-danger mb-2" style="height: 69px; margin-bottom: 25px;background-color: #cadba7!important; color: #000!important;">
+
+                                        <div class="card-body card_bd">
+
+                                            <span class="info-box-icon pb_1 h-100 mx-auto" style="border-radius: 50%;background-color: #98c18f!important; margin-top: -10px;">
+                                                <i class="fa fa-folder-open cl_sombra ima_posicion" aria-hidden="true" style="display: contents;"></i>
+                                            </span>
+
+                                            <span class="info-box-icon pb_1 h-100 mx-auto" style="background-color: #98c18f!important; width: 20rem;position: relative;top: -85px;left: 84px;height: 0px!important;">
+                                                <h3 style="white-space: nowrap;">TRAMITES VARIOS</h3>
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="col-6 offset-3">
+                                <div class="offset-md-1 col-md-12" id="div_varios" name="div_varios">
+                                    <div class="card text-white bg-danger mb-2" style="height: 69px; margin-bottom: 25px;background-color: #cadba7!important; color: #000!important;">
+
+                                        <div class="card-body card_bd">
+
+                                                <span class="info-box-icon pb_1 h-100 mx-auto" style="border-radius: 50%;background-color: #98c18f!important; margin-top: -10px;">
+                                                    <i class="fa fa-folder-open cl_sombra ima_posicion" aria-hidden="true" style="display: contents;"></i>
+                                                </span>
+
+                                            <span class="info-box-icon pb_1 h-100 mx-auto" style="background-color: #98c18f!important; width: 21rem;position: relative;top: -85px;left: 95px;height: 0px!important;transform: translate(135%, 0px);">
+                                                    <h3 style="white-space: nowrap;">TRAMITES VARIOS</h3>
+                                                </span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                </div>
+
+            </form>
+
+             <div id="divaviso" class="modal fade" role="dialog">
+                 <div class="modal-dialog">
+                     <!-- Modal content-->
+                     <div class="modal-content">
+                         <div class="modal-header text-center">
+                             <h5 id="herror" class="modal-header" style="font-size: 30px; margin: 0 auto; border-bottom: 1px solid #d9534f;"> HORARIO DE ATENCIÓN </h5>
+                         </div>
+                         <div class="modal-body" style="background-color: #d9534f;">
+                             <p id="p_tramite" class="text-center" style="font-weight: bold; font-size: 35px; color:#fff; text-shadow: 1px 1px #000;  "><b></b> </p>
+                             <p id="p_hora" class="text-center" style="font-weight: bold;font-size: 35px; color:#fff; text-shadow: 1px 1px #000;"> </p>
+                         </div>
+
+                         <div class="modal-footer modal-header-danger ">
+                             <button type="button" class="btn btn-dark" data-dismiss="modal" onclick="javascript:CerrarTomar()" style="background-color: #fff; color: #000;"><i class="fa fa-times" aria-hidden="true" style="color: #000 !important;"></i> CERRAR</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+
+
+         </div>
+
+        <!---- SELECCION TRAMITE -->
+        <div id="div_confirmar" class="modal modal-info" role="dialog">
+            <div class="modal-dialog modal-lg" style="width: 600px;">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" id="modal_impre" style="color:#fff!important;">
+                        <h4 class="modal-header modal-header-header text-center" id="htxt" style="margin: 0 auto;">¿ESTA SEGURO?</h4>
+                    </div>
+                    <div class="modal-body" style="background-color: #fff!important;">
+                        <p class="text-center" style="border: 0px;font-weight: bold; font-size: 22px;">USTED SELECCIONO:</p>
+                        <p class="text-center" id="lbl_tramite" style="text-shadow: 1px 1px #000;  border-left: none; border-top: none; font-weight: bold; font-size: 34px; font-weight: 600;"></p>
+                        <p class="text-center" id="lbl_descrip_seleccionada" style="font-family: 'Play'; text-transform: uppercase!important; padding: 10px; font-size: 30px; text-shadow: 1px 1px #000; font-weight: 600; color: #fff!important;"></p>
+                        <label class="control-label" id="lbl_tipo_tramite" style="color: #a94442; display:none"></label>
+                        <label class="control-label" id="lbl_motivo" style="color: #a94442; display:none"></label>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-success btn_imprimir" data-dismiss="modal" id="btaceptar" onclick="javascript:AltaTicket()" ><i class="fa fa-check" aria-hidden="true"></i> IMPRIMIR</button>
+                        <button type="button" class="btn btn-danger btn_cancelar" data-dismiss="modal" ><i class="fa fa-times" aria-hidden="true"></i> CANCELAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="div_modal_ticket">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" >
+                    <div class="modal-header" style="background-color: #f39c12 !important; color: #fff;">
+                        <h3 class="modal-title" id="lbl_imprimiendo" style="margin: 0 auto;">IMPRIMIENDO TICKET...</h3>
+                    </div>
+                    <div class="modal-body" >
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" tabindex="-1" role="dialog" id="divModalConfTicket">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" >
+                    <div class="modal-header" style="background-color: #f39c12 !important; color: #fff;">
+                        <h3 class="modal-title" style="margin: 0 auto;">TICKET GENERADO</h3>
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        <h3>NRO. TICKET:</h3> <h3 id="h_nrotk" style="font-size: 40px;"></h3>
+                        <h5 class="modal-title mt-4">POR FAVOR RETIRE SU TICKET.- GRACIAS</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="text" id="txt_tipo" value="0" style="display:none;">
+        <input type="text" id="txt_sn" value="0" style="display:none;">
+        <!-- --- -->
+
+
+        <!-- TICKET --->
+         <div id="dvdImprim" class="imprime" style="display: none;">
+
+        <p style="text-align: center; margin:0px; padding-top: 0px !important;">DIRECCIÓN DE RENTAS</p>
+       <!-- <br>
+        -----------------------------------------------
+        <br>-->
+        <p style="text-align: center; margin:0px; font-size: 12px;" id="p_bienvenido"></p>
+        <p style="text-align: center; margin:0px; font-size: 12px;" id="apeynom_sel"></p> <br>
+        <p style="text-align: center; margin:0px;">NRO.TICKET</p>
+        <h2 style="font-size:70px; font-weight:bolder; margin:0px; text-align: center;" id="nro_tk"></h2>
+        <p style="text-align: center; margin:0px; font-size: 12px;" id="tramite_sel"></p>
+
+        <br>
+        <p style="text-align: center; margin:0px; padding-top: 0px !important; font-size: 12px;">Emision: {{ "Now"|date('d/m/Y H:i') }}</p>
+        <p style="text-align: center; margin:0px; padding-top: 0px !important; font-size: 12px;">Por favor, conseve su ticket</p>
+        <br>
+        <p style="text-align: center; margin:0px; padding-top: 0px !important; font-size: 12px; font-weight: bold">0800-999-6864</p>
+        <p style="text-align: center; margin:0px; padding-top: 0px !important; font-size: 12px;">Lu a Vi de 8:00 a 17:00 hs</p>
+        <p style="text-align: center; margin:0px; padding-top: 0px !important; font-size: 12px;">www.chivilcoy.gov.ar/rentas</p>
+        <p style="text-align: center; margin:0px; padding-top: 0px !important; font-size: 12px;">rentas@chivilcoy.gov.ar</p>
+        <!-- ----------------------------------------------- -->
+        <p style="text-align: center; margin:0px; font-size: 12px;">Municipalidad de Chivilcoy</p> <br>
+    </div>
+        <!--  --->
+        <!-- Footer -->
+        <footer class="main-footer d-none d-md-block d-lg-block mt-2" style="position: absolute; bottom: 0px;">
+            Desarrollado por la Dirección de Informática de la Municipalidad de Chivilcoy
+        </footer>
+    <!--</div>-->
+
+{% endblock %}
+
+{% block stylesheets %}
+    <!--<link href="https://fonts.googleapis.com/css?family=Acme|Play&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{  asset('fonts/Acme/Acme-Regular.ttf') }}" >-->
+    <style>
+        html, body{
+            height:90%; /* important to vertically align the container */
+            margin:0;
+            padding:0;
+            overflow-y: hidden;
+        }
+
+        @font-face {
+            font-family: 'Play';
+            src: url({{   asset('fonts/Play/Play-Regular.ttf') }});
+        }
+
+        html{
+            cursor: none;
+        }
+
+        header {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            min-height: 50px;
+            width: 100%;
+        }
+
+        footer {
+            height: 53px;
+            min-height: 53px;
+            width: 100%;
+            line-height: 60px;
+            background-color: #4C4;
+        }
+
+        selector {
+            cursor: none;
+        }
+
+        .container {
+            /* margin-top: 5%;*/
+        }
+
+
+        .main-footer {
+            text-align: center;
+            background-color: #33BB66;
+            color: white;
+            max-height: 40px;
+        }
+
+        p{
+            border-top: 1px solid #f5f5f5;
+        }
+
+        .card_bd{
+            padding-bottom: 0px!important;
+            background-color: #fff;
+            width: 50px;
+            height: 90px;
+        }
+
+        .ima_posicion{
+            position: relative;
+            top: -14px;
+            left: -13px;
+        }
+
+
+        .info-box {
+            display: block;
+            min-height: 90px;
+            background: #fff;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            border-radius: 2px;
+            margin-bottom: 15px;
+        }
+
+
+
+        .modal-header-danger {
+            color:#fff;
+            padding:9px 15px;
+            border-bottom:1px solid #eee;
+            background-color: #d9534f;
+            -webkit-border-top-left-radius: 5px;
+            -webkit-border-top-right-radius: 5px;
+            -moz-border-radius-topleft: 5px;
+            -moz-border-radius-topright: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .show{
+            background-color: rgba(0,0,0,0.5)!important;
+        }
+
+        .info-box-icon {
+            border-top-left-radius: 2px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 2px;
+            display: block;
+            float: left;
+            height: 90px;
+            width: 90px;
+            text-align: center;
+            font-size: 45px;
+            line-height: 90px;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .info-box-content {
+            padding: 5px 10px;
+            margin-left: 90px;
+        }
+
+        .info-box-text {
+            text-transform: uppercase;
+            color: #fff!important;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .bg-yellow, .modal-warning .modal-body {
+            background-color: #f39c12 !important;
+        }
+
+        .bg-green, .modal-success .modal-body {
+            background-color: #00a65a !important;
+        }
+
+        .bg-red, .callout.callout-danger, .alert-danger, .alert-error, .label-danger, .modal-danger .modal-body {
+            background-color: #dd4b39 !important;
+        }
+
+        .bg-aqua, .callout.callout-info, .alert-info, .label-info, .modal-info .modal-body {
+            background-color: #00c0ef !important;
+        }
+
+        .bg-blue, .callout.callout-info, .alert-info, .label-info, .modal-info .modal-body {
+            background-color: #0A78A6 !important;
+        }
+
+        .fa{
+            color: #fff!important;
+        }
+
+        label{
+            padding: 10px;
+            width:100%;
+            text-align:center;
+            font-size: 38px;
+        }
+
+        .h_padre{
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-size: 47px;
+            text-shadow: 1px 1px #000;
+            margin-top: 0.3em!important;
+            margin-bottom: 0.1em!important;
+        }
+
+        .cl_sombra{
+            text-shadow: 1px 1px #000;
+        }
+
+        .pb_1{
+            /*padding-bottom:.18rem!important;*/
+        }
+
+        h3{
+            font-family: 'Play'!important;
+            /*font-size: 2.75rem!important;*/
+            font-weight: 600!important;
+            font-size: 45px!important;
+            letter-spacing: 0.15em;
+        }
+
+        /*p {
+            border-top: 1px solid #d9534f;
+        }*/
+    </style>
+{% endblock %}
+{% block javascripts %}
+    <script>
+
+        $(document).ready(function(){
+
+            document.getElementById("loader").style.display = "none";
+
+            $(document).ajaxSend(function(event, request, settings) {
+
+                document.getElementById("loader").style.display = "block";
+            });
+            var f=new Date();
+            var fecha = f.getDate();
+            var hora_actual=parseInt( f.getHours())*60+parseInt(f.getMinutes());// f.getHours()+":"+f.getMinutes();
+
+            function comparaHora(hora_inicio, hora_fin, tipot, tipotramite){
+
+                var horaini = hora_inicio.split(":");
+                var horafin = hora_fin.split(":");
+
+                var total_ini = parseInt(horaini[0])*60+parseInt(horaini[1]);
+                var total_fin = parseInt(horafin[0])*60+parseInt(horafin[1]);
+
+                if ((hora_actual < total_ini ) || (hora_actual > total_fin )){
+                    $("#divaviso").modal("show");
+                    document.getElementById('p_tramite').innerHTML = tipotramite;
+                    document.getElementById('p_hora').innerHTML = hora_inicio + '   a  ' + hora_fin + ' hs';
+
+                }else{
+                    mostrar_lista(tipot, tipotramite);
+                }
+
+            }//end function
+
+            $( "#div_escribano" ).click(function(){
+
+                comparaHora($('#txt_hora_i_e').val(), $('#txt_hora_f_e').val(), 'E', 'ESCRIBANO');
+            });
+
+            $( "#div_inmuebles" ).click(function() {
+                comparaHora($('#txt_hora_i_i').val(), $('#txt_hora_f_i').val(),'P', 'INMUEBLES');
+            });
+
+            $( "#div_comercios" ).click(function() {
+                comparaHora($('#txt_hora_i_c').val(), $('#txt_hora_f_c').val(),'C', 'COMERCIOS');
+            });
+
+            $( "#div_motos" ).click(function() {
+                comparaHora($('#txt_hora_i_m').val(), $('#txt_hora_f_m').val(),'M', 'RODADO');
+            });
+
+            $( "#div_cementerio" ).click(function() {
+                comparaHora($('#txt_hora_i_t').val(), $('#txt_hora_f_t').val(),'T', 'CEMENTERIO');
+            });
+
+            $( "#div_juicio" ).click(function() {
+                comparaHora($('#txt_hora_i_j').val(), $('#txt_hora_f_j').val(),'J', 'JUICIO');
+            });
+
+            $( "#div_arba" ).click(function() {
+                comparaHora($('#txt_hora_i_a').val(), $('#txt_hora_f_a').val(),'A', 'ARBA');
+            });
+
+            $( "#div_varios" ).click(function() {
+                comparaHora($('#txt_hora_i_j').val(), $('#txt_hora_f_j').val(),'V', 'VARIOS');
+            });
+
+            $( "#div_geriatrico" ).click(function() {
+                comparaHora($('#txt_hora_i_j').val(), $('#txt_hora_f_j').val(),'G', 'GERIATRICO');
+            });
+
+            $('#div_modal_ticket').on('shown.bs.modal', function () {
+                $('#lbl_imprimiendo').focus();
+            })
+
+            $('#divModalConfTicket').on('shown.bs.modal', function () {
+                $('#h_nrotk').focus();
+            })
+
+
+
+        });
+
+        var int=self.setInterval("volverIinicio()",18000);
+
+        function volverIinicio() {
+            location.href = "{{  url('documento')}}";
+        }
+
+        function mostrar_lista(tipo_tramite, descrpTramite){
+
+            document.getElementById('txt_tipo').value = tipo_tramite;
+            AltaTicket(tipo_tramite, descrpTramite);
+
+            //confirmar(tipo_tramite, descrpTramite);
+           // document.form.submit();
+
+            /*if (tipo_tramite=='E'){
+                /*var url = "{ url('BuscaMotivos',{'tipoTramite' : 'E' , 'dniIngresado' :  'nrodni' }) }}";
+                location.href = url.replace("nrodni", dni);*/
+              /*  location.href =  "{ url('BuscaMotivos',{'tipoTramite' : 'E' }) }}";
+
+            }*/
+              /*
+            if (tipo_tramite=='P'){location.href = "{ url('BuscaMotivos',{'tipoTramite' : 'P' } ) }}";}
+            if (tipo_tramite=='C'){location.href = "{ url('BuscaMotivos',{'tipoTramite' : 'C' } ) }}";}
+            if (tipo_tramite=='M'){location.href = "{ url('BuscaMotivos',{'tipoTramite' : 'M' } ) }}";}
+            if (tipo_tramite=='T'){location.href = "{ url('BuscaMotivos',{'tipoTramite' : 'T' } ) }}";}
+            if (tipo_tramite=='J'){location.href = "{ url('BuscaMotivos',{'tipoTramite' : 'J' } ) }}";}*/
+        }
+
+        function confirmar(tipoTramite, descripTramite){
+            document.getElementById('lbl_tipo_tramite').innerHTML   = tipoTramite;
+            document.getElementById('lbl_motivo').innerHTML         = "";
+
+            $('#div_confirmar').modal("show");
+
+            document.getElementById('lbl_descrip_seleccionada').innerHTML         = descripTramite;
+
+            if (tipoTramite == 'P'){
+                document.getElementById('modal_impre').style.background="#f39c12";
+
+                document.getElementById('lbl_tramite').style.color ="#f39c12";
+                document.getElementById('lbl_tramite').style.borderBottom ="2px solid #f39c12";
+
+                document.getElementById('lbl_descrip_seleccionada').style.background="#f39c12";
+            }else if (tipoTramite == 'C'){
+                document.getElementById('modal_impre').style.background="#17a2b8";
+
+                document.getElementById('lbl_tramite').style.color ="#17a2b8";
+                document.getElementById('lbl_tramite').style.borderBottom ="2px solid #17a2b8";
+
+                document.getElementById('lbl_descrip_seleccionada').style.background="#17a2b8";
+            }else if (tipoTramite == 'M'){
+                document.getElementById('modal_impre').style.background="#dc3545";
+
+                document.getElementById('lbl_tramite').style.color ="#dc3545";
+                document.getElementById('lbl_tramite').style.borderBottom ="2px solid #dc3545";
+
+                document.getElementById('lbl_descrip_seleccionada').style.background="#dc3545";
+            }else if(tipoTramite == 'T'){
+                document.getElementById('modal_impre').style.background="#6c757d";
+
+                document.getElementById('lbl_tramite').style.color ="#6c757d";
+                document.getElementById('lbl_tramite').style.borderBottom ="2px solid #6c757d";
+
+                document.getElementById('lbl_descrip_seleccionada').style.background="#6c757d";
+            }else if(tipoTramite == 'E'){
+                document.getElementById('modal_impre').style.background="#00a65a";
+
+                document.getElementById('lbl_tramite').style.color ="#00a65a";
+                document.getElementById('lbl_tramite').style.borderBottom ="2px solid #00a65a";
+
+                document.getElementById('lbl_descrip_seleccionada').style.background="#00a65a";
+            }else if(tipoTramite == 'J'){
+                document.getElementById('modal_impre').style.background="#bcc568";
+
+                document.getElementById('lbl_tramite').style.color ="#bcc568";
+                document.getElementById('lbl_tramite').style.borderBottom ="2px solid #bcc568";
+
+                document.getElementById('lbl_descrip_seleccionada').style.background="#bcc568";
+            }else if(tipoTramite == 'V'){
+                document.getElementById('modal_impre').style.background="#98c18f";
+
+                document.getElementById('lbl_tramite').style.color ="#98c18f";
+                document.getElementById('lbl_tramite').style.borderBottom ="2px solid #98c18f";
+
+                document.getElementById('lbl_descrip_seleccionada').style.background="#98c18f";
+            }
+        }
+
+        function AltaTicket(tipoTramite, descrip_tramite){
+            //------------------------------------
+            //ALTA TICKET
+            //------------------------------------
+            //MUESTRA MODAL DE TICKET
+            //$("#divconfi").modal("hide");
+            //var tipoTramite     = document.getElementById('lbl_tipo_tramite').innerHTML ;
+            var n_motivo        = "";
+            //var descrip_tramite = document.getElementById('lbl_descrip_seleccionada').innerHTML;
+            var dniIngresado = {{ dniIngresado }};
+
+            document.getElementById('txt_sn').value="1";
+            $('#div_modal_ticket').modal("show");
+
+            $.ajax({
+                type: 'GET',
+                data:"tipo_tk=" + tipoTramite + '&' + 'n_motivo='+n_motivo+ '&' + 'dniIngresado='+dniIngresado,//data: { apesel: q},
+                url:"{{ url('AltaTicket') }}",
+                success:function(data){
+                    //********************************
+                    //CIERRA MODAL Y RECARGA LA PAGINA
+                    //********************************
+                    lista_resp  = data;
+                    nrotk       = lista_resp[0].c_nrotk;
+                    ttramite    = tipoTramite;
+                    var apesel  = lista_resp[0].c_apeynom;
+
+                    self.focus();
+                    document.getElementById("h_nrotk").innerHTML =nrotk;
+
+                    setTimeout(function() {
+
+                        $('#div_modal_ticket').modal('hide');
+
+                        if (apesel !=='-'){
+                            document.getElementById('p_bienvenido').innerHTML = "Bienvenido: ";
+                            document.getElementById('apeynom_sel').innerHTML = apesel;
+                        }
+
+                        document.getElementById('nro_tk').innerHTML = nrotk;
+                        document.getElementById('tramite_sel').innerHTML = "Tramite: " +descrip_tramite;
+
+                        var ficha = document.getElementById('dvdImprim');
+                        var options = "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no, width=2,height=2,left=0,top=0";
+                        var ventimp = window.open('','popimpr',options);
+
+                        ventimp.document.write(ficha.innerHTML);
+                        ventimp.document.close();
+                        $('#divModalConfTicket').modal('show');
+
+                        ventimp.print();
+
+                        $('#h_nrotk').focus();
+
+                        ventimp.close();
+                        window.close();
+
+                        location.href = "{{   url('inicioPantalla')}}";
+
+                    }, 2000);
+
+                }
+            })//ajax
+
+            /* nrotk=2;
+             $.ajax({
+                 type: 'GET',
+                 data:"nrotk=" + nrotk + '&' + 'ttramite='+tipoTramite,//data: { apesel: q},
+                 url:"{ url('imprimirTicket') }}",
+                 success:function(data){
+                     //********************************
+                     //CIERRA MODAL Y RECARGA LA PAGINA
+                     //********************************
+                     url = "../../filas.pdf";
+
+                     //print_pdf(url);
+
+                     setTimeout(function() {
+                         location.href = "{    url('inicioPantalla')}}";
+
+                     }, 8000);
+                 }
+             })//ajax*/
+
+        }//end function
+
+    </script>
+{% endblock %}

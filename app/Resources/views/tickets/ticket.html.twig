@@ -1,0 +1,108 @@
+
+{% block body %}
+    <div id="Imprime" class="imprime">
+        <p style="text-align: right; margin:0px; padding-top: 0px !important; font-size: 12px;">{{ "Now"|date('d/m/Y H:i') }}</p>
+        <br>
+        <p style="text-align: center; margin:0px; padding-top: 0px !important;">DIRECCIÓN DE RENTAS</p>
+        <br>
+        -----------------------------------------------
+        <br>
+        <p style="text-align: center; margin:0px;">NRO.TICKET</p> <br>
+        <h2 style="font-size:70px; font-weight:bolder; margin:0px; text-align: center;">{{ nrotk }}</h2>
+        <p style="text-align: center; margin:0px; font-size: 12px;">Trámite:{{ ttramite }}</p> <br>
+
+        <br>
+        -----------------------------------------------
+        <p style="text-align: center; margin:0px; font-size: 12px;">Municipalidad de Chivilcoy</p> <br>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body, html {
+            width: 10px;
+            height: 10px;
+        }
+
+        header {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            min-height: 50px;
+            width: 100%;
+        }
+
+        footer {
+            height: 53px;
+            min-height: 53px;
+            width: 100%;
+            line-height: 60px;
+            background-color: #4C4;
+        }
+
+
+        p{
+            border-top: 1px solid #f5f5f5;
+        }
+
+        label{
+            padding: 10px;
+            width:100%;
+            text-align:center;
+            font-size: 38px;
+
+        }
+
+        .imprime{
+            max-width: 274px;
+            max-height: 292px;
+            width: 265px;
+        }
+
+        selector {
+            cursor: none;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        /*window.onload = function() {
+            window.print();
+        }*/
+
+
+
+        var ficha = document.getElementById('Imprime');
+
+        var ventimp = window.open('','popimpr',"width=280,height=300");
+
+        ventimp.document.write(ficha.innerHTML);
+        ventimp.document.close();
+
+        ventimp.print();
+
+
+
+        //setTimeout(function () { window.print(ficha); }, 500);
+        /////////////window.print(ficha);
+        ///////////setTimeout(function () { cerraryVolver(); }, 3000);
+
+        //window.onfocus = function () { setTimeout(function () { alert('entro'); }, 3000); }
+
+       // window.print(ficha);
+        //window.setTimeout(cerraryVolver(),5000);
+        ventimp.close();
+        window.close();
+        //self.close();
+
+        //window.onfocus=function(){ window.close();}
+
+        location.href = "{{   url('inicioPantalla')}}";
+        function  cerraryVolver() {
+            window.close();
+            location.href = "{{   url('inicioPantalla')}}";
+        }
+    </script>
+{% endblock %}

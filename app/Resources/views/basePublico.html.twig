@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=0">
+    <mete http-equiv="X-UA-Compatible" content="ie=edge"></mete>
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+    <!-- ----------------- -->
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/loader.css') }}">
+    <link rel="stylesheet" href="{{  asset('css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
+    <!-- ----------------- -->
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('js/popper.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+
+    <!-- ----------------- -->
+    <link rel="stylesheet" type="text/css" href="{{  asset('fonts/font-awesome.min.css') }}" >
+    <!-- <link href="{ asset('css/bootstrap-glyphicons.min.css') }}" rel="stylesheet" type="text/css" /> -->
+</head>
+<body>
+
+{% block body %}
+
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,236 @@
+{% extends 'basePublico.html.twig' %}
+
+{% block body %}
+   <!-- <div class="wrapper">-->
+
+        <div class="jumbotron bg bg-success text-white">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="offset-2 col-8">
+                        <h1> Dirección de Rentas   </h1>
+
+                        <p> Te damos la Bienvenida al Sistema de Tickets</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Page Content -->
+
+        <div class="container justify-content-center align-items-center" id="div_principal">
+
+            <div class="row">
+                <div class="col-lg-12 col-sm-12" id="div_contri" >
+                    <div class="bd-callout bd-callout-success">
+                        <h4 class="text-center text-dark pt-2"><strong>-PODRAS SELECCIONAR EL MOTIVO DE LA CONSULTA</strong> </h4>
+                        <h5 class="text-center text-dark pt-2"><strong>- ESCRIBANO -</strong> </h5>
+                        <h5 class="text-center text-dark pt-2"><strong>- INMUEBLES -</strong> </h5>
+                        <h5 class="text-center text-dark pt-2"><strong>- COMERCIOS -</strong> </h5>
+                        <h5 class="text-center text-dark pt-2"><strong>- RODADOS -</strong> </h5>
+                        <h5 class="text-center text-dark pt-2"><strong>- CEMENTERIO -</strong> </h5>
+
+                        <h5 class="text-center text-dark pt-3"><kbd><strong>PARA CONTINUAR PRECIONA EN CUALQUIER PARTE</strong></kbd> </h5>
+                    </div>
+                   <!-- <div class="bd-callout bd-callout-success">
+                        <h5 class="text-center text-success pt-3"><strong>PARA CONTINUAR PRECIONA EN CUALQUIER PARTE</strong> </h5>
+                    </div>-->
+                </div>
+            </div>
+
+            <!-- /.modal -->
+        </div>
+
+        <!-- /.container -->
+
+
+
+        <!-- Footer -->
+      <footer class="main-footer bg bg-success">
+                <span class="head-img">
+                    <img src="/rentas_turnos/web/img/muni.png">
+                </span></h1>
+        </footer>
+
+    <!--</div>-->
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+
+    html {
+        height: 100%;
+    }
+
+    html body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    html body .container-fluid.body-content {
+       /* background: white;
+        width: 100%;*/
+       /* overflow-y: auto;*/
+    }
+
+    /*header {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        min-height: 50px;
+        width: 100%;
+    }
+*/
+    .jumbotron{
+        /*min-height: 80px;
+        max-height: 180px;*/
+        height: 18%;
+        padding: 0px!important;
+        padding-bottom: 5px!important;
+        padding-top: 5px!important;
+    }
+
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        line-height: 40px;
+        min-height: 40px;
+    }
+
+    .btn-warning-b{
+        border: 2px solid #f80!important;
+        background-color: transparent!important;
+        color: #f80!important;
+    }
+
+
+    .container {
+        height: 65%;
+    }
+
+
+
+    .main-footer {
+
+        text-align: center;
+        background-color: #33BB66;
+        color: white;
+        /*max-height: 40px;*/
+    }
+
+
+    p{
+        border-top: 1px solid #f5f5f5;
+    }
+
+    .card-head{
+        background-color: rgba(0,0,0,.03);
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .primary-color{
+        background-color: #4285f4!important;
+    }
+
+    .success-color {
+        background-color: #a6c!important;
+    }
+
+    .orange-color {
+        background-color: #ff7043!important;
+    }
+
+
+    .mdb-color{
+        background-color: #7283a7!important;
+    }
+
+    .border-rr{
+        border-color: #7283a7!important;
+    }
+
+
+
+    .info-box {
+        display: block;
+        min-height: 90px;
+        background: #fff;
+        width: 100%;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        border-radius: 2px;
+        margin-bottom: 15px;
+    }
+
+    .info-box-icon {
+        border-top-left-radius: 2px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 2px;
+        display: block;
+        float: left;
+        height: 90px;
+        width: 90px;
+        text-align: center;
+        font-size: 45px;
+        line-height: 90px;
+        background: rgba(0,0,0,0.2);
+    }
+
+    .info-box-content {
+        padding: 5px 10px;
+        margin-left: 90px;
+    }
+
+    .info-box-text {
+        text-transform: uppercase;
+        color: #fff!important;
+        font-size: 30px;
+        text-align: center;
+    }
+
+
+
+    .modal-body{
+        padding: 0px;
+        padding:0px;
+    }
+
+    .dropdown-item{
+        font-size: 30px;
+    }
+
+    .bd-callout {
+        padding: 1.25rem;
+        margin-top: 1.25rem;
+        margin-bottom: 1.25rem;
+        border: 1px solid #eee;
+        border-left-width: .25rem;
+        border-radius: .25rem;
+    }
+
+    .bd-callout-success {
+        border-left-color: #5cb85c!important;
+    }
+</style>
+{% endblock %}
+{% block javascripts %}
+        <script>
+
+            $(document).ready(function(){
+                $( "#div_principal" ).click(function() {
+                    location.href = "{{ url('tramites') }}";
+                    //if (tipo_tramite=='N'){location.href = "{{ url('BuscaMotivos',{'tipoTramite' : 'N' } ) }}";}
+                });
+            });
+
+            function mostrar_lista(){
+                $('#div_modal_contri').modal('show');
+            }
+        </script>
+{% endblock %}

@@ -1,0 +1,346 @@
+{% extends 'basePublico.html.twig' %}
+
+{% block body %}
+   <!-- <div class="wrapper">-->
+
+
+    <!--<header style="margin-top: -10px;background-color: #33BB66; " >
+        <nav class="navbar navbar-static-top" role="navigation" style="position:relative;">
+            <div class="row w-100">
+                <div class="col-md-4 offset-4">
+                     <span class="head-title text-center">
+                        <h1 class="pt-2 display-3" style="font-size: 2.8rem; color: #f5f5f5;"> Dirección de Rentas   </h1>
+                    </span>
+                </div>
+                <div class="col-2 offset-2">
+                     <span class="head-img">
+                        <img src="{ asset('img/muni.png') }}" class="pt-3">
+                    </span>
+                </div>
+            </div>
+        </nav>
+    </header>-->
+
+    <!--<div class="sidenav">
+        <div class="login-main-text">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="pt-2 display-4" style="font-size: 3.2rem;border-bottom: 1px solid #f5f5f5;"> Dirección de Rentas   </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="head-img" style="display: block; width: 50%; margin-left: auto; margin-right: auto;">
+                        <img src="/rentas_turnos/web/img/muni.png">
+                    </span>
+                </div>
+
+                <br><br><br><br>
+
+                <div class="row" style="margin-top:50px; border-bottom: 1px solid #fff; border-top: 1px solid #fff; padding-bottom: 5px; padding-top: 5px;">
+                    <div class="col-sm-12">
+                        {%  set dia= "now"|date('l') %}
+                        {%  set nrodia = "now"|date('d') %}
+                        {%  set mes = "now"|date('m') %}
+                        {%  set an = "now"|date('Y') %}
+
+                        {% if mes == '01' %}
+                            {% set mes= "ENERO" %}
+                        {% elseif mes == '02' %}
+                            {% set mes= "FEBRERO" %}
+                        {% elseif mes == '03' %}
+                            {% set mes= "MARZO" %}
+                        {% elseif mes == '04' %}
+                            {% set mes= "ABRIL" %}
+                        {% elseif mes == '05' %}
+                            {% set mes= "MAYO" %}
+                        {% elseif mes == '06' %}
+                            {% set mes= "JUNIO" %}
+                        {% elseif mes == '07' %}
+                            {% set mes= "JULIO" %}
+                        {% elseif mes == '08' %}
+                            {% set mes= "AGOSTO" %}
+                        {% elseif mes == '09' %}
+                            {% set mes= "SEPTIEMBRE" %}
+                        {% elseif mes == '10' %}
+                            {% set mes= "OCTUBRE" %}
+                        {% elseif mes == '11' %}
+                            {% set mes= "NOVIEMBRE" %}
+                        {% elseif mes == '12' %}
+                            {% set mes= "DICIEMBRE" %}
+                        {% endif %}
+
+
+                        {% if dia == 'Monday' %}
+                            {% set dia= "LUNES" %}
+                        {% elseif dia == 'Tuesday' %}
+                            {% set dia= "MARTES" %}
+                        {% elseif dia == 'Wednesday' %}
+                            {% set dia= "MIERCOLES" %}
+                        {% elseif dia == 'Thursday' %}
+                            {% set dia= "JUEVES" %}
+                        {% elseif dia == 'Friday' %}
+                            {% set dia= "VIERNES" %}
+                        {% elseif dia == 'Saturday' %}
+                            {% set dia= "SABADO" %}
+                        {% elseif dia == 'Sunday' %}
+                            {% set dia= "DOMINGO" %}
+                        {% endif %}
+
+                        <p class="text-center" style="letter-spacing: 5px; font-weight: 700;font-size: 18px;">{{ dia }} {{ nrodia }} de {{ mes }} del {{ an }} </p>
+                        <div id="clock-1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Page Content -->
+    <div class="container" style="height:92%;position: relative;width: 100%;" >
+        <!--<div class="col-md-12 col-sm-12">
+          <div class="login-form">-->
+                <!--<div class="container justify-content-center align-items-center" id="div_principal">-->
+                    <!--<div class="row pt-5">
+                        <div class="col-md-8 offset-1">
+                            <div class="jumbotron  text-white p-3 mx-auto bg-dark">
+                                <div class="offset-md-2 col-md-10 px-0">
+                                    <h1 class="display-4" align="center" style="font-size: 3.2rem;">Sistema de Tickets</h1>--border-bottom: 1px solid #f5f5f5;--
+                                    <p class="lead my-3" align="center">-PODRAS SELECCIONAR EL MOTIVO DE TU CONSULTA-</p>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!--<div class="row h-100">-->
+                        <div style="position: absolute;  top: 50%;  left: 50%;transform: translate(-50%,-50%);width: 100%;">
+                            <p class="lead mb-0 mx-auto" align="center" style="margin-top:40px; border-bottom: 1px solid #fff; border-top: 1px solid #fff; padding-bottom: 28px; padding-top: 28px; letter-spacing: 5px; box-shadow: 1px 1px 6px grey">
+                                <a href="#" class="text-white font-weight-bold">
+                                    TOQUE LA PANTALLA PARA CONTINUAR
+
+                                </a>
+                                <br>
+                                <a href="#" class="text-white lead my-3">
+                                    -PODRAS SELECCIONAR EL MOTIVO DE TU CONSULTA-
+                                </a>
+                            </p>
+                            <!--<p class="lead my-3" align="center" style="color: #fff!important;">-PODRAS SELECCIONAR EL MOTIVO DE TU CONSULTA-</p>-->
+                        </div>
+                    <!--</div>-->
+                <!--</div>-->
+           <!-- </div>
+        </div>-->
+    </div>
+    <!-- <div class="main">
+       <div class="col-md-12 col-sm-12">
+            <div class="login-form">
+                <div class="container justify-content-center align-items-center" id="div_principal">
+                    <div class="row">
+                        <div class="jumbotron  text-white p-3 mx-auto bg-dark">
+                            <div class="offset-md-2 col-md-10 px-0">
+                                <h1 class="display-4" align="center" style="font-size: 3.2rem;border-bottom: 1px solid #f5f5f5;">Sistema de Tickets</h1>
+                                <p class="lead my-3" align="center">-PODRAS SELECCIONAR EL MOTIVO DE TU CONSULTA-</p>
+                                <br>
+                            </div>
+                        </div>
+                        <p class="lead mb-0 mx-auto" align="center" style="margin-top:40px; border-bottom: 1px solid #fff; border-top: 1px solid #fff; padding-bottom: 28px; padding-top: 28px; letter-spacing: 5px">
+                            <a href="#" class="text-white font-weight-bold">TOQUE LA PANTALLA PARA CONTINUAR</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+
+    <!--<footer class="main-footer d-none d-md-block d-lg-block mt-4" style="height:10%!important;">-->
+    <footer class="main-footer d-none d-md-block d-lg-block mt-2" style="height: 8%;">
+        <div style="display: flex;">
+                     <span class="head-img">
+                        <img src="{{ asset('img/muni.png') }}" class="pt-3">
+                    </span>
+            <h1 class="pt-2 display-3" style="font-size: 2.8rem; color: #f5f5f5;display: flex; align-items: center;  justify-content: center;  margin: 0 auto;"> Dirección de Rentas   </h1>
+        </div>
+
+        <!--<nav class="navbar navbar-static-top" role="navigation" style="position:relative; background-color: #33BB66;">
+            <div class="row w-100">
+                <div class="col-md-4 offset-6">
+                     <span class="head-title text-right">
+                        <h1 class="pt-2 display-3" style="font-size: 2.8rem; color: #f5f5f5;"> Dirección de Rentas   </h1>
+                    </span>
+                </div>
+                <div class="col-2">
+                     <span class="head-img">
+                        <img src="{ asset('img/muni.png') }}" class="pt-3">
+                    </span>
+                </div>
+            </div>
+        </nav>-->
+    </footer>
+
+
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" media="all" href="{{ asset("css/timeTo.css") }}">
+
+<style>
+    html{
+        background-color: #fff!important;
+        cursor: none;
+    }
+
+    selector {
+        cursor: none;
+    }
+
+    .timeTo.timeTo-black div{
+        background: #fff!important;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    }
+
+    .timeTo div{
+        border-top: none!important;
+        border-right: none!important;
+        border-bottom: none!important;
+        border-left: none!important;
+    }
+
+    body {
+        font-family: "Lato", sans-serif;
+        background-color:#fff!important;
+        overflow-y: hidden;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    .sidenav {
+        height: 100%;
+        background-color: #28a745!important;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
+    .main {
+        padding: 0px 10px;
+    }
+
+    .my_auto{
+        margin-top: auto!important;
+        margin-bottom: auto!important;
+    }
+
+    footer {
+        height: 53px;
+        min-height: 53px;
+        width: 100%;
+        line-height: 53px;
+        background-color: #33BB66!important;/*#28a745!important;*/
+        z-index: 170!important;
+        position: absolute;
+        text-align: center;
+        color: #f5f5f5;
+        font-size: 14px;
+    }
+
+
+    @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+    }
+
+    @media screen and (max-width: 450px) {
+        .login-form{
+            margin-top: 10%;
+        }
+    }
+
+    @media screen and (min-width: 768px){
+        .main{
+            margin-left: 40%;
+        }
+
+        .sidenav{
+            width: 45%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+        }
+
+        .login-form{
+            margin-top: 25%;
+        }
+
+        .lead {
+            font-size: 40px!important;
+        }
+
+
+    }
+
+    .login-main-text{
+        margin-top: 20%;
+        padding: 60px;
+        color: #fff;
+    }
+
+    .login-main-text h2{
+        font-weight: 300;
+    }
+
+    .photo {
+        display: table;
+    }
+    .photo a {
+        vertical-align: middle;
+        display: table-cell;
+    }
+    .photo img {
+        display: block;
+        height: auto;
+        width: 100%;
+    }
+
+    a{
+        color: #343a40!important;
+        font-weight: 600!important;
+    }
+</style>
+{% endblock %}
+{% block javascripts %}
+        <script src={{ asset("js/jquery.min.js")}}></script>
+        <script src={{ asset("js/jquery.time-to.js") }}></script>
+
+        <script>
+
+            $(document).ready(function(){
+                $( "html" ).click(function() {
+                    location.href = "{{ url('documento') }}";
+                });
+            });
+
+            function mostrar_lista(){
+                $('#div_modal_contri').modal('show');
+            }
+
+            /**
+             * Simple digital clock
+             */
+            $('#clock-1').timeTo({
+                theme: "black",
+            });
+
+            function getRelativeDate(days, hours, minutes) {
+                var d = new Date(Date.now() + 60000 /* milisec */ * 60 /* minutes */ * 24 /* hours */ * days /* days */);
+
+                d.setHours(hours || 0);
+                d.setMinutes(minutes || 0);
+                d.setSeconds(0);
+
+                return d;
+            }
+        </script>
+{% endblock %}

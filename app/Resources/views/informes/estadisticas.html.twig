@@ -1,0 +1,694 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        body{
+            background-color: #ecf0f5!important;
+        }
+
+        .box.box-primary {
+            border-top-color: #3c8dbc;
+        }
+
+        .box.box-info {
+            border-top-color: #00c0ef;
+        }
+
+        .box.box-success {
+            border-top-color: #00a65a;
+        }
+
+        .box {
+            position: relative;
+            border-radius: 3px;
+            background: #ffffff;
+            border-top: 3px solid #d2d6de;
+            margin-bottom: 20px;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .box-header.with-border {
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .box-header {
+            color: #444;
+            display: block;
+            padding: 10px;
+            position: relative;
+        }
+
+        .box-header>.fa, .box-header>.glyphicon, .box-header>.ion, .box-header .box-title {
+            display: inline-block;
+            font-size: 18px;
+            margin: 0;
+            line-height: 1;
+        }
+
+        h1, h2, h3{
+            font-family: 'Source Sans Pro',sans-serif;
+        }
+
+        .box-header>.box-tools {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+        }
+
+        .box-body {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            padding: 10px;
+        }
+
+        .modal-header-danger {
+            color:#fff;
+            padding:9px 15px;
+            border-bottom:1px solid #eee;
+            background-color: #d9534f;
+            -webkit-border-top-left-radius: 5px;
+            -webkit-border-top-right-radius: 5px;
+            -moz-border-radius-topleft: 5px;
+            -moz-border-radius-topright: 5px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+        Chart.defaults.global.animation.duration = 5000;
+        Chart.defaults.global.animation.easing = 'easeOutQuad';
+        Chart.defaults.global.tooltips.callbacks.label = function(t, e) { return t.ylabel; };
+        //**************************************************
+
+        //***************************************************
+
+        var data = {
+        labels: ["Escribano - {{ total_escribano }}","Inmuebles - {{ total_inmueble }}","Comercios - {{ total_comercio }}","Rodados - {{ total_moto }}","Cementerio - {{ total_cementerio }}","Juicio - {{ total_juicio }}","Varios - {{ total_varios }}","Arba - {{ total_arba }}", "Cancelados -{{ total_otros }}"],
+        datasets: [
+        {
+            label: "Total ({{ total }})",
+            backgroundColor: [
+            '#28a745',
+            '#f0ad4e',
+            '#17a2b8',
+            '#dc3545',
+            '#6c757d',
+            '#007bff',
+            '#e1e6ea',
+            '#000000',
+
+            ],
+            borderColor: [
+            '#28a745',
+            '#f0ad4e',
+            '#17a2b8',
+            '#dc3545',
+            '#6c757d',
+             '#007bff',
+            '#e1e6ea',
+            '#000000',
+            ],
+            borderWidth: 2,
+            data: [{{ total_escribano }}, {{ total_inmueble }}, {{ total_comercio }}, {{ total_moto }},{{ total_cementerio }},{{ total_juicio }},{{ total_varios }},{{ total_arba }},{{ total_otros }}],
+        },
+        {
+            label: "Escribano ({{ total_escribano }})",
+            backgroundColor: [
+                '#28a745',
+            ],
+            borderColor: [
+                '#28a745',
+            ],
+            borderWidth: 1,
+            data: [{{ total_escribano }},{{ total_inmueble }},{{ total_comercio }}, {{ total_moto }}, {{ total_cementerio }},{{ total_juicio }},{{ total_varios }},{{ total_arba }},{{ total_otros }}],
+        },{
+            label: "Inmueble ({{ total_inmueble }})",
+            backgroundColor: [
+                '#f0ad4e',
+            ],
+            borderColor: [
+                '#f0ad4e',
+            ],
+            borderWidth: 1,
+            data: [{{ total_escribano }},{{ total_inmueble }},{{ total_comercio }},{{ total_moto }},{{ total_cementerio }},{{ total_juicio }},{{ total_varios }},{{ total_arba }},{{ total_otros }}],
+        },
+        {
+            label: "Comercio ({{ total_comercio }})",
+            backgroundColor: [
+                '#17a2b8',
+            ],
+            borderColor: [
+                '#17a2b8',
+            ],
+            borderWidth: 1,
+            data: [{{ total_escribano }}, {{ total_inmueble }},{{ total_comercio }},{{ total_moto }}, {{ total_cementerio }},{{ total_juicio }},{{ total_varios }},{{ total_arba }},{{ total_otros }}],
+        },
+        {
+            label: "Rodados ({{ total_moto }})",
+            backgroundColor: [
+                '#dc3545',
+            ],
+            borderColor: [
+                '#dc3545',
+            ],
+            borderWidth: 1,
+            data: [{{ total_escribano }},{{ total_inmueble  }},{{ total_comercio }},{{ total_moto }}, {{ total_cementerio }},{{ total_juicio }},{{ total_varios }},{{ total_arba }},{{ total_otros }}],
+        },
+        {
+            label: "Cementerio ({{ total_cementerio }})",
+            backgroundColor: [
+                '#6c757d',
+            ],
+            borderColor: [
+                '#6c757d',
+            ],
+            borderWidth: 1,
+            data: [{{ total_escribano }},{{ total_inmueble }},{{ total_comercio }},{{ total_moto }},{{ total_cementerio }},{{ total_juicio }},{{ total_varios }},{{ total_arba }},{{ total_otros }}],
+        },
+            {
+                label: "Juicio ({{ total_juicio }})",
+                backgroundColor: [
+                    '#007bff',
+                ],
+                borderColor: [
+                    '#007bff',
+                ],
+                borderWidth: 1,
+                data: [{{ total_escribano }},{{ total_inmueble }},{{ total_comercio }},{{ total_moto }},{{ total_cementerio }},{{ total_juicio }},{{ total_varios }},{{ total_arba }},{{ total_otros }}],
+            },
+            {
+                label: "Varios ({{ total_varios }})",
+                backgroundColor: [
+                    '#e1e6ea',
+                ],
+                borderColor: [
+                    '#e1e6ea',
+                ],
+                borderWidth: 1,
+                data: [{{ total_escribano }},{{ total_inmueble }},{{ total_comercio }},{{ total_moto }},{{ total_cementerio }},{{ total_juicio }},{{ total_varios }},{{ total_arba }},{{ total_otros }}],
+            },
+            {
+                label: "Arba ({{ total_arba }})",
+                backgroundColor: [
+                    '#17d6eb',
+                ],
+                borderColor: [
+                    '#17d6eb',
+                ],
+                borderWidth: 1,
+                data: [{{ total_escribano }},{{ total_inmueble }},{{ total_comercio }},{{ total_moto }},{{ total_cementerio }},{{ total_juicio }},{{ total_varios }},{{ total_arba }},{{ total_otros }}],
+            },
+            {
+                label: "Cancelados ({{ total_otros }})",
+                backgroundColor: [
+                    '#000000',
+                ],
+                borderColor: [
+                    '#000000',
+                ],
+                borderWidth: 1,
+                data: [{{ total_escribano }},{{ total_inmueble }},{{ total_comercio }},{{ total_moto }},{{ total_cementerio }},{{ total_juicio }},{{ total_varios }},{{ total_arba }},{{ total_otros }}],
+            }
+        ]
+        };//var data
+
+        //***************************************************
+        //***************************************************
+
+        var datos_tipos_tramites = {
+            labels: [
+                "ESCRIBANO ({{ total_escribano_mes }})",
+                "INMUEBLE ({{ total_inmueble_mes }})",
+                "COMERCIO ({{ total_comercio_mes }})",
+                "RODADOS ({{ total_moto_mes  }})",
+                "CEMENTERIO ({{ total_cementerio_mes }})",
+                "JUICIO ({{ total_juicio_mes }})",
+                "VARIOS ({{ total_varios_mes }})",
+                "ARBA ({{ total_arba_mes }})",
+                "CANCELADOS ({{ total_otros_mes }})"
+            ],
+            datasets: [
+            {
+                data: [{{ total_escribano_mes }},{{ total_inmueble_mes }},{{ total_comercio_mes }},{{ total_moto_mes  }},{{ total_cementerio_mes }},{{ total_juicio_mes }},{{ total_varios_mes }},{{ total_arba_mes }},{{ total_otros_mes }}],
+                backgroundColor: [
+                    "#28a745",
+                    "#f0ad4e",
+                    "#17a2b8",
+                    '#dc3545',
+                    '#6c757d',
+                    '#007bff',
+                    '#e1e6ea',
+                    '#17d6eb',
+                    '#000000'
+                ],
+                hoverBackgroundColor: [
+                    "#32cd56",
+                    "#f3bd72",
+                    "#19b4cc",
+                    '#e87d88',
+                    '#848d94',
+                    '#66b0ff',
+                    '#f0f2f5',
+                    '#b3f0ff',
+                    '#595959'
+                ]
+            }]
+        };
+        //**************************************************
+
+        var ctx   = document.getElementById("data").getContext("2d");
+        var ctx_7 = document.getElementById("data_7").getContext("2d");
+        var datos_tipos_tramites_gfx = document.getElementById("datos_tipos_tramites").getContext("2d");
+        //**************************************************
+        var myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive:true,
+                scales: {
+                    xAxes: [{
+                        stacked: true
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            max: 100,
+                            min: 0,
+                            stepSize: 20
+                        }
+                    }]
+                }
+            }
+        });
+
+
+        //***************************************************
+        var myDoughnutdatostipostramites = new Chart(datos_tipos_tramites_gfx, {
+        type: 'doughnut',
+        data: datos_tipos_tramites,
+        });
+        //***************************************************
+
+        var myChart = new Chart(ctx_7, {
+        type: 'bar',
+        data: {
+            labels: [
+                {% for rgconsulta in datosEstadisticas
+
+                %}
+                        '{{ rgconsulta.fecha_turno|date('m-d')  }}',
+                {% endfor  %}
+            ],
+            datasets: [
+            {
+                type: 'line',
+                label: 'Cantidad turnos últimos 10 días',
+                fill: true,
+                lineTension: 0.1,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "rgba(75,192,192,1)",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: "rgba(75,192,192,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: [
+                    {% for rgconsulta in datosEstadisticas %}
+                    '{{ rgconsulta.cantidad }}',
+                    {% endfor  %}
+                ],
+            }
+            ]
+        }
+        });//end myChart
+
+        })
+
+
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="wrapper">
+        {% include 'default/menu.html.twig' %}
+            <div class="container" style="margin-top: 20px;">
+                <section class="content-header" style="border-bottom: 2px solid #00c0ef;">
+                    <h1 style="font-size: 24px; font-family: 'Source Sans Pro',sans-serif;">
+                        Informe  - Estadisticas
+                    </h1>
+                </section>
+
+                <div class="row" style="padding: 15px;">
+                    <div class="col-md-12">
+                        <div class="box box-info">
+                            <div class="box-header with-border" style="background-color: #e6faff;">
+                                <h3 class="box-title">Total por Usuario:(mes de {{ mes_hoy }}):</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="table-responsive col-md-12 w-100">
+                                    <table class="table table-hover" width="100%" id="tablaXusuario" name="tablaXusuario">
+                                        <thead>
+                                        <tr style="background-color: #ccc;">
+                                            <th scope="col" style="width: 30%">USUARIO</th>
+                                            <th scope="col" style="width: 10%">TOTAL</th>
+                                            {% for tTramite in tipoTramite %}
+                                                <th scope="col" style="width: 5%">{{ tTramite.descripcion }}</th>
+                                            {% endfor %}
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        {% set tArba =0 %}
+                                        {% set tCementerio =0 %}
+                                        {% set tComercio =0 %}
+                                        {% set tEscribano=0 %}
+                                        {% set tInmueble =0 %}
+                                        {% set tJuicio =0 %}
+                                        {% set tRodado =0 %}
+                                        {% set tVarios =0 %}
+                                        {% set tOtros =0 %}
+                                        {% set tTodo =0 %}
+                                        {% for datos_Usuario in total_x_usuario %}
+                                                <tr>
+                                                    <td>{{ datos_Usuario.us_nombre }}</td>
+                                                    <td>{{ datos_Usuario.cantidad }}</td>
+                                                    {% for tTramite in tipoTramite %}
+                                                        {% set color_tramite = 'color:#000!important;' %}
+                                                        {% if tTramite.descripcion =='INMUEBLES' %}
+                                                            {%  set color_tramite = 'color:#f39c12!important;'  %}
+                                                        {% elseif (tTramite.descripcion =='COMERCIOS') %}
+                                                            {%  set  color_tramite = 'color:#17a2b8!important;'  %}
+                                                        {% elseif (tTramite.descripcion =='RODADOS') %}
+                                                            {%  set  color_tramite ='color:#dc3545!important;'  %}
+                                                        {% elseif (tTramite.descripcion =='CEMENTERIO') %}
+                                                            {%  set color_tramite = 'color:#6c757d!important;'  %}
+                                                        {% elseif (tTramite.descripcion =='JUICIO') %}
+                                                            {%  set color_tramite = 'color:#007bff!important;'  %}
+                                                        {% elseif (tTramite.descripcion =='ARBA') %}
+                                                            {%  set color_tramite = 'color:#17d6eb!important;'  %}
+                                                        {% elseif (tTramite.descripcion =='TRAMITES VARIOS') %}
+                                                            {%  set color_tramite = 'color:#e1e6ea!important;'  %}
+                                                        {% else %}
+                                                            {%  set  color_tramite = 'color:#00a65a!important;' %}
+                                                        {% endif %}
+
+                                                        {% set existe ='N' %}
+                                                        {% for datos_usert in total_x_tramite_user %}
+
+
+                                                            {% if (tTramite.descripcion == datos_usert.descripcion) %}
+                                                                {% if (datos_Usuario.us_nombre == datos_usert.us_nombre) %}
+                                                                    <td style="font-weight: bold; {{ color_tramite }}">{{ datos_usert.cantidad  }}</td>
+                                                                    {% set existe ='S' %}
+                                                                    {% if datos_usert.descripcion =='INMUEBLES' %}
+                                                                        {%  set tInmueble = tInmueble + datos_usert.cantidad %}
+                                                                    {% elseif (datos_usert.descripcion =='COMERCIOS') %}
+                                                                        {%  set tComercio = tComercio + datos_usert.cantidad %}
+                                                                    {% elseif (datos_usert.descripcion =='RODADOS') %}
+                                                                        {%  set tRodado = tRodado + datos_usert.cantidad %}
+                                                                    {% elseif (datos_usert.descripcion =='CEMENTERIO') %}
+                                                                        {%  set tCementerio = tCementerio + datos_usert.cantidad %}
+                                                                    {% elseif (datos_usert.descripcion =='JUICIO') %}
+                                                                        {%  set tJuicio = tJuicio + datos_usert.cantidad %}
+                                                                    {% elseif (datos_usert.descripcion =='ARBA') %}
+                                                                        {%  set tArba = tArba + datos_usert.cantidad %}
+                                                                    {% elseif (datos_usert.descripcion =='TRAMITES VARIOS') %}
+                                                                        {%  set tVarios = tVarios + datos_usert.cantidad %}
+                                                                    {% else %}
+                                                                        {%  set tOtros = tOtros + datos_usert.cantidad %}
+                                                                    {% endif %}
+                                                                    {%  set tTodo = tTodo + datos_usert.cantidad %}
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}
+
+                                                        {% if (existe =='N') %}
+                                                            <td style="font-weight: bold;">0</td>
+                                                        {% endif %}
+                                                    {% endfor %}
+
+                                                </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <td>TOTALES</td>
+                                            <td>{{ tTodo }}</td>
+                                            {% for tTramite in tipoTramite %}
+                                                {% set color_tramite = 'color:#000!important;' %}
+                                                {% if tTramite.descripcion =='INMUEBLES' %}
+                                                    <td style="font-weight: bold; color:#f39c12!important;">{{ tInmueble }}</td>
+                                                {% elseif (tTramite.descripcion =='COMERCIOS') %}
+                                                    <td style="font-weight: bold; color:#17a2b8!important;">{{ tComercio }}</td>
+                                                {% elseif (tTramite.descripcion =='RODADOS') %}
+                                                    <td style="font-weight: bold; color:#dc3545!important;">{{ tRodado }}</td>
+                                                {% elseif (tTramite.descripcion =='CEMENTERIO') %}
+                                                    <td style="font-weight: bold; color:#6c757d!important;">{{ tCementerio }}</td>
+                                                {% elseif (tTramite.descripcion =='JUICIO') %}
+                                                    <td style="font-weight: bold; color:#007bff!important;">{{ tJuicio }}</td>
+                                                {% elseif (tTramite.descripcion =='ARBA') %}
+                                                    <td style="font-weight: bold; color:#17d6eb!important;">{{ tArba }}</td>
+                                                {% elseif (tTramite.descripcion =='TRAMITES VARIOS') %}
+                                                    <td style="font-weight: bold; color:#e1e6ea!important;">{{ tVarios }}</td>
+                                                {% else %}
+                                                    <td style="font-weight: bold; color:#00a65a!important;">{{ tOtros }}</td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding: 15px;">
+                    <div class="col-md-6">
+                        <div class="box box-info">
+                            <div class="box-header with-border" style="background-color: #e6faff;">
+                                <h3 class="box-title">Boxes:</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="table-responsive col-md-12 w-100">
+                                    <table class="table table-hover" width="100%" id="tablaLista" name="tablaLista"><!-- table-striped  table-bordered -->
+                                        <thead>
+                                            <tr style="background-color: #ccc;">
+                                                <th scope="col" style="width: 5%">#</th>
+                                                <th scope="col" style="width: 20%">USUARIO</th>
+                                                <th scope="col" style="width: 5%">E.</th>
+                                                <th scope="col" style="width: 10%">TOTAL</th>
+                                                <th scope="col" style="width: 10%">T.ACTIVO</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for datos_box in arr_box %}
+
+                                                {% if (datos_box.ttramite =='INMUEBLES') %}
+                                                    {%  set color_tramite = 'color:#f39c12!important;'  %}
+                                                {% elseif (datos_box.ttramite =='COMERCIOS') %}
+                                                    {%  set  color_tramite = 'color:#17a2b8!important;'  %}
+                                                {% elseif (datos_box.ttramite =='RODADOS') %}
+                                                    {%  set  color_tramite ='color:#dc3545!important;'  %}
+                                                {% elseif (datos_box.ttramite =='CEMENTERIO') %}
+                                                    {%  set color_tramite = 'color:#6c757d!important;'  %}
+                                                {% elseif (datos_box.ttramite =='JUICIO') %}
+                                                    {%  set color_tramite = 'color:#007bff!important;'  %}
+                                                {% elseif (datos_box.ttramite =='TRAMITES VARIOS') %}
+                                                    {%  set color_tramite = 'color:#e1e6ea!important;'  %}
+                                                {% elseif (datos_box.ttramite =='ARBA') %}
+                                                    {%  set color_tramite = 'color:#17d6eb!important;'  %}
+                                                {% else %}
+                                                    {%  set color_tramite = 'color:#00a65a!important;' %}
+                                                {% endif %}
+
+                                                <tr>
+                                                    <td>{{ datos_box.nro_box }}</td>
+                                                    <td>{{ datos_box.id_usuario }}</td>
+                                                    {% if (datos_box.estado_box == 'A') %}
+                                                        <td style="font-weight: bold; color:#28a745!important"> <span class='fa fa-check'></span></td>
+                                                    {% else %}
+                                                        <td style="font-weight: bold; color:#dc3545!important"> <span class='fa fa-close'></span></td>
+                                                    {% endif %}
+                                                    <td>{{ datos_box.total_box }}</td>
+                                                    <td>{{ datos_box.t_vacio }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="box box-info">
+                            <div class="box-header with-border" style="background-color: #e6faff">
+                                <h3 class="box-title">Turno:</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="table-responsive col-md-12 w-100">
+                                    <table class="table table-hover" width="100%" id="tablaLista" name="tablaLista"><!-- table-striped  table-bordered -->
+                                        <thead>
+                                        <tr style="background-color: #ccc;">
+                                            <th scope="col" style="width: 7%">TICKET</th>
+                                            <th scope="col" style="width: 5%">TRAMITE</th>
+                                            <th scope="col" style="width: 8%">DNI</th>
+                                            <th scope="col" style="width: 3%">ESPERA</th>
+                                            <th scope="col" style="width: 5%">ATENDIDO</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for datos_box in arr_box %}
+
+                                            {% if (datos_box.ttramite =='INMUEBLES') %}
+                                                {%  set color_tramite = 'color:#f39c12!important;'  %}
+                                            {% elseif (datos_box.ttramite =='COMERCIOS') %}
+                                                {%  set  color_tramite = 'color:#17a2b8!important;'  %}
+                                            {% elseif (datos_box.ttramite =='RODADOS') %}
+                                                {%  set  color_tramite ='color:#dc3545!important;'  %}
+                                            {% elseif (datos_box.ttramite =='CEMENTERIO') %}
+                                                {%  set color_tramite = 'color:#6c757d!important;'  %}
+                                            {% elseif (datos_box.ttramite =='JUICIO') %}
+                                                {%  set color_tramite = 'color:#007bff!important;'  %}
+                                            {% elseif (datos_box.ttramite =='ARBA') %}
+                                                {%  set color_tramite = 'color:#17d6eb!important;'  %}
+                                            {% elseif (datos_box.ttramite =='TRAMITES VARIOS') %}
+                                                {%  set color_tramite = 'color:#e1e6ea!important;'  %}
+                                            {% else %}
+                                                {%  set  color_tramite = 'color:#00a65a!important;' %}
+                                            {% endif %}
+
+                                            <tr>
+                                                <td style="font-weight: bold; {{ color_tramite }}">{{ datos_box.ticket_turno }}</td>
+                                                <td style="font-weight: bold; {{ color_tramite }}">{{ datos_box.ttramite }}</td>
+                                                <td>{{ datos_box.dni_turno }}</td>
+                                                <td>{{ datos_box.fecha_turno }}</td>
+                                                <td>{{ datos_box.fecha_box }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding: 15px;">
+                    <div class="col-md-6">
+                        <div class="box box-primary" style="border-top-color: #f0ad4e;">
+                            <div class="box-header with-border" style="background-color: #fdf3e8;">
+                                <h3 class="box-title">Proximos en Espera: {{ total_espera }}</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="table-responsive col-md-12 w-100">
+                                    <table class="table table-hover" width="100%" id="tablaLista" name="tablaLista"><!-- table-striped  table-bordered -->
+                                        <thead>
+                                        <tr style="background-color: #ccc;">
+                                            <th scope="col" style="width: 5%">T.ESPERA</th>
+                                            <th scope="col" style="width: 5%">TICKET</th>
+                                            <th scope="col" style="width: 5%">TRAMITE</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            {% for datos_pen in arr_pendientes %}
+                                                {% if datos_pen is not empty %}
+                                                    {% if (datos_pen.a_tramite =='INMUEBLES') %}
+                                                        {%  set color_tramite = 'color:#f39c12!important;'  %}
+                                                    {% elseif (datos_pen.a_tramite =='COMERCIOS') %}
+                                                        {%  set  color_tramite = 'color:#17a2b8!important;'  %}
+                                                    {% elseif (datos_pen.a_tramite =='RODADOS') %}
+                                                        {%  set  color_tramite ='color:#dc3545!important;'  %}
+                                                    {% elseif (datos_pen.a_tramite =='CEMENTERIO') %}
+                                                        {%  set color_tramite = 'color:#6c757d!important;'  %}
+                                                    {% elseif (datos_pen.a_tramite =='JUICIO') %}
+                                                        {%  set color_tramite = 'color:#007bff!important;'  %}
+                                                    {% elseif (datos_pen.a_tramite =='ARBA') %}
+                                                        {%  set color_tramite = 'color:#17d6eb!important;'  %}
+                                                    {% elseif (datos_pen.a_tramite =='TRAMITES VARIOS') %}
+                                                        {%  set color_tramite = 'color:#e1e6ea!important;'  %}
+                                                    {% else %}
+                                                        {%  set  color_tramite = 'color:#00a65a!important;' %}
+                                                    {% endif %}
+
+                                                    <tr>
+                                                        <td>{{ datos_pen.a_fecha }}</td>
+                                                        <td style="font-weight: bold; {{ color_tramite }}">{{ datos_pen.a_ticket }}</td>
+                                                        <td style="font-weight: bold; {{ color_tramite }}">{{ datos_pen.a_tramite }}</td>
+
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- AREA CHART -->
+                        <div class="box box-primary" style="border-top-color: #6c757d!important;">
+                            <div class="box-header with-border" style="background-color: #f2f2f2;">
+                                <h3 class="box-title">Trámites (Día de Hoy): {{ total }}</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="chart">
+                                    <canvas id="data" style="height: 250px; width: 510px;" width="510" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding: 15px;">
+
+                    <div class="col-md-6">
+                        <!-- AREA CHART -->
+                        <div class="box box-primary">
+                            <div class="box-header with-border" style="background-color: #e6f2ff;">
+                                <h3 class="box-title">Total Trámites (mes de {{ mes_hoy }}):{{ mes_total }}</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="chart">
+                                    <canvas id="datos_tipos_tramites" style="height: 250px; width: 510px;" width="510" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- AREA CHART -->
+                        <div class="box box-success">
+                            <div class="box-header with-border" style="background-color: #e6ffee;">
+                                <h3 class="box-title">Tramites (Últimos 10 Días)</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="chart">
+                                    <canvas id="data_7" style="height: 250px; width: 510px;" width="510" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock %}

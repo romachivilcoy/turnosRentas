@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="wrapper">
+
+
+
+        <!-- Menú izquierdo -->
+        {% include 'default/menu.html.twig' %}
+
+        <!-- Contenido -->
+        <div class="content-wrapper" style="margin-left: 0px!important;">
+
+            <!-- Menú-->
+            <section class="content-header">
+                <h1>
+                    Menú Principal
+                    <small>Inicio</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i> Inicio</li>
+                    <li class="active">Página Principal</li>
+                </ol>
+            </section>
+
+            <!-- Cuerpo -->
+            <section class="content">
+                <div class="panel panel-headline">
+                    <div class="panel-body">
+                        <!--{ if (seccionCC is defined and seccionCC == "CUENTA_CORRIENTE") or (seccionCCAlta is defined and seccionCCAlta == "CUENTA_CORRIENTE_ALTA") or (seccionSuministro is defined and seccionSuministro == "SUMINISTRO") or (seccionSuministroAuto is defined and seccionSuministroAuto == "SUMINISTRO_AUTORIZACION") or (seccionEncuesta is defined and seccionEncuesta == "ENCUESTAS") or (seccionTransporte is defined and seccionTransporte == "TRANSPORTE") %}-->
+                        <div class="row clearfix">
+                            {% if modulos.BOX_REEMPLAZO or modulos.ADMINISTRACION %}
+
+                                    <!-- CUENTA CORRIENTE -->
+                                    <div class="col-md-4">
+                                        <div class="box box-success">
+                                            <div class="box-header with-border">
+                                                <i class="fa fa-money"></i>
+                                                <strong> TURNOS</strong>
+                                                <div class="box-tools pull-right">
+                                                    <button type="button" class="btn bg-green btn-xs" data-widget="collapse"
+                                                            title="Contraer panel"><i class="fa fa-minus"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="box-body">
+                                                {% if modulos.ADMINISTRACION %}
+                                                    <div class="col-sm-12" style="margin-bottom: 6px">
+                                                        <a href="{{ url('listaBoxes') }}">
+                                                            <button type="button" class="btn btn-block btn-success"><i class="fa fa-plus"></i> ADMINISTRACION
+                                                            </button>
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
+                                                <!--
+                                                { if  modulos.BOX_REEMPLAZO %}
+                                                    <div class="col-sm-12" style="margin-bottom: 6px">
+                                                        <a href="{ url('listaBoxes') }}"}>
+                                                            <button type="button" class="btn btn-block btn-default"><i class="fa fa-list"></i> REEMPLAZAR BOX
+                                                                C.C
+                                                            </button>
+                                                        </a>
+                                                    </div>
+                                                { endif %}-->
+                                            </div><!--boxBody-->
+                                        </div><!--box success-->
+                                    </div><!-- col-->
+
+                            {% endif  %}
+
+                            {% if modulos.ESTADISTICA or modulos.HISTORICO or modulos.ADMINISTRACION %}
+
+                                        <div class="col-md-4">
+                                            <div class="box box-success">
+                                                <div class="box-header with-border">
+                                                    <i class="fa fa-bar-chart"></i>
+                                                    <strong>INFORMES</strong>
+                                                    <div class="box-tools pull-right">
+                                                        <button type="button" class="btn bg-green btn-xs" data-widget="collapse"
+                                                                title="Contraer panel"><i class="fa fa-minus"></i></button>
+                                                    </div>
+                                                </div><!--header-->
+                                                <div class="box-body">
+                                                    {% if modulos.ESTADISTICA %}
+                                                        <div class="col-sm-12" style="margin-bottom: 6px">
+                                                            <a href="{{ url('estadisticas') }}">
+                                                                <button type="button" class="btn btn-block btn-info"><i class="fa fa-bar-chart"></i> ESTADISTICA
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if modulos.ADMINISTRACION %}
+                                                        <div class="col-sm-12" style="margin-bottom: 6px">
+                                                            <a href="{{ url('atenciones') }}">
+                                                                <button type="button" class="btn btn-block btn-default"><i class="fa fa-file-text-o"></i> INFORME
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    {% endif %}
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                            {% endif  %}
+
+                            {% if modulos.MOTIVO or modulos.REEMPLAZO or modulos.CONFIGURACION%}
+
+                                <div class="col-md-4">
+                                    <div class="box box-success">
+                                        <div class="box-header with-border">
+                                            <i class="fa fa-list"></i>
+                                            <strong>CONFIGURACION</strong>
+                                            <div class="box-tools pull-right">
+                                                <button type="button" class="btn bg-green btn-xs" data-widget="collapse"
+                                                        title="Contraer panel"><i class="fa fa-minus"></i></button>
+                                            </div>
+                                        </div><!--header-->
+                                        <div class="box-body">
+                                            {% if modulos.MOTIVO %}
+                                                <div class="col-sm-12" style="margin-bottom: 6px">
+                                                    <a href="{{ url('listaMotivos') }}">
+                                                        <button type="button" class="btn btn-block btn-warning"><i class="fa fa-plus"></i> TRAMITES / MOTIVOS
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                            {% if modulos.REEMPLAZO %}
+                                                <div class="col-sm-12" style="margin-bottom: 6px">
+                                                    <a href="{{ url('habilitarReemplazos') }}">
+                                                        <button type="button" class="btn btn-block btn-default"><i class="fa fa-user"></i> PERMISOS BOX
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                            {% if modulos.CONFIGURACION %}
+                                                <div class="col-sm-12" style="margin-bottom: 6px">
+                                                    <a href="{{ url('configuracionBoxes') }}">
+                                                        <button type="button" class="btn btn-block btn-default"><i class="fa fa-user"></i> CONFIGURACION BOX
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% endif  %}
+                        </div><!--row-->
+                    </div><!--panel-->
+                </div><!--panel-->
+            </section>
+        </div>
+    </div><!--wrapper-->
+{% endblock %}
+{% block javascripts %}
+    <script>
+
+    </script>
+{% endblock %}

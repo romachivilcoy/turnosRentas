@@ -1,0 +1,288 @@
+{% block stylesheets %}
+    <style>
+        a{
+            cursor: pointer!important;
+        }
+        a:hover {
+            text-decoration: underline!important;
+        }
+
+        /** {
+            margin:0px;
+            padding:0px;
+        }
+
+        #header {
+            margin:auto;
+            width:500px;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        ul, ol {
+            list-style:none;
+        }
+
+
+        .nav li:hover > ul {
+            display:block!important;
+        }
+
+
+        .nav > li {
+            float:left;
+        }
+
+        .nav li a {
+            background-color:#000;
+            color:#fff;
+            text-decoration:none;
+            padding:10px 12px;
+            display:block;
+        }
+
+        .nav li a:hover {
+            background-color:#e6ffff;
+        }
+
+        .nav li ul {
+            display:none;
+            position:absolute;
+            min-width:140px;
+        }
+
+
+        .nav li ul li {
+            position:relative;
+        }
+
+        .nav li ul li ul {
+            right:-140px;
+            top:0px;
+        }*/
+
+        .container-fluid {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .dropdown-menu{
+            position: absolute!important;
+        }
+
+    </style>
+{% endblock %}
+    <nav class="navbar navbar-inverse">
+        <div id="container-fluid">
+                <!--<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark" style="height: 40px; background-color: #222!important;">-->
+                <!--<a class="navbar-brand" href="#">TURNERA</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">-->
+            <div>
+                <ul class="nav navbar-nav" id="ulnavbar" style="display: inline;">
+                    <li>
+                        <a href="{{ url('panelPrincipal') }}">
+                            <span>PANEL</span>
+                        </a>
+                    </li>
+
+                {% if modulos.BOX_REEMPLAZO or modulos.ADMINISTRACION %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                           <span>TURNOS</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% if modulos.ADMINISTRACION %}
+                                <li><a href="{{ url('listaBoxes') }}"><span> ADMINISTRACION</span></a>
+                                </li>
+                            {% endif %}
+                            <!--{ if modulos.BOX_REEMPLAZO %}
+                                <li><a href="{ url('listaBoxes') }}"><span> BOX REEMPLAZO</span></a>
+                                </li>
+                            { endif %}-->
+                        </ul>
+                    </li>
+                {% endif %}
+
+                {% if modulos.ESTADISTICA or modulos.ATENCION %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span>INFORMES</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% if modulos.ESTADISTICA %}
+                                <li><a href="{{ url('estadisticas') }}"><span> ESTADISTICA</span></a>
+                                </li>
+                            {% endif %}
+                            {% if modulos.ADMINISTRACION %}
+                                <li><a href="{{ url('atenciones') }}"><span> INFORME</span></a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                {% endif %}
+
+                {% if modulos.MOTIVO or modulos.REEMPLAZO %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span>CONFIGURACION</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% if modulos.MOTIVO %}
+                                <li><a href="{{ url('listaMotivos') }}"><span> TRAMITES / MOTIVOS </span></a>
+                                </li>
+                            {% endif %}
+                            {% if modulos.REEMPLAZO %}
+                                <li><a href="{{ url('habilitarReemplazos') }}"><span> PERMISOS BOX</span></a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+            </div>
+        </div>
+    </nav>
+<!--</div>-->
+<!-- <p class="navbar-brand" id="p_user">:</p>-->
+<input type="hidden" id="txt_iduser" name="txt_iduser">
+<!--  <li class="dropdown tasks-menu">
+     <a style="padding-top: 10px; margin-top: 0; color: #fff!important;" onclick="javascript:salirSistema();">
+         <i class="fa fa-sign-out"></i>
+         <span class="label label-dark" style="margin-top: 20px">SALIR</span>
+     </a>
+ </li>-->
+
+<div id="divaviso" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header modal-header-danger text-center">
+                <h5 id="herror" class="modal-header modal-header-danger " style="margin: 0 auto;"> ERROR: BOX NO INICIADO </h5>
+            </div>
+            <div class="modal-body">
+                <p id="perror" class="text-center" style="font-style: italic; font-weight: bold;"><b>DEBE INICIAR EL BOX PRIMERO</b> </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> CERRAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% block javascripts %}
+<script>
+    $(document).ready(function(){
+        //dibujarMenu();
+    });
+
+    function dibujarMenu(){
+        var html="";
+        $.ajax({
+            type: 'GET',
+            //data:"idUser=" + idUser ,
+            url:"{{ url('dibujarMenu') }}",
+            success:function(data){
+                console.log(data);
+                nomMenu ="";
+                linea   =0;
+
+                //document.getElementById("p_user").innerHTML ="Usuario: " + data['nomUsuario'];
+                document.getElementById("txt_iduser").value = data['idUser'];
+                for (var mt = 0; mt < data['menuTareas'].length; mt++){
+                    if (nomMenu!=data['menuTareas'][mt].menu){
+                        linea=0;
+                        nomMenu=data['menuTareas'][mt].menu;
+                    }else{
+                        linea=linea +1;
+                    }
+
+                    if (linea == 0){
+                        $('.collapse #ulnavbar').append(''+
+                       "<li class='nav-item dropdown ml-4'>"+
+                        '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                        nomMenu +
+                        '</a>' +
+                        '<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="'+nomMenu+'" style="font-size: 15px!important;">');
+                    }
+
+                    if (data['menuTareas'][mt].taUrl != null && data['menuTareas'][mt].taUrl != ""){
+                        nomUrl   = data["menuTareas"][mt].taUrl ;
+                        nomTarea = data["menuTareas"][mt].tarea ;
+
+                        switch (nomUrl){
+                            case 'iniciarBox':
+                                var urld = "{{ url('iniciarBox') }}";
+                                break;
+                            case 'estadisticas':
+                                var urld = "{{ url('estadisticas') }}";
+                                break;
+                            case 'listaBoxes':
+                                var urld = "{{ url('listaBoxes') }}";
+                                break;
+                            case 'listaMotivos':
+                                var urld = "{{ url('listaMotivos') }}";
+                                break;
+                            case 'habilitarReemplazos':
+                                var urld = "{{ url('habilitarReemplazos') }}";
+                                break;
+                            case 'atenciones':
+                                var urld = "{{ url('atenciones') }}";
+                                break;
+                            case 'configuracionBoxes':
+                                var urld = "{{ url('configuracionBoxes') }}";
+                                break;
+
+                        }
+                        $('.collapse #'+nomMenu).append('' +
+                        "<a class='dropdown-item' href='"+urld+"'> "+nomTarea+ "</a>");
+
+                    }else{
+                        $('.collapse #'+nomMenu).append(''+
+                        '<a class="dropdown-item" href="#">'+data['menuTareas'][mt].tarea+'</a> ');
+                    }
+                }//endFor
+            }
+        })
+    }
+
+    function salirSistema(){
+
+        var nrobox      = 0;
+        var estado      = "N";
+        var nusuario    = document.getElementById("txt_iduser").value;
+
+        $.ajax({
+            type: 'POST',
+            data: {'nro_box': nrobox, 'n_usuario': nusuario},
+            url:"{{ url('boxConsultaEstado') }}",
+            success:function(data){
+                if(data != "no_data"){
+                    datojq = data;
+                    boxs =datojq[0].b_estado; /*boxet*/
+
+                    if (boxs=='A') {
+                        document.getElementById('herror').innerHTML='AVISO: BOX ATENDIENDO';
+                        document.getElementById('perror').innerHTML='ANTES DE FINALIZAR EL BOX ,DEBE FINALIZAR EL TURNO';
+                        $("#divaviso").modal("show");
+                    }else if (boxs== 'S'){
+                        $.ajax({
+                            type: 'POST',
+                            data: {'nro_box': nrobox, 'estadob': estado, 'usuario': nusuario},
+                            url: "{{ url('boxInicio') }}",
+                            success:function(data){
+                                location.replace("http://130.131.132.247:90/sigmu/default.asp");
+                            }
+                        })
+                    }else{
+                        location.replace("http://130.131.132.247:90/sigmu/default.asp");
+                    }
+                }//if
+            }//end success
+        })//ajax
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,1769 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+
+        .container{
+            border-radius: inherit !important;
+            width: 95%;
+            margin: 3% auto 0 auto;
+            box-shadow: 0 2px 2px rgba(0,0,0,.05);
+        }
+
+        @media (min-width: 1200px){
+            .container {
+                max-width: 1180px!important;
+            }
+        }
+
+        .headb{
+            border-bottom: 2px solid #343a40!important;
+        }
+
+       .modal-header-danger {
+           color:#fff;
+           padding:9px 15px;
+           border-bottom:1px solid #eee;
+           background-color: #d9534f;
+           -webkit-border-top-left-radius: 5px;
+           -webkit-border-top-right-radius: 5px;
+           -moz-border-radius-topleft: 5px;
+           -moz-border-radius-topright: 5px;
+           border-top-left-radius: 5px;
+           border-top-right-radius: 5px;
+       }
+
+       .modal-header-success {
+           color:#fff;
+           padding:0px 15px;
+           border-bottom:1px solid #eee;
+           background-color: #28a745;
+           -webkit-border-top-left-radius: 5px;
+           -webkit-border-top-right-radius: 5px;
+           -moz-border-radius-topleft: 5px;
+           -moz-border-radius-topright: 5px;
+           border-top-left-radius: 5px;
+           border-top-right-radius: 5px;
+       }
+
+       .modal-bodyd {
+           position: relative;
+           -webkit-box-flex: 1;
+           -ms-flex: 1 1 auto;
+           flex: 1 1 auto;
+           padding-top: 10px;
+           padding-left: 1rem;
+           padding-right: 1rem;
+       }
+
+       span.input-group-addon{
+           width: 150px;
+           border-bottom:1px solid #28a745!important;
+       }
+
+       .input-group{
+           margin-bottom: 1rem!important;
+           width:100%;
+       }
+
+       .input-group-addon{
+           font-weight: bold !important;
+       }
+
+       .alertdt {
+           position: relative;
+           padding: .50rem 1.25rem;
+           margin-bottom: 1rem;
+           border: 1px solid transparent;
+           border-radius: .25rem;
+       }
+
+        .bg-red, .callout.callout-danger, .alert-danger, .alert-error, .label-danger, .modal-danger .modal-body {
+            background-color: #dd4b39 !important;
+            color: #fff !important;
+        }
+
+
+        .modal-dialog-centered.modal-dialog-scrollable {
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -ms-flex-pack: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        @media (min-width: 576px){
+                .modal-dialog-centered {
+                    min-height: calc(100% - 3.5rem);
+            }
+        }
+
+        @media (min-width: 576px){
+            .modal-dialog-scrollable {
+                max-height: calc(100% - 3.5rem);
+            }
+        }
+
+        @media (min-width: 576px){
+            .modal-dialog {
+                max-width: 500px;
+                margin: 1.75rem auto;
+            }
+        }
+
+        .modal-dialog-centered {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            min-height: calc(100% - 1rem);
+        }
+
+        .modal-dialog-scrollable {
+            display: -ms-flexbox;
+            display: flex;
+            max-height: calc(100% - 1rem);
+        }
+
+        /*.modal-dialog {
+            position: relative;
+            width: auto;
+            margin: .5rem;*/
+           /* pointer-events: none;*/
+        /*}*/
+
+        .modal-dialog-centered.modal-dialog-scrollable .modal-content {
+            max-height: none;
+        }
+
+        @media (min-width: 576px){
+            .modal-dialog-scrollable .modal-content {
+                max-height: calc(100vh - 3.5rem);
+            }
+        }
+
+            .modal-dialog-scrollable .modal-content {
+                max-height: calc(100vh - 1rem);
+                overflow: hidden;
+            }
+
+        .modal-dialog-scrollable .modal-header {
+            -ms-flex-negative: 0;
+            flex-shrink: 0;
+        }
+
+        .modal-dialog-scrollable .modal-body {
+            overflow-y: auto;
+        }
+
+        .table-hover tbody tr:hover{
+            background-color: #e6fffa!important;
+        }
+
+        .rpendiente{
+            background-color:#fcf8e3!important;
+            color: #8a6d3b!important;
+        }
+
+        .rcancelado{
+            background-color:#f8d7da!important;
+            color: #721c24!important;
+        }
+
+        .ratendido{
+            background-color:#dff0d8!important;
+            color: #3c763d!important;
+        }
+
+        .rpresente{
+            background-color:#d9edf7!important;
+            color: #31708f!important;
+        }
+
+        .renbox{
+            background-color:#d9edf7!important;
+            color: #31708f!important;
+        }
+
+         .ready{
+             background-color:#d9edf7!important;
+             color: #31708f!important;
+         }
+
+</style>
+{% endblock %}
+
+{% block body %}
+        <div class="wrapper">
+            {% include 'default/menu.html.twig' %}
+
+            <div class="container" style="margin-top: 0px;">
+                <input type="hidden" id="txt_doc_sel" name="txt_doc_sel" value="" >
+                <input type="hidden" id="txt_id_prioridad" name="txt_id_prioridad" value="{{ idPrioridad }}" >
+                <div class="row text-success headb">
+                    <div class="col-9 pt-3">
+                        <div class="alertdt alert-warning" role="alert">
+                            <label id="lbl_cola" style="font-weight: bold;">{{ p_espera }}</label>
+                            <label id="lbl_cancelados" class="pl-5 text-danger" style="font-weight: bold;"></label>
+                            <label id="lbl_usuario" style="visibility: hidden;">{{ p_usuario }}</label>
+
+                            <label id="lbl_aviso" style="visibility:hidden; font-weight: bold; color:#ff3333!important; text-align: right; font-size: 21px;">AVISO: CAMBIO  DE PAPEL!!!</label>
+                        </div>
+                    </div>
+                    <div class="col-3 pt-3 text-right">
+                            {% if ( p_est_box == 'N') %}
+                                <div class="col-12 text-right">
+                                    <button type="button" onclick="FIniciar('{{  p_nro_box }}', '{{  p_usuario }}');" class="btn btn-success w-100" style="height: 50px; position: relative; outline-color: #000;" text id="btini" data-toggle="tooltip" data-placement="top" title="Iniciar-Finalizar">INICIAR <label id="lbl_btnnro" style="font-weight: bold;">BOX {{  p_nro_box }}</label> <span class="fa fa-power-off" aria-hidden="true"></span></button>
+                                 </div>
+                            {% else %}
+                                <button type="button" onclick="FIniciar('{{ p_nro_box }}', '{{  p_usuario }}');" class="btn btn-danger w-100" style="height: 50px; position: relative; outline-color: #000;" text id="btini" data-toggle="tooltip" data-placement="top" title="Iniciar-Finalizar">FINALIZAR <label id="lbl_btnnro" style="font-weight: bold;">BOX {{  p_nro_box }}</label> <span class="fa fa-power-off" aria-hidden="true"></span></button>
+                            {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12" style="height: 35px;">
+                        {% if ( p_est_box == 'N') %}
+                            <div class="alert alert-danger alert-dismissible" id="div_estado_box" style=" height: 34px; background-color: #00a65a; border-color: #008d4c; color: #fff; text-align: center;  padding: 6px 12px; border: 1px solid transparent;font-family: 'Roboto', sans-serif !important;">
+                                <span class="fa fa-frown-o" id="span_estado_box"  style="display: inline"></span> <p id="p_estado_box" style="display: inline">BOX INACTIVO</p>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-success alert-dismissible" id="div_estado_box" style=" height: 34px; background-color: #00a65a; border-color: #008d4c; color: #fff; text-align: center;  padding: 6px 12px; border: 1px solid transparent;font-family: 'Roboto', sans-serif !important;">
+                                <span class="fa fa-smile-o" id="span_estado_box"  style="display: inline"></span> <p id="p_estado_box" style="display: inline">BOX ACTIVO</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container" style="height: 80vh;">
+                <div class="loader" id="loader">  </div>
+                <div class="row" style="margin-top: -20px;">
+                    <div class="col-12">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="table-responsive col-md-12 w-100">
+                        <table class="table table-hover" width="100%" id="tablaLista" name="tablaLista"><!-- table-striped  table-bordered -->
+                            <thead>
+                                <tr style="background-color: #ccc;">
+                                    <th scope="col" style="width: 5%">#</th>
+                                    <th scope="col" style="width: 5%">ESPERA</th>
+                                    <th scope="col" style="width: 7%">TICKET</th>
+                                    <th scope="col" style="width: 9%">D.N.I</th>
+                                    <th scope="col" style="width: 30%">APELLIDO Y NOMBRE</th>
+                                    <th scope="col" style="width: 20%">TRAMITE</th>
+                                    <!--<th scope="col" style="width: 20%">MOTIVO</th>-->
+                                    <th scope="col" style="width: 14%">ESTADO</th>
+                                    <th scope="col" style="width: 10%">ACCIÓN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="divconfi" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-sm" style="margin: 1.75rem auto;">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header modal-header-success">
+                                <h3 class="ml-2 pl-4 modal-header modal-header-header text-center" id="htxt">TOMAR TURNO</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-center">¿ESTA SEGURO?</p>
+                                <label class="control-label" id="lblidturno" style="color: #a94442; display:none"></label>
+                                <label class="control-label" id="lblidturno_cancelado" style="color: #a94442; display:none"></label>
+                                <label class="control-label" id="lblfila" style="color: #a94442; display:none"></label>
+                                <label class="control-label" id="lblestado" style="color: #a94442; display:none"></label>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal" id="btaceptar" onclick="javascript:AjaxTurno('{{ p_nro_box }}')"><i class="fa fa-check" aria-hidden="true"></i> ACEPTAR</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="LimpiarTurno();" ><i class="fa fa-times" aria-hidden="true"></i> CERRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="div_cola" class="modal fade" role="dialog" style="height:600px!important; margin-top: -20px!important;">
+                    <div class="modal-dialog" style="margin: 1.75rem auto;">
+                        <!-- Modal content-->
+                        <div class="modal-content" style="box-shadow: 0 0px 0px rgba(0,0,0,0.125);">
+                            <div class="modal-header-success">
+                                 <div class="row w-100">
+                                    <div class="col-12">
+                                        <h4 class="modal-header modal-header-header text-center" id="htxt_cola" style="max-width: 245px; margin-left: 111px;">VOLVER A LA COLA</h4>
+                                        <p style="height: 10px!important; margin-left: 113px; width: 250px;">SELECCIONAR TRAMITE Y MOTIVO</p>
+                                    </div>
+                                 </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row mt-2">
+                                     <div class="col-sm-offset-1 col-sm-10">
+                                        <div class="input-group mb-3">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label" style="border-bottom: 1px solid #000; border-top: 1px solid #000; text-align: center;width: 100%">TRAMITE</label>
+                                            <div class="col-sm-12">
+                                                <select class="custom-select" id="cmb_tramite_cola" onclick="BuscarMotivo('{{ p_usuario }}', 1);" style="width: 100%; height: 30px;">
+                                                    <option value="C">COMERCIOS</option>
+                                                    <option value="E">ESCRIBANO</option>
+                                                    <option value="P">INMUEBLES</option>
+                                                    <option value="J">JUICIO</option>
+                                                    <option value="M">RODADOS</option>
+                                                    <option value="T">CEMENTERIO</option>
+                                                    <option value="V">TRAMITES VARIOS</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                     </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <!--<div class="col-sm-offset-1 col-sm-12">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-addon" for="nombre">Motivo</span>
+                                            </div>
+                                            <select class="custom-select" id="cmb_motivo_cola">
+                                            </select>
+                                        </div>-->
+                                        <label class="control-label" id="lblidturno_cola" style="color: #a94442; display:none"></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer" style="background-color: #fff;">
+                                <button type="button" disabled class="btn btn-success" data-dismiss="modal" id="btaceptar_presencia_cola" onclick="javascript:VolverAtendido('{{ p_nro_box }}')"><i class="fa fa-check" aria-hidden="true"></i> &nbsp;&nbsp; ACEPTAR &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> CERRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--height:600px!important; -->
+                <div id="div_presencia" class="modal fade" role="dialog" style="margin-top: -20px!important;">
+                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" style="max-width: 600px;margin: 1.75rem auto;">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header-success">
+                                <div class="row w-100">
+                                    <div class="col-12">
+                                        <h4 class="ml-5 pl-5 pb-1 modal-header modal-header-header text-center" id="htxt">CONFIRMAR PRESENCIA</h4>
+                                        <p class="text-center ml-4" style="height: 10px!important;">DATOS PERSONALES</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                            <span class="input-group-addon" for="nombre" style="display: inline-block; width: 200px;">Buscar por D.N.I</span>
+                                            <input class="form-control" id="txtdni"  name="txtdni" onpaste="return false" autocomplete="off"  onfocus="BorrarBlur();" value="" onkeydown="BuscarPersona(this.value, 'E');" onkeypress="return permite(event,'num')" onblur="BuscarPersona(this.value, 'T');" style="text-transform: uppercase; max-width:250px; width:250px; display: inline">
+
+                                </div><!-- div rrow-->
+                                <br>
+
+                                <div class="form-group">
+                                            <span class="input-group-addon" for="nombre" style="display: inline-block; width: 200px;">Apellido y Nombre</span>
+                                            <input class="form-control" id="txt_apellido"  name="txt_apellido" onpaste="return false" autocomplete="off" onkeydown="pasafoco('txt_telefono');" style="text-transform: uppercase; max-width:250px; width:250px; display: inline;">
+                                            <label id="lbl_blur" style="display: none">S</label>
+                                </div>
+                                <div class="form-group">
+                                            <span class="input-group-addon" for="nombre" style="display: inline-block; width: 200px;">Telefono</span>
+                                            <input class="form-control" id="txt_telefono"  name="txt_telefono" onpaste="return false" autocomplete="off" onkeydown="pasafoco('txt_email');" style="text-transform: uppercase; max-width:250px; width:250px; display: inline; ;">
+
+                                </div>
+                                <div class="form-group">
+                                            <span class="input-group-addon" for="nombre" style="display: inline-block; width: 200px;">Email</span>
+                                            <input class="form-control" id="txt_email"  name="txt_email" onpaste="return false" autocomplete="off" onkeydown="pasafoco('btaceptar_presencia');"  style="text-transform: uppercase; max-width:250px; width:250px; display: inline;">
+
+                                </div>
+
+                                <div class="form-group">
+                                            <div class="input-group-prepend" style="display: inline; width: 200px;">
+                                                <span class="input-group-addon" for="nombre" style="width: 200px;">Tramite</span>
+                                            </div>
+                                            <select class="custom-select" id="cmb_tramite"  style="text-transform: uppercase; max-width:250px; width:250px; height: 28px;"><!--onclick="BuscarMotivo('{ p_usuario }}', 0);"-->
+                                                <option value="C">COMERCIOS</option>
+                                                <option value="E">ESCRIBANO</option>
+                                                <option value="P">INMUEBLES</option>
+                                                <option value="J">JUICIO</option>
+                                                <option value="M">RODADOS</option>
+                                                <option value="T">CEMENTERIO</option>
+                                                <option value="A">ARBA</option>
+                                                <option value="V">TRAMITES VARIOS</option>
+                                            </select>
+                                </div>
+                               <!-- <div class="form-group">
+                                            <div class="input-group-prepend" style="display: inline-block; width: 200px;">
+                                                <span class="input-group-addon" for="nombre" style="width: 200px;">Motivo</span>
+                                            </div>
+                                            <select class="custom-select" id="cmb_motivo" disabled style="text-transform: uppercase; max-width:250px; width:250px; display: inline">
+                                            </select>
+                                </div>-->
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" id="btaceptar_presencia" onclick="javascript:AjaxTurno('{{ p_nro_box }}')"><i class="fa fa-check" aria-hidden="true"></i> &nbsp;&nbsp; ACEPTAR &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                <button type="button" disabled class="btn btn-warning" data-dismiss="modal" id="btn_volver_cola" onclick="javascript:VolverAlaCola('{{ p_nro_box }}', 0, 0)"><i class="fa fa-mail-reply" aria-hidden="true"></i> VOLVER A LA COLA</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="javascript:Turnosel('cancelado', 1 ,5, {{ p_nro_box }}, 1, 1, '')"><i class="fa fa-times" aria-hidden="true"></i> CANCELAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divaviso" class="modal fade" role="dialog">
+                    <div class="modal-dialog" style="margin: 1.75rem auto;">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header modal-header-danger text-center">
+                                <h5 id="herror" class="modal-header modal-header-danger " style="margin: 0 auto;"> ERROR: BOX NO INICIADO </h5>
+                            </div>
+                            <div class="modal-body">
+                                <p id="perror" class="text-center" style="font-style: italic; font-weight: bold;"><b>DEBE INICIAR EL BOX PRIMERO</b> </p>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="javascript:CerrarTomar()"><i class="fa fa-times" aria-hidden="true"></i> CERRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divocupado" class="modal fade" role="dialog">
+                    <div class="modal-dialog" style="margin: 1.75rem auto;">
+                        <div class="modal-content">
+                            <div class="modal-header modal-header-danger">
+                                <h5 id="herror" class="modal-header modal-header-danger " style="margin: 0 auto;"> ERROR: TURNO TOMADO POR OTRO BOX </h5>
+                            </div>
+                            <div class="modal-body">
+                                <p id="lblbox" class="text-center" style="font-weight: bold;font-size: 20px;"><b></b> </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="javascript:CerrarOcupado()"><i class="fa fa-times" aria-hidden="true"></i> CERRAR</button><!--onclick="javascript:ActualizarPagina()"-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divfinalizar" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-sm" style="margin: 1.75rem auto;">
+                        <div class="modal-content">
+                            <div class="modal-header modal-header-success text-center" style="padding: 1rem;">
+                                <h3 class="modal-header modal-header-success" id="htxt" style="margin: 0 auto;">BOX:<br>INICIAR-FINALIZAR</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-center">¿ESTA SEGURO?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal" id="btaceptarini" onclick="javascript:IniciarFin('{{ p_nro_box }}', '{{ p_usuario }}')"><i class="fa fa-check" aria-hidden="true"></i>ACEPTAR</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" ><i class="fa fa-times" aria-hidden="true"></i> CERRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ModalLista" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header modal-header-danger text-center">
+                                <h5 class="modal-header modal-header-danger" id="htxt" style="margin: 0 auto;">TURNOS CANCELADOS</h5>
+                            </div>
+
+                            <div class="modal-body">
+                                <table class="table table-striped sticky-header" id="tabla_cancelados" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Hora</th>
+                                            <th>Ticket</th>
+                                            <th class="text-right">---</th>
+                                            <th style="display:none;">id</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" ><i class="fa fa-times" aria-hidden="true"></i> CERRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal" tabindex="-1" role="dialog" id="divModalCambioPapel">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content" >
+                            <div class="modal-header" style="background-color: #dc3545!important; color: #fff;">
+                                <h3 class="modal-title" style="margin: 0 auto;">CAMBIAR PAPEL</h3>
+                            </div>
+                            <div class="modal-body" style="text-align: center;">
+                                <h5 class="modal-title mt-4">POR FAVOR - AVISO CAMBIO DE PAPEL!</h5>
+                                <button onclick="javascript:Actulizar_Cambio();" class="btn btn-danger"><span class="fa fa-power-off" aria-hidden="true"></span> ACEPTAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="divPersona" style="vertical-align: middle;">
+                    <div class="modal-dialog modal-lg" role="dialog" style="max-width: 700px;">
+                        <div class="modal-content" style="max-width: 700px;">
+
+                            <div class="modal-header-success">
+                                <div class="row w-100">
+                                    <div class="col-12">
+                                        <h4 class="ml-5 pl-5 pb-1 modal-header modal-header-header text-center" id="htxt">DATOS PERSONALES</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row mt-0">
+                                    <div class="col-sm-offset-1 col-sm-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" for="nombre">D.N.I</span>
+                                            <input class="form-control" id="txtdni_p" name="txtdni_p" onpaste="return false" autocomplete="off" value="" disabled>
+                                        </div>
+                                    </div><!-- col5 -->
+                                </div><!-- div rrow-->
+                                <div class="row mt-2">
+                                    <div class="col-sm-offset-1 col-sm-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" for="nombre">Apellido y Nombre</span>
+                                            <input class="form-control" id="txt_apellido_p" name="txt_apellido_p" onpaste="return false" autocomplete="off" onkeydown="pasafoco('txt_telefono_p');"   style="text-transform: uppercase;"><!--onblur="VerificarApellido();"-->
+                                            <label id="lbl_blur" style="display: none">S</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-offset-1 col-sm-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" for="nombre">Telefono</span>
+                                            <input class="form-control" id="txt_telefono_p" name="txt_telefono_p" onpaste="return false" autocomplete="off" onkeydown="pasafoco('txt_email_p');"  style="text-transform: uppercase;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-offset-1 col-sm-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" for="nombre">Email</span>
+                                            <input class="form-control" id="txt_email_p" name="txt_email_p" onpaste="return false" autocomplete="off" onkeydown="pasafoco('cmb_calle_p');"  style="text-transform: uppercase;">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-sm-offset-1 col-sm-10">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-addon" for="nombre" style="display: inline-block;height: 34px;padding-top: 9px; float:left;">Calle</span>
+
+                                                <select class="form-control custom-select" id="cmb_calle_p" style="width: 70%;">
+                                                    <option selected="">...</option>
+                                                    {%  for tcalle in arr_calles %}
+                                                        <option value="{{  tcalle.nombre }}"> {{  tcalle.nombre }}</option>
+                                                    {%  endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="input-group">
+                                            <span class="input-group-addon" for="nombre">Nro</span>
+                                            <input class="form-control" id="txt_nro_calle_p" name="txt_nro_calle_p" onpaste="return false" autocomplete="off" value="" onkeypress="return permite(event,'num')">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-offset-1 col-sm-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" for="nombre">Fecha Nacimiento</span>
+                                            <input class="form-control" id="txt_fecha_nac_p" name="txt_fecha_nac_p" type="date" title="DD/MM/YYYY" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal" id="btaceptar_persona" onclick="javascript:GuardarPersona()"><i class="fa fa-check" aria-hidden="true"></i> &nbsp;&nbsp; GUARDAR &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="javascript:CerrarPersona()"><i class="fa fa-times" aria-hidden="true"></i> CERRAR</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div><!--end container-->
+        </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+            $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+
+            document.getElementById("loader").style.display = "none";
+            $(document).ajaxSend(function(event, request, settings) {
+                document.getElementById("loader").style.display = "block";
+            });
+
+            $(document).ajaxComplete(function(event, request, settings) {
+                document.getElementById("loader").style.display = "none";
+            });
+
+            $('#tablaLista').DataTable({
+                "order": [[ 0, "asc" ]],
+                "ordering": false,
+                "lengthChange": false,
+                "searching": false,
+                "lengthMenu": [[50, 25, -1], [25, 10, 50, "Todos"]],
+                "language": {
+                    "url": "{{ asset('js/Spanish.json') }}"
+                }
+            });
+
+            $('#div_presencia').on('shown.bs.modal', function() {
+
+                $('#txtdni').val('');
+                $('#txt_apellido').val('');
+                $('#txt_email').val('');
+                $('#txt_telefono').val('');
+                $('#cmb_tramite').val('');
+                //$('#cmb_motivo').val('');
+
+                //$("#cmb_tramite").attr('disabled', true);
+                //$("#cmb_motivo").attr('disabled', true);
+                $("#btaceptar_presencia").attr('disabled', false);
+                $("#btn_volver_cola").attr('disabled',true);
+
+                $('#txtdni').focus();
+            });
+
+            $('#div_presencia').on('hidden.bs.modal', function() {
+                document.getElementById('lblidturno').innerHTML ="";
+            });
+
+            $('#div_presencia').on('shown.bs.modal', function () {
+                var nroDoc = document.getElementById('txt_doc_sel').value;
+                CargaDoc(nroDoc);
+            });
+        });
+
+        var int=self.setInterval("refresh()",10000);
+
+        var intref_alertas=self.setInterval("avisaAlertas('{{ p_nro_box }}',{{  p_usuario }})",60000);//llama cada 65 segundos
+
+        function avisaAlertas(nbox, nusuario){
+            //--------------------------------------------
+            //BUSCA LA CANTIDAD DE PENDIENTES MAYOR A 10 MIN
+            // --------------------------------------------
+            $.ajax({
+                type: 'POST',
+                data: {'nro_box':nbox, 'nusuario': nusuario},
+                url: "{{ url('buscaAlerta') }}",
+
+                success: function (respuesta) {
+                    // Alertas de Turnos en espera mas de 10 min
+                    if (respuesta[1].turnosEspera != '0'){
+
+                        $.bootstrapGrowl("<i class='fa fa-warning'></i> <b>EXISTEN " + respuesta[1].turnosEspera + " TURNOS CON ESPERA MAYOR A 10 min.</b>" , {
+                            ele: 'body', // which element to append to
+                            type: 'error', // (null, 'info', 'error', 'success')
+                            offset: {from: 'bottom', amount: 20}, // 'top', or 'bottom'
+                            align: 'right', // ('left', 'right', or 'center')
+                            width: 550, // (integer, or 'auto')
+                            delay: 8000,
+                            allow_dismiss: true,
+                            stackup_spacing: 10 // spacing between consecutively stacked growls.
+                        });
+                    }
+                }
+            });//end ajax
+        }//end function
+
+        window.onload = function() {
+            //llama a functiones , cuando se carga la pagina
+            avisaAlertas('{{ p_nro_box }}',{{  p_usuario }});
+            Busqueda('{{ p_nro_box }}',{{  p_usuario }});
+        };
+
+        function refresh(){
+            //-------------------------------
+            //REFRESCA PAGIGA CADA 10 seg
+            //-------------------------------
+            var idturno= document.getElementById('lblidturno').innerHTML;
+
+            if (idturno == ''){
+                Busqueda('{{ p_nro_box }}',{{  p_usuario }});
+            }
+        }//end function refresh
+
+        function Actulizar_Cambio() {
+            //-------------------------------
+            // ACTULIZA CAMBIO DE PAPEL
+            //-------------------------------
+            $.ajax({
+                type: 'POST',
+                data: {'estado_papel':0},
+                url: "{{ url('actulizaCambioPapel') }}",
+
+                success: function (respuesta) {
+                    $('#divModalCambioPapel').modal("hide");
+                }
+            });//end ajax
+        }//endFunction
+
+
+        function ActualizarPagina(){
+            //-------------------------------
+            // ACTULIZA PAGINA AL ACEPTAR
+            //-------------------------------
+            Busqueda('{{ p_nro_box }}',{{  p_usuario }});
+        }//end function ActualizarPagina
+
+
+        function Busqueda(nbox, nusuario) {
+            //-------------------------------------------
+            //BUSQUEDA LISTADOdabuscaListado
+            //-------------------------------------------
+            var idPrioridad =$('#txt_id_prioridad').val();
+            $.ajax({
+                type: 'POST',
+                data: {'nro_box':nbox, 'nusuario': nusuario, 'idPrioridad': idPrioridad},
+                url: "{{ url('buscaListado') }}",
+
+                success: function (respuesta) {
+                    cargarTablaBusqueda(respuesta, nbox, nusuario);
+                }
+            });//end ajax
+            //==================================================
+        }//end function
+
+        function cargarTablaBusqueda(data ,nbox, nusuario){
+            //=================================
+            //CREA TABLA BUSQUEDA
+            //=================================
+            var resp_busqueda = data;
+
+            var table = $("#tablaLista").DataTable();
+            table.clear().draw();
+            $('body>.tooltip').remove();
+
+            var rowNode= new Array();
+            var i = 1;
+            var cantidad_reg = resp_busqueda.length;
+
+            for (i = 1; i < cantidad_reg; i++) {
+                var j = -1;
+                var r = new Array();
+                if ( resp_busqueda[i].a_estado != "") {
+                    r[++j] = "<tr id=" + i + "><th scope='row'>" + i + "</th>";
+                    r[++j] = "<td>" + resp_busqueda[i].a_fecha + " min.</td>";
+                    r[++j] = "<td>" + resp_busqueda[i].a_ticket + "</td>";
+                    r[++j] = "<td>" + resp_busqueda[i].a_doc + "</td>";
+                    r[++j] = '<td>' + resp_busqueda[i].a_persona_icon + '      ' + resp_busqueda[i].a_apeynom + '</td>';
+                    r[++j] = '<td>' + resp_busqueda[i].a_tramite + '</td>';
+                    /*r[++j] = '<td>' + resp_busqueda[i].a_motivo + '</td>';*/
+                    r[++j] = '<td>' + resp_busqueda[i].a_estado + '</td>';
+                    r[++j] = '<td>' + resp_busqueda[i].a_icon + '</td></tr>';
+
+                    rowNode = table.row.add(r).draw().node();
+
+                    if ( resp_busqueda[i].a_estado == 2){
+                        $(rowNode).addClass( 'renbox' );
+                    }else if ( resp_busqueda[i].a_estado == 3){
+                        $(rowNode).addClass( 'rpresente' );
+                    }else if ( resp_busqueda[i].a_estado == 4){
+                        $(rowNode).addClass( 'ratendido' );
+
+                    }else if ( resp_busqueda[i].a_estado == 5){
+                        $(rowNode).addClass( 'rcancelado' );
+                    }else{
+                        $(rowNode).addClass( 'rpendiente' );
+                    }
+
+                }
+
+                if (resp_busqueda[1].papel_sn == 1){
+                    $('#divModalCambioPapel').modal("show");
+                    document.getElementById('lbl_aviso').style.visibility='visible';
+                }else{
+                    document.getElementById('lbl_aviso').style.visibility='hidden';
+                }
+            } // end for
+
+            //----------------------------------------------------------------------
+            if ( cantidad_reg > 1){
+                //document.getElementById("lbl_hora").innerHTML = resp_busqueda[1].a_hora;
+            }//end if
+            //----------------------------------------------------------------------
+
+            table = document.getElementById("tablaLista");
+
+            var colorfila  ="";
+            var color_tramite ="";
+            for (i = 1; i < cantidad_reg; i++) {
+                if ( resp_busqueda[i].a_estado != "") {
+                    if ( resp_busqueda[i].a_estado == 2){
+
+                        table.rows[i].cells[6].innerHTML = 'EN BOX';
+                        //colorfila = "background-color:#d9edf7; color: #31708f;"; //
+
+                    }else if ( resp_busqueda[i].a_estado == 3){
+                        table.rows[i].cells[6].innerHTML = 'PRESENTE';
+                        //colorfila = "background-color:#d9edf7; color: #31708f;";
+
+                    }else if ( resp_busqueda[i].a_estado == 4){
+                        table.rows[i].cells[6].innerHTML = 'ATENDIDO';
+                        //colorfila = "background-color:#dff0d8; color: #3c763d;";
+
+                    }else if ( resp_busqueda[i].a_estado == 5){
+                        table.rows[i].cells[6].innerHTML = 'CANCELADO';
+                        //colorfila = "background-color:#f8d7da; color: #721c24;";
+                    }else{
+                        table.rows[i].cells[6].innerHTML = 'PENDIENTE';
+                        //colorfila ="background-color:#fcf8e3; color: #8a6d3b;";
+                    }
+
+                    var tramite_col =  table.rows[i].cells[5].innerHTML;
+
+                    switch (tramite_col) {
+                        case 'INMUEBLES':
+                            color_tramite = 'color:#f39c12!important;';
+                            break;
+                        case 'COMERCIOS':
+                            color_tramite = 'color:#17a2b8!important;';
+                            break;
+                        case 'RODADOS':
+                            color_tramite ='color:#dc3545!important;';
+                            break;
+                        case 'CEMENTERIO':
+                            color_tramite = 'color:#6c757d!important;';
+                            break;
+                        case 'ESCRIBANO':
+                            color_tramite = 'color:#00a65a!important;';
+                            break;
+                        case 'JUICIO':
+                            color_tramite = 'color:#007bff!important;';
+                            break;
+                        case 'ARBA':
+                            color_tramite = 'color:#17d6eb!important;';
+                            break;
+                        case 'TRAMITES VARIOS':
+                            color_tramite = 'color:#000!important;';
+                            break;
+                    }
+
+                    for ( var coln =0; coln < 8 ; coln++){
+                        if (coln == 2 || coln == 5){
+                            table.rows[i].cells[coln].style= color_tramite + 'font-weight: bold;';
+                        }else{
+                           // table.rows[i].cells[coln].style= colorfila;
+                        }
+                    }//for
+                }
+            } // end for
+
+            //**********************
+
+            if (cantidad_reg > 0){
+                document.getElementById("lbl_cola").innerHTML = resp_busqueda[1].a_mensaje;
+                if (resp_busqueda[cantidad_reg-1].a_msj_cancelado != 0){
+                    var msj_cancelado = resp_busqueda[i-1].a_msj_cancelado +  " Turno/s Cancelado/s";
+                    msj_cancelado     = "<a class='text-danger' style='cursor: pointer;' data-toggle='modal' onclick='BuscaCancelados("+nbox+","+nusuario+");'>" + msj_cancelado +"</a>"; /*#ModalLista*/
+                    document.getElementById("lbl_cancelados").innerHTML = msj_cancelado;
+                }else{
+                    document.getElementById("lbl_cancelados").innerHTML = "";
+                }
+            }//if
+
+            //==================================================
+        }//end function -- cargarTablaBusqueda
+
+        //------------------------------------------------------------------------------------------------
+        //LLAMA AJAX CONSULTA DATOS PERSONALES
+        //------------------------------------------------------------------------------------------------
+        function VerPersona(idturno,filasel, docpersona, ventana){
+            $.ajax({
+                type: 'POST',
+                data: {'docpersona':docpersona},
+                url: "{{ url('buscaDatosPersona') }}",
+
+                success: function (respuesta) {
+                    var resp_busqueda = respuesta;
+                    $('#divPersona').modal('show');
+
+                    document.getElementById("txtdni_p").value         = docpersona;
+                    document.getElementById("txt_apellido_p").value   = resp_busqueda[0].a_ape_nom;
+                    document.getElementById("txt_telefono_p").value   = resp_busqueda[0].a_tel;
+                    document.getElementById("txt_email_p").value      = resp_busqueda[0].a_mail;
+                    document.getElementById("cmb_calle_p").value      = resp_busqueda[0].a_calle;
+                    document.getElementById("txt_nro_calle_p").value  = resp_busqueda[0].a_nro_calle;
+                    document.getElementById("txt_fecha_nac_p").value  = resp_busqueda[0].a_fec_nac;
+                }
+            });//end ajax
+        }
+
+        //------------------------------------------------------------------------------------------------
+        //LLAMA AJAX GUARDA DATOS PERSONALES
+        //------------------------------------------------------------------------------------------------
+        function GuardarPersona(){
+            var docpersona = document.getElementById('txtdni_p').value;
+            var ape_nom     = document.getElementById('txt_apellido_p').value;
+            var tel_sel     = document.getElementById('txt_telefono_p').value;
+            var email_sel   = document.getElementById('txt_email_p').value;
+            var calle_sel   = document.getElementById('cmb_calle_p').value;
+            var nro_calle   = document.getElementById('txt_nro_calle_p').value;
+            var fec_nac     = document.getElementById('txt_fecha_nac_p').value;
+
+            $.ajax({
+                type: 'POST',
+                data: {'docpersona': docpersona, 'ape_nom': ape_nom , 'telefono': tel_sel, 'email': email_sel, 'calle': calle_sel, 'nro_calle': nro_calle, 'fec_nac': fec_nac},
+                url: "{{ url('guardaDatosPersona') }}",
+                success: function(data){
+                    var respuesta = data;
+
+                    $('#divPersona').modal('hide');
+                }
+            });
+        }
+
+        //------------------------------------------------------------------------------------------------
+        //CIERRA VENTNA PERSONA
+        //------------------------------------------------------------------------------------------------
+        function CerrarPersona(){
+            $('#divPersona').modal('hide');
+        }
+
+        //------------------------------------------------------------------------------------------------
+        //LLAMA AJAX CONSULTA box estado
+        //------------------------------------------------------------------------------------------------
+        function Turnosel(idturno,filasel, estaturno, boxaten, ventana, retornosn, nroDoc){
+
+            var boxs    = "S";
+            var table   = document.getElementById("tablaLista");
+            var numerof = table.rows.length - 1;
+            var sibuscar_estado ='N';
+
+
+            if ( idturno === 'cancelado' ){
+                var idturno= document.getElementById('lblidturno').innerHTML;
+            }
+
+                filaselecionada= filasel;
+                var nusuario = document.getElementById("lbl_usuario").innerHTML;
+
+                if (ventana == 2){
+                    //---------------------------------
+                    //CIERRA MODAL LISTADO CANCELADOS
+                    //---------------------------------
+                    $("#ModalLista").modal("hide");
+                }//end if
+
+                $.ajax({
+                    type: 'POST',
+                    data: {'nro_box': boxaten, 'n_usuario': nusuario, 'n_estado': estaturno},
+                    url:"{{ url('boxConsultaEstado') }}",
+                    success:function(data){
+                        if(data != "no_data"){
+
+                            datojq   = data;
+                            var boxs = datojq[0].b_estado;
+
+                            if (boxs =='N'){//SIN INICIAR
+                                document.getElementById('herror').innerHTML     = 'ERROR: BOX NO INICIADO';
+                                document.getElementById('perror').innerHTML     = 'DEBE INICIAR EL BOX DE ATENCION PRIMERO';
+                                $("#divaviso").modal("show");
+
+                            }else{
+                                //boxs=='A' BOX ATENDIENDO
+                                if ((boxs=='A') && (estaturno =='1' || estaturno =='8' || (estaturno =='2' && ventana ==2))){
+                                    document.getElementById('herror').innerHTML = 'ERROR: BOX OCUPADO';
+                                    document.getElementById('perror').innerHTML = 'DEBE FINALIZAR EL TURNO';
+                                    $("#divaviso").modal("show");
+
+                                }else{
+                                    document.getElementById('lblidturno').innerHTML =idturno;
+                                    document.getElementById('lblfila').innerHTML    =filaselecionada;
+                                    document.getElementById('lblestado').innerHTML  =estaturno;
+
+                                    if (estaturno =='1'){
+                                        //ESTADO PENDIENTE
+                                        for ( var i=1; i <= numerof ;i++){
+                                            var estasel= table.rows[i].cells[6].innerHTML;
+                                            if (estasel ==='PENDIENTE' || estasel ==='1'){
+                                                var nrofilasi=i;
+                                                break;
+                                            }//end if
+                                        }//end for
+
+                                        //if (filasel==nrofilasi){
+                                            document.getElementById('htxt').innerHTML   = 'TOMAR TURNO';
+                                            document.getElementById('htxt').style.setProperty('margin-left','28px','important');   //.marginLeft = "28px!important";
+                                            $("#divconfi").modal("show");
+                                       /* }else{
+                                            document.getElementById('herror').innerHTML = 'ERROR: TURNO SELECCIONADO';
+                                            document.getElementById('perror').innerHTML = 'DEBE RESPETAR ORDEN DE LLEGADA';
+                                            $("#divaviso").modal("show");
+                                        }//end if*/
+                                    }else if ( ( retornosn == '1') && (estaturno =='2' || estaturno =='8') ){ //EN BOX O RETORNAR
+                                        document.getElementById('txt_doc_sel').value = nroDoc;
+                                        $("#div_presencia").modal("show");
+                                        /*setTimeout(function(){
+                                            CargaDoc(nroDoc);
+                                        }); */
+
+
+                                    }else if ( ( retornosn == '5') && (estaturno =='2' || estaturno =='8') ){ //EN BOX O RETORNAR
+
+                                        buscarEstado(idturno, boxaten, nusuario);
+
+                                    }else if (estaturno =='5'){//CANCELAR
+                                        document.getElementById('htxt').innerHTML='CANCELAR TURNO';
+                                        document.getElementById('lblidturno_cancelado').innerHTML =idturno;
+                                        document.getElementById('htxt').style.setProperty('margin-left','10px','important');
+                                        //document.getElementById('htxt').style.marginLeft = "0px!important";
+                                        $("#divconfi").modal("show");
+
+                                    }else{
+                                        document.getElementById('htxt').innerHTML='FINALIZAR TURNO';
+                                        document.getElementById('htxt').style.setProperty('margin-left','10px','important');
+                                        //document.getElementById('htxt').style.marginLeft = "0px!important";
+                                         $("#divconfi").modal("show");
+                                    }//end if estaturno
+                                }//end if
+                            }//end if boxs =='N'
+                        }//end if data != "no_data"
+                    }//end success
+                });//end ajax
+        }//end Turnosel
+
+        function buscarEstado(idturno, nrobox, nusuario){
+
+            //------------------------------------
+            //SI SE VUELVE A RETORNAR UN TICKET
+            //BUSCA ESTADO DEL TICKET
+
+            $.ajax({
+                type: 'POST',
+                data: {'idturno': idturno, 'nrobox': nrobox, 'nusuario':nusuario},
+                url:"{{ url('buscaEstadoTicket') }}",
+                success:function(data){
+                    if(data != "no_data"){
+                        datojq   = data;
+                        var boxs = datojq[0].nbox;
+                        if (boxs =='0'){
+                            $("#div_presencia").modal("show");
+                        }else{
+                            //EL TURNO ESTA TOMADO POR OTRO BOX
+                            document.getElementById('lblbox').innerHTML='NRO BOX:' + boxs;
+                            $("#divocupado").modal("show");
+                        }//end if boxs =='0'
+                    }//end if data != "no_data"
+                }//end success
+            })//end ajax
+        }
+
+
+        //------------------------------------
+        //INICIA o Finaliza el Box
+        //------------------------------------
+        function FIniciar(nrobox, nusuario){
+            var estado;
+            if (document.getElementById("btini").className == 'btn btn-danger w-100' ){//rgb(201, 48, 44)'
+                estado="N";
+            }else{
+                estado="S";
+            }//end if
+
+            var boxs ='N';
+            if (estado === 'N'){
+
+                $.ajax({
+                    type: 'POST',
+                    data: {'nro_box': nrobox, 'n_usuario': nusuario},
+                    url:"{{ url('boxConsultaEstado') }}",
+                    success:function(data){
+                        if(data != "no_data"){
+                            datojq = data;
+                            boxs =datojq[0].b_estado; /*boxet*/
+
+                            if (boxs=='A') {
+                                document.getElementById('herror').innerHTML='AVISO: BOX ATENDIENDO';
+                                document.getElementById('perror').innerHTML='ANTES DE FINALIZAR EL BOX ,DEBE FINALIZAR EL TURNO';
+                                $("#divaviso").modal("show");
+                            }else{
+
+                                if (boxs!='A'){
+                                    $("#divfinalizar").modal("show");
+                                }
+                            }//end if
+                        }else{
+                            if (boxs!='A'){
+                                $("#divfinalizar").modal("show");
+                            }//end if
+                        }//end if data != "no_data"
+                    }//end success
+                })
+            }else{
+                if (boxs!='A'){
+                    $("#divfinalizar").modal("show");
+                }
+            }//end if estado=='N'
+        }//end function FIniciar
+
+
+        //------------------------------------
+        //INICIA o Finaliza el Box
+        //------------------------------------
+        function IniciarFin(nrobox, nusuario){
+
+            if (document.getElementById("btini").className == 'btn btn-danger w-100' ){//rgb(201, 48, 44)'
+                var estado="N";
+            }else{
+                var estado="S";
+            }
+
+            $.ajax({
+                type: 'POST',
+                data: {'nro_box': nrobox, 'estadob': estado, 'usuario': nusuario},
+                url: "{{ url('boxInicio') }}",
+                success:function(data){
+
+                    if(data != "no_data"){
+                        var datojq = data;
+                        var boxs =datojq[1].boxet;
+                        if (boxs =='N'){
+                            //--------------------------
+                            //CAMBIA COLOR BOTON
+                            //--------------------------
+                            document.getElementById("btini").className = "btn btn-success w-100";
+                            $("#btini").text('INICIAR ').append(' <label style="font-weight: bold;">BOX ' + nrobox + '</label> <span class="fa fa-power-off"></span>');
+
+
+                            document.getElementById("div_estado_box").className ='alert alert-danger alert-dismissible';
+                            document.getElementById("span_estado_box").className ='fa fa-frown-o';
+                            document.getElementById("p_estado_box").innerText   ="BOX INACTIVO";
+
+                        }else{
+                            document.getElementById("btini").className = "btn btn-danger w-100";
+                            $("#btini").text('FINALIZAR ').append(' <label style="font-weight: bold;">BOX ' + nrobox + '</label> <span class="fa fa-power-off"></span>');
+                            //document.getElementById("div_estado_box").classList.remove('alert alert-danger alert-dismissible')
+                            //document.getElementById("div_estado_box").classList.add('alert alert-success alert-dismissible');
+                            document.getElementById("div_estado_box").className ='alert alert-success alert-dismissible';
+                            document.getElementById("span_estado_box").className ='fa fa-smile-o';
+                            document.getElementById("p_estado_box").innerText   ="BOX ACTIVO";
+                        }//end if boxs =='N'
+                    }//end if
+                }//end success
+            })//ajax fin
+        }//end function IniciarFin
+
+        function verifi(resp)	{
+            resp= resp.split("-");
+            var idturno= resp[0];
+            var filasel= resp[1];
+            var estasel= resp[2];
+            var boxsel = resp[3];
+
+            Turnosel(idturno, filasel, estasel, boxsel, 'N', 1, "");
+        }//end function
+
+        function AjaxTurno(boxaten){
+
+            var filasel  = document.getElementById('lblfila').innerHTML;
+            var estasel  = document.getElementById('lblestado').innerHTML;
+            var nusuario = document.getElementById("lbl_usuario").innerHTML;
+
+            if (estasel =='5'){
+                var idturno  = document.getElementById('lblidturno_cancelado').innerHTML;
+            }else{
+                var idturno  = document.getElementById('lblidturno').innerHTML;
+            }
+
+
+            if (estasel == 2 || estasel == 8){ //EN  BOX  O RETORNAR
+                var ndoc        = document.getElementById('txtdni').value;
+                var apesel      = document.getElementById('txt_apellido').value;
+                var tel_sel     = document.getElementById('txt_telefono').value;
+                var email_sel   = document.getElementById('txt_email').value;
+                var tra_sel     = document.getElementById('cmb_tramite').value;
+                //var mot_sel     = document.getElementById('cmb_motivo').value;
+
+                if (apesel.length < 4){
+
+                    document.getElementById("txt_apellido").focus();
+                    document.getElementById("txt_apellido").select();
+                    return;
+
+                }//end if
+
+                if (tra_sel.length < 1){
+                    document.getElementById("cmb_tramite").focus();
+                    return;
+                }//end if
+
+                /*if (mot_sel.length < 1){
+                    document.getElementById("cmb_motivo").focus();
+                    return;
+                }//end if*/
+            }else{
+                var ndoc        = 0;
+                var apesel      = "-";
+                var tel_sel     = "-";
+                var email_sel   = "-";
+                var tra_sel     = "-";
+                var mot_sel     = "-";
+            }
+
+            $.ajax({
+                type: 'POST',
+                data: {  'nusuario': nusuario, 'idturno': idturno, 'boxaten': boxaten, 'estasel': estasel, 'ndoc': ndoc, 'ape_sel': apesel, 'tel_sel': tel_sel, 'email_sel': email_sel, 'tra_sel': tra_sel, 'mot_sel': 0},
+                url:"{{ url('boxTurno') }}",
+                success:function(data){
+                    if(data != "no_data"){
+
+                        datojq = data;
+                        var boxs =datojq[1].nbox;
+
+                        if (boxs =='0'){
+                            //--------------------------
+                            //CAMBIA COLOR FILA SELECCIONADA
+                            //--------------------------
+                            var table = document.getElementById("tablaLista");
+                            var rows  = table.getElementsByTagName("tr");
+
+                            if (estasel=='1'){//PENDIENTE
+                                rows[filasel].className = "filabox";
+                                //-----------------------------
+                                // cambio estado en tabla
+
+                                estasel         = 2;
+                                var respuesta   = idturno+'-'+filasel+'-'+estasel+'-'+boxaten;
+
+                                var est_cancel  = 5;
+                                var resp_cancel = idturno+'-'+filasel+'-'+est_cancel+'-'+boxaten;
+
+                                /*
+                                 onclick="javascript:verifi(\'' + respuesta  + '\')
+                                 */
+                                ndoc = table.rows[filasel].cells[3].innerHTML;
+                                if (ndoc == '-'){
+                                    ndoc='';
+                                }
+
+                                table.rows[filasel].cells[6].innerHTML = 'EN BOX ';
+                                table.rows[filasel].cells[7].innerHTML='<span data-toggle="tooltip" title="CONFIRMAR PRESENCIA" class="fa fa-plus" aria-hidden="true" style="cursor: pointer; font-size: 22px;" onclick="javascript:Turnosel(\'' + idturno + '\', 1 ,2, \''+ boxaten + '\', 1, 1, \''+ ndoc + '\');" ></span> <span  data-toggle="tooltip" title="CANCELAR TURNO" class="fa fa-times-circle pl-2" aria-hidden="true" style="cursor: pointer; font-size: 22px;" onclick="javascript:verifi(\'' + resp_cancel  + '\');" ></span>';
+
+                                colorfila="background-color:#d9edf7; color: #31708f;";
+                                //'----------------------------------------------------------------'
+                            }else if (estasel =='2' || estasel =='8'){//EN BOX O RETORNAR
+                                estasel =3;
+                                var respuesta =idturno+'-'+filasel+'-'+estasel+'-'+boxaten;
+                                table.rows[filasel].cells[3].innerHTML = ndoc;
+                                table.rows[filasel].cells[4].innerHTML = apesel;
+
+                                var x = document.getElementById("cmb_tramite");
+                                var i = x.selectedIndex;
+
+                                table.rows[filasel].cells[5].innerHTML = x.options[i].text; //document.getElementById('cmb_tramite').selectedIndex.options[0].text;
+                                table.rows[filasel].cells[6].innerHTML = 'PRESENTE';
+                                table.rows[filasel].cells[7].innerHTML = '<span  data-toggle="tooltip" title="FINALIZAR TURNO" class="fa fa-thumbs-up" aria-hidden="true" style="cursor: pointer; font-size: 22px;" onclick="javascript:verifi(\'' + respuesta  + '\');" ></span>';
+                                //'----------------------------------------------------------------'
+                                colorfila="background-color:#d9edf7; color: #31708f;";
+                                $('#div_presencia').modal('hide');
+
+                            }else if (estasel =='5'){//CANCELADO
+
+                                table.rows[filasel].cells[3].innerHTML = '-';
+                                table.rows[filasel].cells[4].innerHTML = '-';
+                                //table.rows[filasel].cells[6].innerHTML = '-';
+                                table.rows[filasel].cells[6].innerHTML = 'CANCELADO';
+                                table.rows[filasel].cells[7].innerHTML = '';
+                                //'----------------------------------------------------------------'
+                                colorfila="background-color:#f8d7da; color: #721c24;";
+                                document.getElementById('lblidturno_cancelado').innerHTML ="";
+
+                            }else{
+                                rows[filasel].className = "filaaten";
+                                //-----------------------------
+                                // cambio estado en tabla
+
+                                table.rows[filasel].cells[6].innerHTML = 'ATENDIDO';
+
+                                //cambia icono atendido
+                                table.rows[filasel].cells[7].innerHTML="<span  data-toggle='modal' class='fa fa-check' aria-hidden='true' style='font-size: 22px;' ></span>";
+                                colorfila= "background-color:#dff0d8;";// color: #3c763d;
+
+                            }//end if estasel=='1'
+                            //-----------------------------
+                            document.getElementById('lblidturno').innerHTML='';
+
+                            for ( var coln =0; coln < 8 ; coln++){
+                                table.rows[filasel].cells[coln].style= colorfila;
+                            }
+                        }else{
+                            //EL TURNO ESTA TOMADO POR OTRO BOX
+                            var fbox = datojq[0].fechabox;
+                            document.getElementById('lblbox').innerHTML='NRO BOX:' + boxs;
+                            $("#divocupado").modal("show");
+                        }//end if boxs =='0'
+
+                    }else{
+                        alert('nn');
+                    }//end if
+                }//end success
+            })//end ajax
+        } // end function ajaxTurno
+
+
+        function VolverAlaCola(boxaten, tipocola, idturnosel) {
+            //-------------------------------
+            //VUELVA A LA COLA EL TURNO TOMADO
+            //-------------------------------
+
+            if (tipocola == 0){
+                //VUELVE A LA COLA ANTES DE ATENDER
+
+                var idturno  = document.getElementById('lblidturno').innerHTML;
+                var filasel  = document.getElementById('lblfila').innerHTML;
+                var estasel  = document.getElementById('lblestado').innerHTML;
+                var nusuario = document.getElementById("lbl_usuario").innerHTML;
+
+                var tra_sel  = document.getElementById('cmb_tramite').value;
+                var mot_sel  = "";//document.getElementById('cmb_motivo').value;
+
+                $.ajax({
+                    type: 'POST',
+                    data: {  'nusuario': nusuario, 'idturno': idturno, 'boxaten': boxaten, 'estasel': estasel, 'tra_sel': tra_sel, 'mot_sel': mot_sel},
+                    url:"{{ url('volverCola') }}",
+                    success:function(data){
+                        if(data != "no_data"){
+
+                            datojq = data;
+                            var boxs =datojq[1].nbox;
+
+                            if (boxs =='0'){
+                                //--------------------------
+                                //CAMBIA COLOR FILA SELECCIONADA
+                                //--------------------------
+                                var table = document.getElementById("tablaLista");
+                                var rows  = table.getElementsByTagName("tr");
+
+                                table.rows[filasel].cells[3].innerHTML = '-';
+                                table.rows[filasel].cells[4].innerHTML = '-';
+                                table.rows[filasel].cells[6].innerHTML = 'PENDIENTE';
+                                table.rows[filasel].cells[7].innerHTML = '';
+                                //'----------------------------------------------------------------'
+                                colorfila="background-color:rgb(252, 248, 227); ";//color: rgb(138, 109, 59);
+
+                                document.getElementById('lblidturno').innerHTML='';
+
+                                for ( coln =0; coln < 8 ; coln++){
+                                    table.rows[filasel].cells[coln].style= colorfila;
+                                }//for
+                            }//if
+                        }else{
+                            alert('nn');
+                        }//end if
+                    }//end success
+                })//end ajax
+            }else{
+                //---------------------------------
+                //ABRE MODAL PARA VOLVER A LA COLA
+                //---------------------------------
+
+                $("#div_cola").modal("show");
+                document.getElementById('cmb_tramite_cola').value    ="";
+                //document.getElementById('cmb_motivo_cola').value     ="";
+                document.getElementById('lblidturno_cola').innerHTML ='';
+                document.getElementById("btaceptar_presencia_cola").disabled  = true;
+
+                document.getElementById('lblidturno_cola').innerHTML=idturnosel;
+            }//endIf
+
+        }// end function VolverAlaCola
+
+
+        function VolverAtendido(boxaten){
+            //---------------------------------------------------------------
+            //FINALIZA LA ATENCION DEL BOX Y VUELVE A LA COLA
+            //---------------------------------------------------------------
+
+            var idturno  = document.getElementById('lblidturno_cola').innerHTML;
+            var tra_sel  = document.getElementById('cmb_tramite_cola').value;
+            var mot_sel  = "";//document.getElementById('cmb_motivo_cola').value;
+
+            $.ajax({
+                type: 'POST',
+                data: { 'idturno': idturno, 'boxaten': boxaten, 'tra_sel': tra_sel, 'mot_sel': mot_sel},
+                url:"{{ url('volverAtendido') }}",
+                success:function(data){
+                    if(data != "no_data"){
+
+                        document.getElementById('lblidturno_cola').innerHTML='';
+
+                        var table = document.getElementById("tablaLista");
+                        var rows  = table.getElementsByTagName("tr");
+
+                        rows[1].className = "filaaten";
+                        //-----------------------------
+                        // cambio estado en tabla
+
+                        table.rows[1].cells[6].innerHTML = 'ATENDIDO';
+
+                        //cambia icono atendido
+                        table.rows[1].cells[7].innerHTML="<span  data-toggle='modal' class='fa fa-check' aria-hidden='true' style='font-size: 22px;' ></span>";
+                        colorfila= "background-color:#dff0d8;";// color: #3c763d;
+
+                        for ( var coln =0; coln < 8 ; coln++){
+                            table.rows[1].cells[coln].style= colorfila;
+                        }//endFor
+
+                    }else{
+                        alert('nn');
+                    }//end if
+                }//end success
+            })//end ajax
+
+        }//end function
+
+
+        function LimpiarTurno() {
+            //-------------------------------
+            //LIMPIAR EL LABEL DEL TURNO SELECCIONADO
+            //-------------------------------
+            document.getElementById('lblidturno').innerHTML='';
+        }//end function
+
+
+        function CerrarTomar(){
+            //OCULTA EL DIV
+            $("#divconfi").modal("hide");
+        }//end function CerrarTomar
+
+
+        function CerrarOcupado(){
+            //OCULTA EL DIV
+            document.getElementById('lblidturno').innerHTML='';
+            $("#divocupado").modal("hide");
+            Busqueda('{{ p_nro_box }}',{{  p_usuario }});
+        }//end function CerrarOcupado
+
+
+        function BorrarBlur(){
+            document.getElementById('lbl_blur').innerHTML ='S';
+            document.getElementById("txtdni").select();
+        }//end function
+
+        function CargaDoc(nroDoc){
+            document.getElementById("txtdni").value = nroDoc;
+            document.getElementById("txt_apellido").focus();
+        }//end function
+
+        function BuscarPersona(q, tipob){
+            //----------------------------------------------------------------------------
+            //BUSCA DATOS DE LA PERSONA POR DOC
+            //----------------------------------------------------------------------------
+
+            if ((q.length == 0 || q.length == 1 || q.length == 2)){
+                document.getElementById("txt_apellido").value          = "-";
+                document.getElementById("txt_telefono").value          = "-";
+                document.getElementById("txt_email").value             = "-";
+            }//end if
+
+            var evento = window.event;
+            var codigoCaracter = evento.charCode || evento.keyCode;
+
+                if (codigoCaracter == 13){
+                    document.getElementById('lbl_blur').innerHTML ='N';
+                }//end if enter
+
+                var estado_blur = document.getElementById('lbl_blur').innerHTML;
+                if ((q.length>6 && codigoCaracter == 13) || (q.length>6 && tipob == 'T' && estado_blur == 'S')){
+                //((tipob == 'C' ) ||
+
+                    var idturno= document.getElementById('lblidturno').innerHTML;
+                    var filasel= document.getElementById('lblfila').innerHTML;
+
+                    $.ajax({
+                        type: 'POST',
+                        data: { 'nrodoc': q, 'nroturno': idturno},
+                        url:"{{ url('datosPersonales') }}",
+                        success:function(data){
+                            var medirespuesta = data;
+                            var cant_tra_reg = medirespuesta[0].a_tramites.length;
+
+                                /*if (tipob == 'C' ){
+                                    document.getElementById("txtdni").value = q;
+                                }*/
+                                document.getElementById("txt_apellido").value   = medirespuesta[0].a_apeynom;
+                                document.getElementById("txt_email").value      = medirespuesta[0].a_email;
+                                document.getElementById("txt_telefono").value   = medirespuesta[0].a_tel;
+
+                                setTimeout(function(){
+                                    document.getElementById("txt_apellido").focus();
+                                    document.getElementById("txt_apellido").select();
+                                    /*if (medirespuesta[0].a_apeynom == "-"){
+                                        document.getElementById("btaceptar_presencia").disabled   = true;
+                                    }else{
+                                        document.getElementById("btaceptar_presencia").disabled   = false;
+                                    }///end if*/
+                                },200);
+
+
+                                /*var $motivo_cmb = $('#cmb_motivo');
+                                $motivo_cmb.html('');
+                                for(var i=0; i < cant_tra_reg; i++){
+                                    $motivo_cmb.append('<option value='+medirespuesta[0].a_tramites[i].a_mot_id+'>'+medirespuesta[0].a_tramites[i].a_mot_descrip+'</option>');
+                                }*/
+
+                                var $tramite_cmb = $("#cmb_tramite");
+
+                                $tramite_cmb.val(medirespuesta[0].a_sel_tramite).trigger('change');
+                                //$tramite_cmb.attr('disabled', false);
+                                //$motivo_cmb.attr('disabled', false);
+
+                                //$motivo_cmb.val(medirespuesta[0].a_motivo).trigger('change');
+
+                                $('#btn_volver_cola').attr('disabled',false);
+
+                                BuscarMotivo('{{ p_usuario }}', 0);
+                        }//end success
+                    });
+                }else{
+                    //document.getElementById("btaceptar_presencia").disabled  = true;
+                }//end if
+
+        }//end BuscarPersona
+
+        function BuscarMotivo(nrousuario, tipoVentana) {
+            //*************************************************
+            //BUSCA LISTA MOTIVO
+            //*************************************************
+            var q;
+
+            if (tipoVentana == 0){
+                q = document.getElementById("cmb_tramite").value;
+            }else{
+                q = document.getElementById("cmb_tramite_cola").value;
+            }//endIf
+
+
+            if (q.length>0){
+                $.ajax({
+                    type: 'GET',
+                    data: { 'n_tramite': q, 'nrouser':nrousuario},
+                    url:"{{ url('buscaMotivos') }}",
+                    success:function(data){
+                        var medirespuesta = data;
+                        var cantidad_reg = medirespuesta.length;
+                        var $modito_cmv;
+
+                       /* if (tipoVentana == 0){
+                            $modito_cmv = $('#cmb_motivo');
+                        }else{
+                            $modito_cmv = $('#cmb_motivo_cola');
+                        }//end If
+
+                        $modito_cmv.html('');
+                        for(var i=0; i < cantidad_reg-1; i++){
+                            $modito_cmv.append('<option value='+medirespuesta[i].a_mot_id+'>'+medirespuesta[i].a_mot_descrip+'</option>');
+                        }*/
+
+                        //-----------------------------------------------------------
+                        //VERIFICA SI EL BOX ESTA HABILITADO PARA ACEPTAR EL TRAMITE
+                        //-----------------------------------------------------------
+                        i = (cantidad_reg -1);
+                        if (tipoVentana == 0){
+                            if (medirespuesta[i].permite == 'N'){
+                                //document.getElementById("btaceptar_presencia").disabled  = true;
+                            }else{
+                                //document.getElementById("btaceptar_presencia").disabled  = false;
+                            }//endIf
+
+                        }else{
+                            document.getElementById("btaceptar_presencia_cola").disabled  = false;
+                        }//endIf
+                    }//end success
+                });
+            }//end if
+        }//end BuscarMotivo
+
+
+        function permite(elEvento, permitidos) {
+            //--------------------------------------------------------------
+            // Variables que definen los caracteres permitidos
+            //--------------------------------------------------------------
+
+            var numeros = "0123456789";
+            var caracteres = " abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+            var numeros_caracteres = numeros + caracteres;
+            var teclas_especiales = [8, 39];
+            // 8 = BackSpace, 46 = Supr, 37 = flecha izquierda, 39 = flecha derecha
+
+
+            // Seleccionar los caracteres a partir del parámetro de la función
+            switch(permitidos) {
+                case 'num':
+                    permitidos = numeros;
+                    break;
+                case 'car':
+                    permitidos = caracteres;
+                    break;
+                case 'num_car':
+                    permitidos = numeros_caracteres;
+                    break;
+                case 'numh':
+                    permitidos = "";
+                    break;
+            }
+
+            // Obtener la tecla pulsada
+            var evento = elEvento || window.event;
+            var codigoCaracter = evento.charCode || evento.keyCode;
+            var caracter = String.fromCharCode(codigoCaracter);
+
+            // Comprobar si la tecla pulsada es alguna de las teclas especiales
+            // (teclas de borrado y flechas horizontales)
+            var tecla_especial = false;
+            for(var i in teclas_especiales) {
+                if(codigoCaracter == teclas_especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+
+            // Comprobar si la tecla pulsada se encuentra en los caracteres permitidos
+            // o si es una tecla especial
+
+            return permitidos.indexOf(caracter) != -1 || tecla_especial;
+        }//end function PERMITE
+
+
+        function pasafoco(t_pasa){
+            //*********************************************
+            //PASA FOCO A OTRO ELEMENTO
+            //*********************************************
+            var evento = window.event;
+            var codigoCaracter = evento.charCode || evento.keyCode;
+
+            if (codigoCaracter == 13){
+
+                switch(t_pasa) {
+                    case 'txt_apellido':
+                        var dni_sel   = document.getElementById('txtdni').value;
+                        if (dni_sel.length > 1){
+                            document.getElementById("txt_apellido").focus();
+                            document.getElementById("txt_apellido").select();
+                        }//end if
+
+                        break;
+                    case 'txt_telefono':
+                        document.getElementById("txt_telefono").focus();
+                        document.getElementById("txt_telefono").select();
+                        break;
+                    case 'txt_email':
+
+                        document.getElementById("txt_email").focus();
+                        document.getElementById("txt_email").select();
+                        break;
+
+                    case 'btaceptar_presencia':
+                        var dni_sel     = document.getElementById('txtdni').value;
+                        var ape_sel     = document.getElementById('txt_apellido').value;
+                        var tra_sel     = document.getElementById('cmb_tramite').value;
+                        var mot_sel     = "";//document.getElementById('cmb_motivo').value;
+
+                        if (dni_sel.length < 7){
+                            document.getElementById("txt_apellido").focus();
+                            document.getElementById("txt_apellido").select();
+                           // document.getElementById("btaceptar_presencia").disabled  = true;
+                            break;
+                        }//end if
+
+                        if (ape_sel.length < 4){
+                            document.getElementById("txt_apellido").focus();
+                            document.getElementById("txt_apellido").select();
+                            //document.getElementById("btaceptar_presencia").disabled  = true;
+                            break;
+                        }//end if
+
+                        if (tra_sel.length < 1 || tra_sel=="..."){
+                            document.getElementById("cmb_tramite").focus();
+                            //document.getElementById("btaceptar_presencia").disabled  = true;
+                            break;
+                        }//end if
+
+                        /*if (mot_sel.length < 1){
+                            document.getElementById("cmb_motivo").focus();
+                            document.getElementById("btaceptar_presencia").disabled  = true;
+                            break;
+                        }//end if*/
+
+                        document.getElementById("btaceptar_presencia").focus();
+                        //document.getElementById("btaceptar_presencia").disabled  = false;
+                        break;
+                }//end switch
+            }else{
+
+                    var dni_sel     = document.getElementById('txtdni').value;
+                    var ape_sel     = document.getElementById('txt_apellido').value;
+                    var tra_sel     = document.getElementById('cmb_tramite').value;
+                    var mot_sel     = "";//document.getElementById('cmb_motivo').value;
+
+                    if (dni_sel.length < 7 || ape_sel.length < 4 || tra_sel.length < 1 || mot_sel.length < 1){
+                       // document.getElementById("btaceptar_presencia").disabled  = true;
+                    }else{
+                        //document.getElementById("btaceptar_presencia").disabled  = false;
+                    }//end if
+            }//end if codigoCaracter==13
+        }//end function pasafoco
+
+        function VerificarApellido() {
+            //--------------------------------------------------------------
+            //Verifica que el apellido este escrito para habilitar el boton
+            //--------------------------------------------------------------
+            var dni_sel     = document.getElementById('txtdni').value;
+            var ape_sel     = document.getElementById('txt_apellido').value;
+            var tra_sel     = document.getElementById('cmb_tramite').value;
+            var mot_sel     = "";//document.getElementById('cmb_motivo').value;
+
+            if (dni_sel.length < 7 || ape_sel.length < 4 || tra_sel.length < 1 || mot_sel.length < 1){
+               // document.getElementById("btaceptar_presencia").disabled  = true;
+            }else{
+                //document.getElementById("btaceptar_presencia").disabled  = false;
+            }//end ifmot_sel
+        }//end function
+
+
+        function BuscaCancelados(nbox, nusuario){
+            //--------------------------------
+            //AJAX BUSCA TICKETS CANCELADOS
+            //--------------------------------
+
+            $("#tabla_cancelados").html("");
+
+            $.ajax({
+                type: 'POST',
+                data: {'nro_box':nbox, 'nusuario':nusuario},
+                url:"{{ url('buscaCancelados') }}",
+                success:function(data){
+                        cargarTablaCancelados(data);
+                }//end success
+            })//end ajax
+        }//end function
+
+
+        function cargarTablaCancelados(data){
+            //--------------------------------
+            //CREA TABLA CANCELADOS
+            //--------------------------------
+            rg_datos = data;
+
+            cantidad_medicamentos = rg_datos.length;
+            var html = "<table id='tabla_cancelados' class='table table-striped'><thead><tr><th>Hora</th><th>Ticket</th><th>---</th><th style='display:none;'>id</th></tr></thead><tbody>";
+            var html;
+            for (var i = 1; i < rg_datos.length; i++) {
+                html =html + "<tr class='alert alert-danger' id='"+i+"' ><td  class='id_tabla_usuarios'>"+rg_datos[i].a_hora+"</td><td>"+rg_datos[i].a_ticket+"</td><td>"+rg_datos[i].a_icon+"</td><td style='display:none;'>"+rg_datos[i].a_turno+"</td></tr>";
+            }
+            html = html  + "</tbody></table>";
+
+            $("#tabla_cancelados").html(html);
+            $("#ModalLista").modal("show");
+        }//end function
+    </script>
+{% endblock %}

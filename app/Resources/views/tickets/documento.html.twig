@@ -1,0 +1,452 @@
+{% extends 'basePublico.html.twig' %}
+
+{% block body %}
+    <header style="margin-top: 0px;background-color: #33BB66; " >
+        <nav class="navbar navbar-static-top" role="navigation" style="position:relative;margin-bottom: 0px;">
+            <!--<span class="head-title text-center">
+                <h1 class="text-center" style="color: #fff;">TURNOS RENTAS
+                    <small style="color: #fff;">Ingrese su número de d.n.i</small>
+                </h1>
+            </span>-->
+            <div style="height: 74px;max-height: 120px;">
+                 <span class="head-img" style=" position: absolute; top: 14px;left: 0;">
+                    <img src="{{ asset('img/muni.png') }}" class="pt-3">
+                </span>
+                <h1 class="pt-2 display-3" style=" color: #fff;position: absolute; top: -6px; left: 22%;">
+                    TURNOS RENTAS
+                </h1><!--display: flex; align-items: center;  justify-content: center;  margin: 0 auto;-->
+                <h1 class="pt-2 display-3" style=" color: #fff;display: flex; position: absolute; top: -6px;left: 47%;font-weight: 600;">
+                    Ingrese su número de DNI
+                </h1>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container" style="vertical-align: middle; max-height: 95%!important;height: 95%!important;display: flex;align-items: center;margin-bottom: 5px;">
+
+        {% if error_repedido == 'SI' %}
+            <div id="dvAvisoError" class="modal-fade" role="dialog" style="width: 100%;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="text-align: center;color: #fff; background-color: #dc3545; border-color: #dc3545;">
+                            <h3>AVISO:TURNO ASIGNADO</h3>
+                        </div>
+                        <div class="modal-body" style="text-align: center">
+                            <h3>EL NRO. DE DOCUMENTO INGRESADO YA TIENE TURNO ASIGNADO</h3>
+                            <h2 style="font-weight:700; font-size: 30px;">{{ nroTicket}} </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <form method="post" style="width: 100%;">
+            <input type="hidden" id="txt_tipo" name="txt_tipo" value="" >
+            <div class="loader" id="loader">  </div>
+
+            {% set fila='N' %}
+            {% set colsn='N' %}
+            <!-- ------------------------
+            DNI
+            -- --------------------- -->
+            <div class="row pb_1">
+                <div class="col-6 offset-3" style="padding-left: 15px!important; padding-right: 15px!important;">
+                    <div class="form-control" style="border: 1px solid #ffffff;height: 69px;"><!--98pz-->
+                        <label class="control-label lblError" for="inputError"><i class="fa fa-times-circle-o" style="color: #dd4b39!important;"></i> Debes Ingresar tu Numero de DNI !</label>
+                        <input type="text" class="form-control" autocomplete="off" onpaste="return false" disabled  dir="rtl" id="txtDni" rel="txtDni"  data-toggle="tooltip" data-placement="bottom" title="Debes Ingresar tu Numero de DNI !" style="height: 80px;padding-right: 10px!important; ">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ---------------------------
+                NUMEROS
+             ------------------------ -->
+
+            <!-- ---------------------
+                1 - 2 - 3
+            ------------------------- -->
+            <div class="row pb_1" style="margin-top: 20px;">
+                <div class="col-2 offset-3">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-info" onclick="CargaDni('1')">1</button>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-info" onclick="CargaDni('2')">2</button>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-info" onclick="CargaDni('3')">3</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ---------------------
+                4 - 5 - 6
+            ------------------------- -->
+            <div class="row pb_1">
+                <div class="col-2 offset-3">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-info" onclick="CargaDni('4')">4</button>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-info" onclick="CargaDni('5')">5</button>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-info" onclick="CargaDni('6')">6</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ---------------------
+                7 - 8 - 9
+            ------------------------- -->
+            <div class="row pb_1">
+                <div class="col-2 offset-3">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-info" onclick="CargaDni('7')">7</button>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-info" onclick="CargaDni('8')">8</button>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-info" onclick="CargaDni('9')">9</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ---------------------
+                 - 0 -
+            ------------------------- -->
+            <div class="row">
+
+
+
+                <div class="col-2 offset-3">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-danger" onclick="borrarDni();" data-toggle="tooltip" data-placement="bottom" title="BORRAR"><i class="fa fa-reply"></i><small style="color: #fff;font-size: 18px!important; line-height: 5px;padding: 10px;">Borrar</small></button>
+                    </div>
+                </div>
+
+                <div class="col-2" style=" padding-right: 2px!important;">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-info" onclick="CargaDni('0')">0</button>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="PRESIONA PARA SEGUIR" onclick="VerificaGuarda();"><i class="fa fa-check"></i><small style="color: #fff;font-size: 18px!important; line-height: 5px;padding: 10px;">Seguir</small></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer d-none d-md-block d-lg-block mt-2" style="position: absolute; bottom: 0;height: 5%!important;">
+        Desarrollado por la Dirección de Informática de la Municipalidad de Chivilcoy
+    </footer>
+    <!--</div>-->
+
+{% endblock %}
+
+{% block stylesheets %}
+    <!--<link href="https://fonts.googleapis.com/css?family=Acme|Play&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{  asset('fonts/Acme/Acme-Regular.ttf') }}" >-->
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One&display=swap" rel="stylesheet">
+    <style>
+        html, body{
+            height:90%; /* important to vertically align the container */
+            margin:0;
+            padding:0;
+            overflow-y: hidden;
+        }
+
+        @font-face {
+            font-family: 'Play';
+            src: url({{   asset('fonts/Play/Play-Regular.ttf') }});
+        }
+
+        html{
+            cursor: none;
+
+        }
+
+        header {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            min-height: 50px;
+            width: 100%;
+        }
+
+        footer {
+            height: 54px;
+            min-height: 54px;
+            width: 100%;
+            line-height: 55px;
+            background-color: #4C4;
+        }
+
+
+        .col-2{
+            padding-right: 2px!important;
+            padding-left: 2px!important;
+        }
+
+        .col-md-12{
+            padding-right: 0px!important;
+            padding-left: 0px!important;
+        }
+
+        selector {
+            cursor: none;
+        }
+
+
+        .main-footer {
+            text-align: center;
+            background-color: #33BB66;
+            color: white;
+            max-height: 40px;
+        }
+
+        p{
+            border-top: 1px solid #f5f5f5;
+        }
+
+        .card{
+            width: 130px!important;
+        }
+
+        .card_bd{
+            padding-bottom: 0px!important;
+            width: 50px;
+            height: 90px;
+        }
+
+
+        .lblError{
+            color:#dd4b39;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 0px;
+            width: 339px;
+            display: none;
+        }
+
+        .Red::placeholder
+        {
+            color: #dd4b39!important; /* Most modern browsers support this now. */
+        }
+
+        .form-control:focus{
+            box-shadow:none!important;
+        }
+
+        .form-control:disabled{
+            background-color: #fff!important;
+        }
+
+        .btn{
+            width: 100%!important;
+            height: 90px!important;/*90*/
+            font-family: 'Play'!important;
+            font-size: 45px!important;/*2.75rem*/
+            font-weight: 600!important;
+            cursor: none!important;
+        }
+
+        .btn:active{
+            background: #60d9eb!important;
+        }
+
+        .btn:focus
+        {
+            box-shadow: none!important; /* saca los bordes */
+        }
+
+        .fa{
+            color: #fff!important;
+        }
+
+        label{
+            padding: 10px;
+            width:100%;
+            text-align:center;
+            font-size: 38px;
+        }
+
+
+        .pb_1{
+            padding-bottom:.28rem!important;
+        }
+
+        h3{
+            font-family: 'Play'!important;
+            font-size: 2.75rem!important;
+            font-weight: 600!important;
+        }
+
+        p {
+            border-top: 1px solid #d9534f;
+        }
+
+        .form-horizontal * {
+            direction: rtl;
+        }
+
+        input{
+            /*font-family: 'Poiret One', cursive!important;*/
+            font-family: 'Play'!important;
+            font-weight: 600!important;
+            border-radius: inherit;
+            font-size: 70px!important;
+            padding-top: 0.0rem!important;
+            padding-bottom: 0.0rem!important;
+            cursor: none!important;
+            letter-spacing: 0.11em!important;
+        }
+
+        .form-control{
+            padding-left: 0px!important;
+            padding-right: 0px!important;
+            line-height: 0!important;
+            /*padding-top: 0.0rem!important;
+            padding-bottom: 0.0rem!important;*/
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    <link href="https://fonts.googleapis.com/css?family=Exo&display=swap" rel="stylesheet">
+    <script>
+
+        $(document).ready(function(){
+
+            $(function() {
+                //el.classList.remove("red");
+                /*$('container').removeClass('col-2');
+                $('container').addClass('col-2');*/
+                //var element = document.getElementById("myCol2");
+                //element.classList.remove("col-2");
+                //element.classList.add("col-2a");
+            });
+
+            document.getElementById("loader").style.display = "none";
+
+            $('[data-toggle="tooltip"]').tooltip();
+            $('input[rel="txtDni"]').tooltip();
+
+            $(document).ajaxSend(function(event, request, settings) {
+
+                document.getElementById("loader").style.display = "block";
+            });
+
+
+            $("#txtDni").keypress(function (e) {
+              e.preventDefault();
+            });
+
+            $("#div_nro_2").click(function () {
+                $("#div_nro_2").css("background-color","#117a8b");
+            });
+
+            $("button").keydown(function(e) {
+                // Sets the color when the key is down...
+                if(e.which === 13) {
+                    $(this).css("background-color", "red");
+                }
+            });
+            $("button").keyup(function() {
+                // Removes the color when any key is lifted...
+                $(this).css("background-color", "");
+            });
+        });
+
+        function CargaDni(nroBoton){
+            //----------------------------
+            //'COMPLETA DNI'
+            //----------------------------
+
+            var color = document.getElementById("txtDni").style.borderColor;
+            if (color == 'rgb(221, 75, 57)'){
+                $('#txtDni').css("border-color","#ced4da");
+                $('#txtDni').css("color","#495057");
+                $('#txtDni').removeClass('Red');
+            }
+
+            var dniTexto = $("#txtDni").val() +  nroBoton;
+            $("#txtDni").val(dniTexto);
+
+        }//endFunction
+
+        function borrarDni(){
+            //----------------------------
+            //'BORRA'
+            //----------------------------
+
+            var str = $("#txtDni").val();
+            var lon_text = str.length - 1;
+            var dniTexto = str.substring(0, lon_text);
+
+            $("#txtDni").val(dniTexto);
+        }//endFunction
+
+
+        function VerificaGuarda() {
+            //---------------------------------------
+            //---------------------------------------
+            var str = $("#txtDni").val();
+            if (str.length > 6){
+
+                var url = "{{ url('tramites',{'dniIngresado' : 'nrodni' }) }}";
+                location.href  = url.replace("nrodni", str);
+            }else{
+                $('#txtDni').css("border-color","#dd4b39");
+                $('#txtDni').css("color","#dd4b39");
+                $('#txtDni').addClass('Red');
+
+                $('#txtDni').prop("disabled",false);
+
+                $('#txtDni').focus();
+
+
+                var int=self.setInterval("focoDni()",2000);
+            }//endIf
+
+        }//endFunction
+
+        function focoDni(){
+            $('#txtDni').prop("disabled",true);
+        }
+
+
+        var int=self.setInterval("volverIinicio()",40000);
+
+        function volverIinicio() {
+            location.href = "{{  url('inicioPantalla')}}";
+        }
+
+    </script>
+{% endblock %}
